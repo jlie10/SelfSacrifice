@@ -95,8 +95,8 @@ class Individual(SSim.Social_Individual):
 
 	def SelfSacrifice(self, p):
 		" an agent decides to make the ultimate sacrifice"
-#		return choice([False,True],None,False,[p,1-p])		# proba p of dying
-		return (p>0)										# any SignalInvestment results in death
+		return choice([False,True],None,False,[p,1-p])		# proba p of dying
+#		return (p>0)										# any SignalInvestment results in death
 #		return (p>0.1)								# test non concluant
 #		return (p>0.1) or choice([False,True],None,False,[p,1-p])		# lissage ?
 

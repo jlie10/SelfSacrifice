@@ -4,6 +4,7 @@
 Quelles options?
 - quel coût pour le sacrifice anticipé ? => les agents en haut des réseaux ne meurent pas de leur belle mort (mettre le score au carré ?)
     ah mais ça pourrait être lié à adoption...
+rajouter une probabilité subjective de mourir ?
 
 - quel SelfSacrifice ?
     l'option "brutale" donnerait des résultats (temporaires)
