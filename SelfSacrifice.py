@@ -12,13 +12,13 @@
 
 """ Study of the possibility of self-sacrifice being an ESS
 Social (and intricate ?) version: purely social game with fixed PopSize,
-signaller signals on behalf of his/her descendants
-Descendants form bonds based on these signals (?)
-alignement of interests (kin selection) between Ascendants and Descendants is mediated by social Points
+signaller signals on behalf of his/her descendants.
+Descendants form bonds based on these signals.
+Alignement of interests (kin selection) between Ascendants and Descendants is mediated by social Points
 """
 
 from time import sleep
-from random import sample, randint, shuffle
+from random import sample, randint, shuffle, random
 from numpy.random import choice
 
 import sys
@@ -29,13 +29,6 @@ import SocialSimulation as SSim
 # import Evolife.Ecology.Individual as EI
 # import Evolife.Ecology.Group as EG
 from Evolife.Tools.Tools import percent, chances, decrease
-
-#A rajouter aux paramètres
-SignalHeredity = 1/2
-KinSelection = 1/2
-ReproductionRate = 0.05
-Selectivity = 1
-GavrocheEffect = 0.1
 
 #class ReproductionScenario(DS.Default_Scenario):
 #	def __init__(self):
@@ -58,14 +51,14 @@ class Individual(SSim.Social_Individual):
 		self.MinFriendSignalLevel = 100
 		self.BestSacrifice = 0	# best sacrifice propensity value in memory
 		SSim.Social_Individual.__init__(self, IdNb, features=Features, maxQuality=maxQuality, parameters=Gbl)
-		self.Descendants = Descendants() #???
+		self.Descendants = Descendants()
 #		EI.EvolifeIndividual.__init__(self, ReproductionScenario(), IdNb, Newborn = True)
 		self.Points = 0
-#		self.update() #?
 
 	def Reset(self):		# called by Learner when born again
 		self.Descendants = Descendants()
 		SSim.Social_Individual.Reset(self)
+		self.SignalLevel = 0
 		self.Points = 0
 		self.update() #debug?
 
@@ -93,7 +86,7 @@ class Individual(SSim.Social_Individual):
 	def SignallingPotential(self, Feature=None, Transparent=False):
 		""" returns an individual's signalling potential
 			if an agent decides to self-sacrifice, this potential is passed on
-			as a signal for the benefit of its descendants (see updateSignals)
+			as a signal for the benefit of its descendants (see sacrifices)
 		"""
 		if Transparent: return self.Quality
 		BC = Gbl.Param('BottomCompetence')
@@ -104,7 +97,8 @@ class Individual(SSim.Social_Individual):
 		" an agent decides to make the ultimate sacrifice"
 #		return choice([False,True],None,False,[p,1-p])		# proba p of dying
 		return (p>0)										# any SignalInvestment results in death
-#		return (p>0.1)
+#		return (p>0.1)								# test non concluant
+#		return (p>0.1) or choice([False,True],None,False,[p,1-p])		# lissage ?
 
 	def Interact(self, Signallers):
 		if Signallers == []:	return
@@ -122,12 +116,20 @@ class Individual(SSim.Social_Individual):
 				self.F_follow(0, Signaller, Signaller.SignalLevel)
 				break
 
+	def riskTaken(self):
+#		return self.Features['SignalInvestment'] * (Gbl.Param('EnvironmentalRiskiness') / 100.0)
+#		return self.Features['SignalInvestment']
+		return self.Features['SignalInvestment'] * max(self.Points,1)
+#		if self.SelfSacrifice(percent(self.Features['SignalInvestment'])): return 100
+#		else: return 0
+
 	def assessment(self):
 		" Social benefit from having friends and descendants "		#Descendant benefit not needed?
+		self.Points -= self.riskTaken()
 		if self.best_friend() is not None:
 			self.best_friend().Points += Gbl.Param('JoiningBonus')
 		for (D, g) in self.Descendants:
-			self.Points += (KinSelection)**g * D.Points
+			self.Points += (( Gbl.Param('KinSelection')/100.0 )**g) * D.Points
 
 	def isDesc(self, Indiv):
 		if Indiv in self.Descendants: return True
@@ -176,22 +178,22 @@ class Population(SSim.Social_Population):
 			# Fan chooses from a sample
 			Fan.Interact(sample(self.Pop, Gbl.Param('SampleSize')))
 
-	def adoptRanking(self):				# hypo: points also earn "" rights
-		self.Ranking = self.Pop[:]	  # duplicates the list, not the elements
-		for indiv in self.Ranking:
+	def adoptRanking(self):				# hypo: points also earn adoption rights
+		self.AdoptionRanking = self.Pop[:]	  # duplicates the list, not the elements
+		for indiv in self.AdoptionRanking:
 			if not indiv.adult():
-				self.Ranking.remove(indiv)	# children cannot adopt themselves
-		shuffle(self.Ranking)			# so as to randomize among individuals with the same number of points
-		self.Ranking.sort(key=lambda x: x.Points,reverse=True)
+				self.AdoptionRanking.remove(indiv)	# children cannot adopt
+		shuffle(self.AdoptionRanking)			# so as to randomize among individuals with the same number of points
+		self.AdoptionRanking.sort(key=lambda x: x.Points,reverse=True)
 
-	def simpleAdoption(self):
+	def simpleAdoption(self):			# n'est pas utilisee
 		""" simple (test) adoption: 2 among the best scores get an adoptive child
 			like below, an adopted child is a random reset individual
 		"""
 		self.adoptRanking()
-		M = self.Ranking[0]
-		F = self.Ranking[1]
-		C = choice(self.Ranking[2:])
+		M = self.AdoptionRanking[0]
+		F = self.AdoptionRanking[1]
+		C = choice(self.AdoptionRanking[2:])
 		C.Reset()
 		M.Descendants.new_child(C)
 		F.Descendants.new_child(C)
@@ -211,7 +213,7 @@ class Population(SSim.Social_Population):
 		# it is the responsibility of the caller to rank members appropriately
 		# Note: reproduction_rate has to be doubled, as it takes two parents to beget a child
 		for ParentID in enumerate(RankedCandidates):
-			candidates[ParentID[0]][1] = chances(decrease(ParentID[0],len(RankedCandidates),Selectivity), 2 * Def_Nb_Children)
+			candidates[ParentID[0]][1] = chances(decrease(ParentID[0],len(RankedCandidates),self.Param('Selectivity')), 2 * Def_Nb_Children)
 		return candidates
 
 	def parents(self, candidates):
@@ -230,7 +232,7 @@ class Population(SSim.Social_Population):
 			couple (and thus to have a child) decreases with its rank
 		"""
 		if nb_children < 0:		# the number of children may be imposed (e.g. in s_gazelle)
-			nb_children = chances(ReproductionRate / 100.0, len(members))
+			nb_children = chances(self.Param('ReproductionRate') / 100.0, len(members))
 		candidates = self.parenthood(members, nb_children)
 		Couples = []
 		for ii in range(nb_children):
@@ -249,7 +251,9 @@ class Population(SSim.Social_Population):
 			reproduction_rate is expected in %
 		"""
 		self.adoptRanking()
-		for C in self.couples(self.AdoptionRanking):
+		nbAdopters = chances(self.Param('ReproductionProbability') / 100.0, len(self.AdoptionRanking))
+		Adopters = self.AdoptionRanking[:nbAdopters]		# adoption semble 'aller tp vite'
+		for C in self.couples(Adopters):
 			# making of the child: a random social individual is reset to become this child
 			availablePop = self.Pop[:]  	# duplicates the list, not the elements
 			availablePop.remove(C[0])
@@ -282,10 +286,11 @@ class Population(SSim.Social_Population):
 
 		for Ascendant in self.Pop:
 			if Ascendant.SelfSacrifice(percent(Ascendant.Features['SignalInvestment'])):
+#				Ascendant.Points -= 100
 				for (Desc, gen) in Ascendant.Descendants.members:
-					Sgn = Ascendant.SignallingPotential(True)/(2**gen)	 #Self-sacrifice is defined as an honest signal
+					Sgn = Ascendant.SignallingPotential(True)*((self.Param('SignalHeredity')/100.0)**gen)	 #Self-sacrifice is defined as an honest signal
 					if not Ascendant.adult():
-						Sgn = GavrocheEffect * Sgn					# child sacrifice is less effective
+						Sgn = (self.Param('InfantSacrificeValue')/100.0) * Sgn					# child sacrifice is less effective
 					Desc.SignalLevel = Desc.Limitate(Sgn,0,100)
 				Ascendant.Reset()					# "death" of the social individual
 
@@ -319,13 +324,15 @@ class Population(SSim.Social_Population):
 		# ====================
 		for Run in range(self.Param('NbRunPerYear')):
 			self.season_initialization()
-			if Run == self.Param('NbRunPerYear'):		# only one life-threatening event per year
-				self.sacrifices()
-			self.sacrifices()
+#			if Run == self.Param('NbRunPerYear'):		# only one life-threatening event per year
+#				self.sacrifices()
+			SacrificeEvent = (random() < self.Param('EnvironmentalRiskiness') / 100.0)
+			if SacrificeEvent: self.sacrifices()
 			self.interactions()
 			self.learning()
-#			if Run == 1: self.adoption() 			#les choses vont très vite avec l'adoption partout...
-			if Run == 1: self.simpleAdoption()
+			self.adoption()
+#			if Run == 1: self.adoption() 			#(solved?) les choses vont très vite avec l'adoption partout...
+#			if Run == 1: self.simpleAdoption()
 		return True	# This value is forwarded to "ReturnFromThread" (see SocialSimulation)
 
 
@@ -335,4 +342,4 @@ if __name__ == "__main__":
 
 
 
-__author__ = 'Dessalles'
+__author__ = 'Dessalles et Lie'
