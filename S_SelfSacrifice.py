@@ -26,7 +26,7 @@
 import sys
 if __name__ == '__main__':  sys.path.append('../..')  # for tests
 
-from random import sample, choice, randint
+from random import sample, choice, randint, shuffle
 #from numpy.random import choice as np.choice
 
 from Evolife.Tools.Tools import percent, chances, decrease, noise_mult
@@ -82,23 +82,31 @@ class Scenario(Default_Scenario, EvolifeGroup):
             Biological descendants of the hero are quasi-heroes: affiliation to them is also valuable (third-order signal)
 		"""
 		Heroes = members[:]
+		#shuffle(Heroes)
 		for Coward in Heroes:
 			if not self.selfsacrifice(Coward): Heroes.remove(Coward)
 		Heroes = sample(Heroes,min(self.Parameter('MaxSacrifiers'),len(Heroes)))
+		#NbHeroes = 0
+				# After a certain number of selfsacrifices, selfsacrifice is pointless
+				# ALT (plus tard) : decroitre les benefices avec le nb de deja sacrifies...
 
 		for (HeroNbr, Hero) in enumerate(Heroes):
 			if self.selfsacrifice(Hero):
-				for Patriot in members:
-					if Patriot.follows(Hero):
-				#for Patriot in Hero.names():  #in retrospect, the Heroes' followers are deemed patriosts (second order signal)
-						Patriot.score(+ self.Parameter('PatriotismValue')\
+				#NbHeroes += 1
+				for Patriot in Hero.followers: #in retrospect, the Heroes' followers are deemed patriosts (second order signal)
+					Patriot.score(+ self.Parameter('PatriotismValue')\
 											* percent(self.Parameter('SacrificeHeredity')))    #ALT : avec la distance d'amitie?
+					#Patriot.score(+ 1/NbHeroes * self.Parameter('PatriotismValue')\
+					#						* percent(self.Parameter('SacrificeHeredity')))    #ALT : avec la distance d'amitie?
+
 				for (Desc, gen) in Hero.descendants:
-					#for IndirectPatriot in Desc.friends:  #third-order signal
-					for IndirectPatriot in members:
+					for IndirectPatriot in Desc.followers:  #third-order signal
 						if IndirectPatriot.follows(Desc):
 							IndirectPatriot.score(+ percent(self.Parameter('KinSelection'))**gen \
 											* self.Parameter('PatriotismValue') * percent(self.Parameter('SacrificeHeredity')))
+							#IndirectPatriot.score(+ 1/NbHeroes * percent(self.Parameter('KinSelection'))**gen \
+							#				* self.Parameter('PatriotismValue') * percent(self.Parameter('SacrificeHeredity')))
+
 #				self.remove_agent(Hero)
 #				EvolifeGroup.remove_(EvolifeGroup, HeroNbr)					# the hero dies
 				#print(type(members))
@@ -120,12 +128,10 @@ class Scenario(Default_Scenario, EvolifeGroup):
 		""" Social benefit from having followers
 		"""
 		indiv.score(+ indiv.nbFollowers() * self.Parameter('JoiningBonus'))
-		nbF = indiv.nbFollowers()
-		if nbF>0: print(nbF)
 
 	def partner(self, indiv, others):
 		""" Selects the best memorized cooperator, if any.
-	#But with a probability controlled by the gene 'AffiliationInvestment'
+	#But with a probability controlled by the gene 'AffiliationInvestment'/Exploration en fait
 			another partner is randomly selected
 		"""
 
@@ -149,26 +155,23 @@ class Scenario(Default_Scenario, EvolifeGroup):
 #		print(agent.gene_value('SelfRisk'))
 #		print(agent.gene_value('AffiliationInvestment'))
 
-	def interaction(self, indiv, Partner):
-		""" Dyadic cooperative interaction: one player (indiv) makes the first step by
-			offering a 'gift' to a partner. The latter then returns the favour.
-			Both the gift and the returned reward are controlled by genes.
+	def interaction(self, indiv, partner):
+		""" Dyadic (asymetrical) signaling interaction:
+			one player (indiv) signals his desire to follow another (partner)
+			by offering him/her a gift.
+			The gift's value and cost are controlled by indiv's genes.
+
 			Both involve costs.
 		"""
 
 		#   First step: initial gift
-		gift = percent(self.Parameter('AffiliationFirstCost') * indiv.gene_relative_value('AffiliationInvestment'))
-#		gift = percent(10 * indiv.gene_relative_value('AffiliationInvestment'))
-		Partner.score(noise_mult(gift,self.Parameter('Noise')))	# multiplicative noise
+		gift = percent(self.Parameter('SignalingCost') * indiv.gene_relative_value('AffiliationInvestment'))
+		partner.score(noise_mult(gift,self.Parameter('Noise')))	# multiplicative noise
 		#   First player pays associated cost
-		#   Cost is a function of investment
-		cost = percent(gift * self.Parameter('SignalingCost'))
+		cost = gift
 		indiv.score(-cost)
-		#   Receiver remembers who gave the gift
-		.F_follow(0, indiv, gift)
-
-
-
+		#   Receiver remembers who gave the gift and may accept indiv as a follower
+		indiv.F_follow(0, partner, gift)
 
 
 #Version inutile ? Avec Signallers etc.
@@ -210,7 +213,7 @@ class Scenario(Default_Scenario, EvolifeGroup):
 		if BestScore == MinScore:	return
 		for indiv in members:
 			if indiv. selfSacrifice == True:
-				indiv.LifePoints = -1
+				indiv.LifePoints = -1			#Ca les tue bien ca ?
 			else:	# translating scores to zero and above
 				indiv.LifePoints = (self.Parameter('SelectionPressure') \
 								* (indiv.score() - MinScore))/float(BestScore - MinScore)
@@ -257,13 +260,6 @@ class Scenario(Default_Scenario, EvolifeGroup):
 
 	# def default_view(self):	return ['Network']
 
-	def wallpaper(self, Window):
-		" displays background image or colour when the window is created "
-		# Possible windows are: 'Field', 'Curves', 'Genome', 'Log', 'Help', 'Trajectories', 'Network'
-#		if Window == 'Curves':	return 'Scenarii/cooperation.jpg'
-# pour le fun
-		return Default_Scenario.wallpaper(self, Window)
-
 	def display_(self):
 		""" Defines what is to be displayed. It offers the possibility
 			of plotting the evolution through time of the best score,
@@ -275,7 +271,7 @@ class Scenario(Default_Scenario, EvolifeGroup):
 			or any phene name as dedined by phenomap
 		"""
 		#return [(2,'Cooperativeness'),(3,'Exploration'),(4,'average'),(5,'best')]
-		return [('green','SelfRisk'),('blue','AffiliationInvestment'), ('red', 'Exploration')]
+		return [('green','SelfRisk'),('blue','AffiliationInvestment')]
 
 	# def remove_agent(self, agent):
 		# " action to be performed when an agent dies "
