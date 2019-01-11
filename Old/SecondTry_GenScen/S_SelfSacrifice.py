@@ -129,6 +129,7 @@ class Scenario(Default_Scenario, EvolifeGroup):
 		"""
 		indiv.score(+ indiv.nbFollowers() * self.Parameter('JoiningBonus'))
 
+
 	def partner(self, indiv, others):
 		""" Selects the best memorized cooperator, if any.
 	#But with a probability controlled by the gene 'AffiliationInvestment'/Exploration en fait
@@ -165,6 +166,7 @@ class Scenario(Default_Scenario, EvolifeGroup):
 		"""
 
 		#   First step: initial gift
+#CHANGER : pas de gift ??
 		gift = percent(self.Parameter('SignalingCost') * indiv.gene_relative_value('AffiliationInvestment'))
 		partner.score(noise_mult(gift,self.Parameter('Noise')))	# multiplicative noise
 		#   First player pays associated cost
@@ -212,7 +214,7 @@ class Scenario(Default_Scenario, EvolifeGroup):
 		MinScore = min([i.score() for i in members])
 		if BestScore == MinScore:	return
 		for indiv in members:
-			if indiv. selfSacrifice == True:
+			if indiv.selfSacrifice == True:
 				indiv.LifePoints = -1			#Ca les tue bien ca ?
 			else:	# translating scores to zero and above
 				indiv.LifePoints = (self.Parameter('SelectionPressure') \
