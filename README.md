@@ -12,20 +12,25 @@ To do so, we program two scenarios, using [Evolife](https://evolife.telecom-pari
 
 [Self-Sacrifice](#self-sacrifice)
   - [Evolife](#Evolife)
-  - [Initial attempts](#initial-attempts)
-    - [Pseudowords](#pseudowords)
-  - [Experiment](#experiment)
-  - [CONCLUSION](#conclusion)
+  - [Base scenario](#base-scenario)
+  - [Actual scenario]
+    - [Theoretical argument](#pseudowords)
+    - .....
+  - [Previous attempts](#initial-attempts)
+    - [Social game](#pseudowords)
+    - [Evolife scenario](#pseudowords)
+  - [Conclusion](#conclusion)
+
 
 <!-- markdown-toc end -->
 
 
 ## Evolife
 
-Evolife has been developed by Jean-Louis Dessalles in order to study various evolutionary phenomena. It is written in Python, and can be downloaded [here](https://evolife.telecom-paristech.fr/Evolife.zip). The code is organized in separated modules - a complete description, including of how to launch Evolife is available on the [site](https://evolife.telecom-paristech.fr). A scenario such as the two written here, inherits from 'Default_Scenario'.
-+ also possible to code ... Pop.
+Evolife has been developed by Jean-Louis Dessalles in order to study various evolutionary phenomena. It is written in Python, and can be downloaded [here](https://evolife.telecom-paristech.fr/Evolife.zip). The code is organized in separated modules - a complete description, including of how to launch Evolife is available on the [site](https://evolife.telecom-paristech.fr).
+A scenario such as the two written here, inherits from 'Default_Scenario'. However, simply rewriting its functions does not allow to modify individuals, as will prove useful in our scenarios (adding a selfSacrifice boolean for instance) - see [Evolife scenario](#evolife-scenario) for a failed / "cheated" attempt. Another (initial) attempt unsuccessfully implemented a purely [Social game](#social-game), where individuals did not inherit from Evolife's 'Individual' module - and hence did not inherit from 'Genes'.
 
-## Initial attempts
+## Base scenario
 
 ........ etc
 
