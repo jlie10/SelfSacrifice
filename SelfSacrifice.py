@@ -103,7 +103,7 @@ class Scenario(Base.Scenario):
 				break
 
 ########################################
-##### Life_game #### (3) Computing scores and life points ####
+##### Life_game #### (4) Computing scores and life points ####
 ########################################
 	def evaluation(self, indiv):
 		indiv.score(- self.costSignal(indiv))

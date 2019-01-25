@@ -58,10 +58,12 @@ class Scenario(ED.Default_Scenario):
 		"""
 		# First: make initializations (1)
 		self.start_game(members)
-		# Then: play multipartite game (2)
-		self.sacrifices(members, self.Parameter('MaxHeroes')) 	# (2a) Decides who will self-sacrifice
-		self.interactions(members, self.Parameter('Rounds'))	# (2b) Social interactions
-		# Last: work out final tallies (3)
+		# Then: play multipartite game, composed of:
+			# The sacrifices game (2):
+		self.sacrifices(members, self.Parameter('MaxHeroes'))
+			# Social interactions between the living (3)
+		self.interactions(members, self.Parameter('Rounds'))
+		# Last: work out final tallies (4)
 		for indiv in members:
 			self.evaluation(indiv)
 		# Scores are translated into life points, which affect individual's survival
@@ -81,6 +83,7 @@ class Scenario(ED.Default_Scenario):
 		"""
 		indiv.score(0, FlagSet = True)	# Sets score to 0
 		indiv.Admiration = 0
+		indiv.SelfSacrifice = False
 
 	def start_game(self, members):
 		""" Defines what is to be done at the group level each year
@@ -89,9 +92,9 @@ class Scenario(ED.Default_Scenario):
 		for indiv in members:	self.prepare(indiv)
 
 ########################################
-##### Life_game #### (2a) Self-sacrifices ####
+##### Life_game #### (2) Self-sacrifices ####
 ########################################
-			## (2a-i) Individual propensity to self-sacrifice
+			## (2a) Individual propensity to self-sacrifice
 	def deathProbability(self, indiv):
 		""" Converts an individual's genetic propensity to self-sacrifice into a probability
 			Used in 'selfSacrifice'
@@ -115,7 +118,7 @@ class Scenario(ED.Default_Scenario):
 		return bool
 
 ########################################
-			## (2a-ii) Population-level self-sacrifice game
+			## (2b) Population-level self-sacrifice game
 	def sacrifices(self, members, max_heroes=100):
 		""" Self-sacrifice 'game':
 			Heroes may self-sacrifice "for the good of the group"
@@ -162,7 +165,7 @@ class Scenario(ED.Default_Scenario):
 			best_weight = equa * best_weight
 
 ########################################
-##### Life_game #### (2b) Social interactions ####
+##### Life_game #### (3) Social interactions ####
 ########################################
 	def interactions(self, members, nb_interactions = 1):
 		"""	Defines how the (alive) population interacts
@@ -199,7 +202,7 @@ class Scenario(ED.Default_Scenario):
 			return None
 
 ########################################
-##### Life_game #### (3) Computing scores and life points ####
+##### Life_game #### (4) Computing scores and life points ####
 ########################################
 	def evaluation(self, indiv):
 		""" Implements the computation of individuals' scores
@@ -271,6 +274,14 @@ class Scenario(ED.Default_Scenario):
 			candidates[ParentID[0]][1] = chances(decrease(ParentID[0],len(RankedCandidates), self.Parameter('Selectivity')), 2 * Def_Nb_Children)
 		return candidates
 
+#	def remove_agent(self, descendant, members):
+#		""" When an individual dies, he or she is removed from
+#		ascendant's family trees
+#		"""
+#		for Asc in members:
+#			g = Asc.generationalGap(descendant)	# None if indiv does not descend from Asc
+#			if g:
+#				Asc.removeDescendant(descendant, g) # removes indiv from his parents/etc family trees
 
 ########################################
 ########################################
@@ -286,7 +297,7 @@ class Individual(EI.EvolifeIndividual):
 		EI.EvolifeIndividual.__init__(self, Scenario, ID=ID, Newborn=Newborn)
 
 	def isDesc(self, Indiv, gen = 1):
-		if (Indiv, g) in self.Descendants: return True
+		if (Indiv, gen) in self.Descendants: return True
 		return False
 
 	def generationalGap(self, Desc):
@@ -298,12 +309,18 @@ class Individual(EI.EvolifeIndividual):
 				return self.Descendants[i][1]
 		return None
 
-	def addDescendant(self, descendant, gen = 1):
+	def addDescendant(self, Desc, gen = 1):
 		""" Adds descendants coupled with the 'generational gap' (1 for a child)
 			Used in 'updateChildren' or 'updateDescendants'
 		"""
+		self.Descendants.append((Desc, gen))
 
-		self.Descendants.append((descendant, gen))
+	def removeDescendant(self, Desc, gen = 1):
+		""" Removes a descendant of self
+		Used when the descendant dies (see 'Group.remove_')
+		"""
+		if self.isDesc(Desc, gen):
+			self.Descendants.remove((Desc, gen))
 
 ########################################
 ########################################
@@ -341,6 +358,17 @@ class Group(EG.EvolifeGroup):
 			(people can only have children, not grand-children, etc.)
 		"""
 		parent.addDescendant(child, 1)
+
+	def remove_(self, memberNbr):
+		""" An individual is removed from the group
+			and from his ascendant's family trees
+		"""
+		indiv = self.whoIs(memberNbr)
+		for Asc in self.members:
+			g = Asc.generationalGap(indiv)	# None if indiv does not descend from Asc
+			if g:
+				Asc.removeDescendant(indiv, g) # removes indiv from his parents/etc family trees
+		return EG.EvolifeGroup.remove_(self, memberNbr)
 
 	def reproduction(self):
 		""" Reproduction within the group

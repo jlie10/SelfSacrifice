@@ -1,11 +1,11 @@
 Self-sacrifice
 ===========================
 
-Throughout history, people have been willing to lay down their lives for the sake of their groups or ideology (for a review, see [Whitehouse, 2018](https://www.ncbi.nlm.nih.gov/pubmed/29409552)). Whether hailed as heroes or reviled as terrorists (oftentimes both, depending on the group), self-sacrifiers are generally young, ambitious male adults. Put together, these facts seem to underlie the incompleteness of proximal explanations (e.g. in termes of the contents of a specific ideology) and the inadequateness of a 'pathological' vision of self-sacrifice (whereby self-sacrifice results from unadaptive behavior and/or from miscalculations).
+Throughout history, people have been willing to lay down their lives for the sake of their groups or ideology (for a review, see [Whitehouse, 2018](https://www.ncbi.nlm.nih.gov/pubmed/29409552)). Whether hailed as heroes or reviled as terrorists (or both...), self-sacrifiers are generally young, ambitious male adults. Put together, these facts seem to underlie the incompleteness of proximal explanations (e.g. in termes of the contents of a specific ideology) and the inadequateness of a 'pathological' vision of self-sacrifice (whereby self-sacrifice results from unadaptive behavior and/or from miscalculations).
 
-Could self-sacrifice therefore have a biological function? This project sets the groundwork for investigating the (individual) biological motivations that may underlie self-sacrifice (which need not coincide with its moral motivations, which may be geared towards the collective), following a costly social signal model (e. g. [Dessalles, 2014](https://onlinelibrary.wiley.com/doi/full/10.1111/evo.12378). Social signals are meant to attract friends ; in cases wheere the signaled quality correlates with the audience's fitness, such a quality will be in social demand and signaling can therefore bring benefits in terms of social status.
+Could self-sacrifice therefore have a biological function? This project sets the groundwork for investigating the (individual) biological motivations that may underlie self-sacrifice (which need not coincide with its moral motivations, potentially geared towards the collective), following a costly social signal model (e. g. [Dessalles, 2014](https://onlinelibrary.wiley.com/doi/full/10.1111/evo.12378). Social signals are meant to attract friends ; in cases wheere the signaled quality correlates with the audience's fitness, such a quality will be in social demand and signaling can therefore bring benefits in terms of social status.
 
-However, in the case of self-sacrifice, signalers do not survive to enjoy these potential benefits. An additional hypothesis is needed - we propose that social status be in part inherited. And, to explain why a martyr's children may be in social demand, we propose another additional hypothesis - namely that individuals may want to signal their patriorism by honoring heroes, which may 'spill over' to their desendants (more details later).
+However, in the case of self-sacrifice, signalers do not survive to enjoy these potential benefits. An additional hypothesis is needed - we propose that social status be in part inherited. And, to explain why a martyr's children may be in social demand, we propose another additional hypothesis - namely that individuals may want to signal their patriorism by honoring heroes, which may 'spill over' to their desendants (see [Actual scenario](#actual-scenario) for more details).
 
 We program two scenarios, using [Evolife](https://evolife.telecom-paristech.fr/). A simplified scenario establishes the initial framework of the study. A second scenario builds on this base, aiming for a plausible explanation of self-sacrifice.
 
@@ -13,15 +13,22 @@ We program two scenarios, using [Evolife](https://evolife.telecom-paristech.fr/)
 **Table of Contents**
 
 [Self-Sacrifice](#self-sacrifice)
+  - [How to launch](#launch)
   - [Evolife](#Evolife)
   - [Base scenario](#base-scenario)
-    - [(2a-i) Individual propensity to self-sacrifice](#2a-i)
-    - [(2b-ii) Population-level self-sacrifice game](#2a-ii)
-    - [(3) Computing scores](#computng-scores)
+    - [(1) Initializations](#initializations)
+    - [(2) Sacrifices](#sacrifices)
+        - [(2a) Individual propensity to self-sacrifice](#individual-ss)
+        - [(2b) Population-level self-sacrifice game](#population-ss)
+    - [(3) Social interactions](#social-interactions)
+    - [(4) Computing scores](#computng-scores)
+    - [Base simulation output](#base-output)
   - [Actual scenario](#actual-scenario)
-    - [Theoretical argument](#pseudowords)
-    - .....
-  - [Previous attempts](#initial-attempts)
+    - [(2) Changes to sacrifices](#sacrifices)
+    - [(3) Changes to social interactions](#social-interactions)
+    - [(4) Changes to computing scores](#computng-scores)
+    - [Simulation output](#output)
+  - [Initial attempts](#initial-attempts)
     - [Social game](#pseudowords)
     - [Evolife scenario](#pseudowords)
   - [Conclusion](#conclusion)
@@ -30,6 +37,18 @@ We program two scenarios, using [Evolife](https://evolife.telecom-paristech.fr/)
 <!-- markdown-toc end -->
 
 
+## How to launch
+
+In order to launch, you need to (pull and) go to the `Evolife` folder. If you are on Linux or Unix, launch `first.py` from that folder the first time you use Evolife, then go to the `Other/SelfSacrifice` folder. From there, type `./starter` in a terminal, to open Evolife's configuration editor.
+
+On Windows, you don't need to do `first.py`; the editor is launched using `Starter.bat`.
+
+From the configuration editor, you can load two .evo configuration files, which contain the parameters of the two scenarios implemented under: `SelfSacrifice_v0.evo` ('Base') and `SelfSacrifice.evo` ('Actual'). These configuration files, as well as their corresponding scripts are replicated directly at the root of the repository.
+
+Once one is loaded, the corresponding scenario is initiated by clicking on `Run`. This opens a windown display from where, by default, you can view the average value of genes in a population over time (normalized to 100), as well as the the actual value of the binary vectors representing genes in the population (by clicking on `Genome`).
+
+You can also launch other Evolife functionalities, by going to the correct location and launching the configuration editor.
+
 ## Evolife
 
 Evolife has been developed by Jean-Louis Dessalles in order to study various evolutionary phenomena. It is written in Python, and can be downloaded [here](https://evolife.telecom-paristech.fr/Evolife.zip).
@@ -37,13 +56,12 @@ Evolife has been developed by Jean-Louis Dessalles in order to study various evo
 The core of Evolife is a genetic algorithm. Individual's behavior is controlled by a binary vector (genome). They live, reproduce sexually, and gain points in a life_game (see under).
 
 Evolife implements two modes of selection:
-    Ranking, whereby individuals are ranked according to their score and are granted a number of potential children that is a in increasing function of their rank - whose sloped is controlled by the `Selectivity` parameter.
-    Differential Death, whereby score lead to life points that protect them from life hazards, thus increasing their life expectancy (and opportunities to reproduce) - relative gains are controlled by the `SelectionPressure` parameter.
+    - Ranking, whereby individuals are ranked according to their score and are granted a number of potential children that is a in increasing function of their rank - whose sloped is controlled by the `Selectivity` parameter.
+    - Differential Death, whereby score lead to life points that protect them from life hazards, thus increasing their life expectancy (and opportunities to reproduce) - relative gains are controlled by the `SelectionPressure` parameter.
 
 While ranking allows for faster convergence, differential death seems more realistic - and will be the subsequent preferred mode of selection (with ranking, having 1 000 001 points is significantly better than having 1 000 000)
 
-The code is organized in separated modules - a complete description, including of how to launch Evolife is available on the [site](https://evolife.telecom-paristech.fr).
-A scenario such as the two written here, inherits from `Default_Scenario`. However, simply rewriting its functions does not allow to modify individuals, as will prove useful in our scenarios (adding a selfSacrifice boolean for instance) - see [Evolife scenario](#evolife-scenario) for a failed attempt. Another (initial) attempt unsuccessfully implemented a purely [Social game](#social-game), where individuals did not inherit from Evolife's  `Individual` module - and hence did not inherit from  `Genes `.
+The code is organized in separated modules - a complete description, including of how to launch Evolife is available on the [site](https://evolife.telecom-paristech.fr). A scenario such as the two written here, inherits from `Default_Scenario`. However, simply rewriting its functions does not allow to modify individuals, as will prove useful in our scenarios (adding a selfSacrifice boolean for instance) - see [Evolife scenario](#evolife-scenario) for a failed attempt. Another (initial) attempt unsuccessfully implemented a purely [Social game](#social-game), where individuals did not inherit from Evolife's  `Individual` module - and hence did not inherit from  `Genes `.
 
 ## Base scenario
 
@@ -70,21 +88,33 @@ The core of the script is the `life_game` function which is where individuals in
     # Scores are translated into life points, which affect individual's survival
     self.lives(members)
 
-For both scenarios, important individual variables (e. g. score, admiration) impacting the multipartite game are reset using `start_game`. For this basic scenario where admiration is exogenous, social interactions (2b) are not implemented.
+The annual life game is thus structure following three steps.
+
+### (1) Initializations
+
+First, important individual variables are reset. Individuals inherit basic characteristics from Evolife's `Individual` module, including the structure of their genes. In this case, an individual's genome is comprised of one gene named `SelfSacrifice` whose value will affect that individual's propensity to self-sacrifice for the group (see [(2a) Self-sacrifices](#self-sacrifices)). The gene is given at birth and so will not be reinitialized here. Individual's also have a `Descendants` attribute, which lists all their descendants - and is not reinitialized either.
+
+Other individual attributes pertaining to the scenario are however reinitialized each year, using `start_game`. These are:
+  - A `selfSacrifice` attribute, which is a boolean (reset to False). It is True when an individual 'decides' to self-sacrifice (see [(2a) Self-sacrifices](#self-sacrifices)]).
+  - An `Admiration` parameter, which represents how much admiration society gives the individual if and when he opts for martyrdom.
+  - A `score()` attribute, which keeps track of his score.
 
 
-### (2a-i) Individual propensity to self-sacrifices
+### (2) Sacrifices
+The life game actually begins with sacrifices. This is the crux of this base scenario, where social interactions have no effect.
 
-An individual's propensity to self-sacrifice for the group is controlled by his `SelfSacrifice` gene, `deathProbability` converts this gene's value into a number between 0 and 1. Self-sacrifice is only possible from a certain age (controlled by `SacrificeMaturity`).
+#### (2a) Individual propensity to self-sacrifice
+
+An individual's propensity to self-sacrifice for the group is controlled by his `SelfSacrifice` gene; `deathProbability` converts that gene's value into a number between 0 and 1. Self-sacrifice is only possible from a certain age (controlled by `SacrificeMaturity`).
 We propose two 'modes':
-    One 'probabilistic', where a individual's probability of martyrdom is the result of deathProbability.
-    One 'binary', whereby having any non null value for the gene leads to martyrdom.
+    - One 'probabilistic', where a individual's probability of martyrdom is the result of deathProbability.
+    - One 'binary', whereby having any non null value for the gene leads to martyrdom.
 
-Because long-term gene levels in the population are the fruit of reproductive dynamics, and order to avoid bugs associated with every individual in a population dying at once, we propose that individuals who self-sacrifice not actually 'die' - but be excluded from reproduction that year. The cost of the signal is thus measured in terms of lost reproductive potential. Individuals who don't have the gene (have a null value) will not face any cost in this base scenario.
+Because long-term gene levels in the population are the fruit of reproductive dynamics, and in order to avoid bugs associated with every individual in a population dying at once, we propose that individuals who self-sacrifice not actually 'die' - but be excluded from reproduction that year. The cost of the signal is thus measured in terms of lost reproductive potential. Individuals who don't have the gene (have a null value) will not face any cost in this base scenario.
 
-### (2a-ii) Population-level self-sacrifice game
+#### (2b) Population-level self-sacrifice game
 
-This stage is implemented using three python function: sacrifices, honoring and pantheon. The first imlements self-sacrifices at the population level:
+This stage is implemented using three python function: sacrifices, honoring and pantheon. The first implements self-sacrifice decisions at the population level:
 
     # sacrifices
     def sacrifices(self, members, max_heroes=100):
@@ -103,7 +133,7 @@ This stage is implemented using three python function: sacrifices, honoring and 
   		# In return, heroes are honored (admired) by society
   		self.honoring(Cowards, Heroes)
 
-`Honoring` calls `pantheon` with a local `social_admiration` variable, which represents the total amount of admiration that is 'avaialable' for heroes (to compete over). In this base scenario, this is a given (and is the product of an 'Admiration' parameter and total population size).
+`Honoring` calls `pantheon` with a local `social_admiration` variable, which represents the total amount of admiration that is 'avaialable' for heroes (to compete over). In this base scenario, this is a given (and is the product of an `Admiration` parameter and total population size).
 
 'Competition' between heroes for social admiration is defined by `pantheon`. Degree of competition depends on a `HeroCompetivity` parameter (0: equalitarian pantheon; 100: winner-takes-all; anything in between: geometric repartition).
 
@@ -127,10 +157,28 @@ This stage is implemented using three python function: sacrifices, honoring and 
   			Hero.Admiration = best_weight * social_admiration
   			best_weight = equa * best_weight
 
+### (3) Social interactions
 
-### (3) Computing scores
+Interactions between members of society are implemented using `interactions`:
 
-Scores are calculated at the end of the 'year'. Here, the only reason to gain points is through a parents' (or more largely ascendants') sacrifice. This is done through `spillover`. What a descendant can potentially gain depends on how much his ascendant hero was admired (stored in `hero.admiration`) and how much admiration spills over to descendants in general (controlled by `SacrificeHeredity`; the rest is 'lost' for descendants). In addition, what a particular descendant actually gains will depend on how many other descendants there are, on how far away in the family tree he or she is (more for children than grand-children...) and on repartition between generations (controled by `KinSelection`).
+    # interactions
+    """	Defines how the (alive) population interacts
+      Used in 'life_game'
+    """
+    for Run in range(nb_interactions):
+      Fan = choice(members)
+      # Fan chooses friends from a sample of Partners
+      Partners = self.partners(Fan, members, int(percent(self.Parameter('SampleSize')\
+                                  * (self.Parameter('PopulationSize')-1) )))
+      self.interact(Fan, Partners)
+
+For as many `Rounds` as defined by a parameter, a random individual is chosen to interact with a group of individuals, selected by `partners` - which returns a random sample by default (whose size is controled by `SampleSize`). Individuals then `interact` with this sample of partners - in this base scenario, `interact` is empty, as social interactions are taken to have relevant effect.
+
+NB: I just realized that social interactions include dead heroes... which I need to correct. I don't know how much this affect the outcomes... In the [Actual scenario](#actual-scenario), while individual's should preferentially chose alive people (actual signalers), they may form bonds with dead individuals...
+
+### (4) Computing scores
+
+Scores are calculated at the end of the year. Here, the only reason to gain points is through a parents' (or more largely ascendants') sacrifice. This is done through `spillover`. What a descendant can potentially gain depends on how much his ascendant hero was admired (stored in `hero.admiration`) and how much admiration spills over to descendants in general (controlled by `SacrificeHeredity`; the rest is 'lost' for descendants). In addition, what a particular descendant actually gains will depend on how many other descendants there are, on how far away in the family tree he or she is (more for children than grand-children...) and on repartition between generations (controled by `KinSelection`).
 
     # spillover
     def spillover(self, Hero, admiration = 0, kin_transfer = 0.5):
@@ -150,92 +198,114 @@ Scores are calculated at the end of the 'year'. Here, the only reason to gain po
         share = (kin_transfer)^gen	# share is coefficient of relatedness by default (depends on the 'KinSelection' parameter)
         Desc.score(+ share / tot_weights * tot_benef)
 
+
+### Base simulation output
+
+Launching this scenario in 'binary' mode from the configuration editor (see [How to launch](#launch)) yields the following:
+![Average value of SelfSacrifice gene over time](SelfSacrifice_v0_binary.png)
+
+Contrarily to what would be expected for this mode, the gene does not seem to be heading to fixation one way or the other. Statistical analyses in either mode were not performed.
+
 ## Actual scenario
 
-Admiration is no longer exogenous and will depend on the (alive) crowd's signaling of its patriotism. The idea is the following: in a certain context, such as intergroup conflict, selecting friends who are commited to the group may become crucial. If you make a mistake and befriend someone who is sympathetic to the other group, you may lose from their indecidedness in the face of danger - or worse, you may even be betrayed (denounced) at the moment of reckoning (e. g. the end of the war). Concurrent with the idea of a moment of reckoning, you own commitment will be questioned by the group and you would benefit from having commited (patriotic) friend.
+Admiration is no longer exogenous and will depend on the (alive) crowd's signaling of its patriotism. The idea is the following: in a certain context, such as intergroup conflict, selecting friends who are commited to the group may become crucial. If you make a mistake and befriend someone who is sympathetic to the other group, you may lose from their indecidedness in the face of danger - or worse, you may even be betrayed (denounced) at the moment of reckoning (e. g. the end of the war). Concurrent with the idea of a moment of reckoning, you own commitment will be questioned by the group and you would benefit from having a truly commited (i. e. verifiably patriotic) friend.
 
 Together, these create a theoretical impetus to signal one's patriotism to others in order to attract friends. In turn, this makes it more 'interesting' (for one's genes) to self-sacrifice: signaling one's patroitism is a second-order signal; both are expected to be mutually reinforcing in specific conditions such as dire intergroup conflict.
 
-In order to implement this, individuals are given an additional `Honoring` gene, which controls their investment in the second-order signal, and a `Patriotism` phenotype, which will defines how much they are commited to the group (see under).
+In order to implement this, individuals are given an additional `Honoring` gene, which controls their investment in the second-order signal, and a `Patriotism` phenotype, which will define how much they are commited to the group (see under). Finally, a `SignalLevel` variable attribute stocks how much they invest in honoring heroes for a given year (and is reinitialized every year).
 
 The basic structure of life_game is not changed.
 
-### (2a) Self-sacrifices
+### (2) Changes to sacrifices
 
 Only `honoring` is changed with respect to before: total social admiration is not given, but will depends on how much a population invests in honoring heroes - which is controlled by their `Honoring` gene.
 
+    # honoring
+    def honoring(self, patriots, heroes):
+      """ 'Endogenous' honoring of heroes
+        Total social admiration directed at heroes now depends on
+        the propensity of (alive) individuals to signal their patriotism
+        which is controlled by a gene
+        Used in 'sacrifices'
+      """
+      Offerings = 0
+      for Patriot in patriots:
+        offering = Patriot.gene_value('Honoring')
+        # An individual gives (his time, a valuable object, a goat...) proportionally to his or her genes
+        Patriot.SignalLevel += offering
+        # By doing so, a patriot signals his/her patriotism to others, which they will take into account when choosing friends
+        Offerings += offering
+      self.pantheon(heroes, Offerings, self.Parameter('HeroCompetivity'))
 
+### (3) Changes to social interactions
 
+Only `interact` changes with respect to before. Members (theoretically all alive... sorry again) of the population select friends according to their displayed patriotism that year - stocked in `SignalLevel`.
 
-```{python}
-""" Implementation of a lexical decision experiment. """
+    # interact
+    def interact(self, indiv, Signalers):
+      """ Formation of friendship bonds
+        By honoring heroes (see 'honoring'), individuals signal their patriotism
+        This signal is used by others to choose their friends
+        (keeping in mind this is crucial: see 'evaluation')
+      """
+      if Signalers == []:	return
+      # The agent chooses the best available Signaler from a sample.
+      OldFriend = indiv.best_friend()
+      Signalers.sort(key=lambda S: S.SignalLevel, reverse=True)
+      for Signaler in Signalers:
+        if Signaler == indiv:	continue
+        if OldFriend and OldFriend.SignalLevel >= Signaler.SignalLevel:
+          break	# no available interesting signaler
+        if Signaler.followers.accepts(0) >= 0:
+          # cool! Self accepted as fan by Signaler.
+          if OldFriend is not None and OldFriend != Signaler:
+            indiv.G_quit_(OldFriend)
+          indiv.F_follow(0, Signaler, Signaler.SignalLevel)
+          break
 
-import random
-import csv
-import expyriment
+### (4) Changes to computing scores
 
+Changes are implemented in `evaluation`:
 
-STIM_FILE = 'stimuli.csv'
-WORD_RESP = expyriment.misc.constants.K_j
-NONWORD_RESP = expyriment.misc.constants.K_f
-MAX_RESP_TIME = 2500
-ITI = 1500
+    # evaluation
+    def evaluation(self, indiv):
+      indiv.score(- self.costSignal(indiv))
+      if indiv.SelfSacrifice:
+        self.spillover(indiv, indiv.Admiration, percent(self.Parameter('KinSelection')))
+      " It's the end of the war: friends reveal themselves for who they really are "
+      for Friend in indiv.friends.names():
+        print(Friend.Patriotism)
+        if Friend.Patriotism < percent(self.Parameter('Traitors') x self.Parameter('PopulationSize')):
+          # Friend is a traitor who sells you out
+          indiv.score(- self.Parameter('DenunciationCost'))
+        if Friend.Patriotism > percent(self.Parameter('Patriots') x self.Parameter('PopulationSize')):
+          # Friend is a true patriot who can vouch for you
+          indiv.score(+ self.Parameter('FriendshipValue'))
+      indiv.detach()	# indiv quits his/her friends
 
-exp = expyriment.design.Experiment(name="Lexical Decision Task")
+This implements the type of intergroup conflict day of reckoning situation imagined above: a proportion of the population is comprised of traitors (controlled by a `Traitors` parameter), who will denounce you (to a potentially huge `DenunciationCost`). Others are true patriots (`Patriots`), who can vouch for you if you are luck enough to count them in your friends (earning you `FriendshipValue` points).
 
-expyriment.control.initialize(exp)
+In addition, the cost paid by individuals in honoring heros is substracted from their score, using `costSignal`.
 
-trials = []
+## Initial attempts
 
-## Load the stimuli
-with open(STIM_FILE, encoding="utf-8") as f:
-    r = csv.reader(f)
-    next(r)  # skip header line
-    for row in r:
-        cat, freq, item = row[0], row[1], row[2]
-        trial = expyriment.design.Trial()
-        trial.add_stimulus(expyriment.stimuli.TextLine(item))
-        trial.set_factor("Category", cat)
-        trial.set_factor("Frequency", freq)
-        trial.set_factor("Item", item)
-        trials.append(trial)
+### Social game
 
-random.shuffle(trials)
+My first try was to implement a fully 'social' game (where dynamics follow social learning, not genetic evolution). It is contained in `Old/FirstTry_SSim/` - including a detailed README file.
 
-exp.add_data_variable_names(['key', 'rt'])
+### Evolife scenario
 
-## Run the experiment
-expyriment.control.start()
+When I understood I would need genes, I attempted to implement an actual Evolife scenario - using only `Defauly_Scenario`. However this did not allow to modify individual's attributes (to include their descendants, the SelfSacrifice boolean..), except by cheating (modifying the Individual module) - so I quickly gave this up.
 
-expyriment.stimuli.TextScreen("Instructions", """You will see a series of written stimuli displayed at the center of the screen.
+### Simulation output
 
-After each stimulus, your task is to press the right key ('J') if you think it is an existing word, the left key ('F') otherwise. Place now your index fingers on the keys 'F' and 'J'.
+Launching this scenario from the configuration editor (see [How to launch](#launch)) yields the following:
+![Average value of SelfSacrifice and Honoring genes over time](SelfSacrifice.png)
 
-Press the spacebar when you are ready to start.""").present()
-
-exp.keyboard.wait_char(' ')
-exp.screen.clear()
-exp.screen.update()
-
-for t in trials:
-    exp.clock.wait(ITI - t.stimuli[0].preload())
-    t.stimuli[0].present()
-    button, rt = exp.keyboard.wait([WORD_RESP, NONWORD_RESP],
-                                   duration=MAX_RESP_TIME)
-    exp.screen.clear()
-    exp.screen.update()
-    cat, freq = t.get_factor("Category"), t.get_factor("Frequency")
-    ok = ((button == WORD_RESP) and (cat != 'PSEUDO')) or ((button == NONWORD_RESP) and (cat == 'PSEUDO'))
-    exp.data.add([cat, freq, t.get_factor("Item"), button, ok, rt])
-
-expyriment.control.end()
-```
-
-
+The average value of Honoring appears to quickly drop to 0 - even with seemingly huge cost/benefits associated to the day of reckoning situation (see `SelfSacrifice.evo` for Parameter values). Strangely, contrarily to what would be expected, the average value of SelfSacrifice does not follow suit (probably - or hopefully - for the same reasons that made the results of Base wierd).
 
 ## CONCLUSION
 
-It was a lot of work and we did not have time to implement all the thing we wanted to, notably:
+Although I lost a lot of time initially, discovering Evolife (and Python more largely), this  project allowed me to build an initial framework for my future study of self-sacrifice (for my Semester 2 internship) - and a better understanding of the tools I will need to master.
 
-* we wanted to write a script to analyse the data files and create a statistical report
-* to include a training phase with feedback before the actual experiment
+As seen with the example of interactions with dead people (see [(3) Social interactions](#social-interactions)), I am still discovering new problems every day - which means I'm learning, I guess :). I have not had time to analyze my simulation results: for now, as evoked in [Base simulation output](#base-output) and [Simulation output](#output), they seem too wierd to begin any king of statistical analysis before debugging. I am still unclear on the mathematics behind the games faces by agents, notably the actual cost of self-sacrifice.
