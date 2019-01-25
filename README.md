@@ -22,7 +22,7 @@ We program two scenarios, using [Evolife](https://evolife.telecom-paristech.fr/)
         - [2b Population-level self-sacrifice game](#2b-population-level-self-sacrifice-game)
     - [3 Social interactions](#3-social-interactions)
     - [4 Computing scores](#4-computing-scores)
-    - [Base simulation output](#base--simulation-output)
+    - [Base simulation output](#base-simulation-output)
   - [Actual scenario](#actual-scenario)
     - [2 Changes to sacrifices](#2-changes-to-sacrifices)
     - [3 Changes to social interactions](#3-changes-to-social-interactions)
@@ -30,7 +30,7 @@ We program two scenarios, using [Evolife](https://evolife.telecom-paristech.fr/)
     - [Actual simulation output](#actual-simulation-output)
   - [Initial attempts](#initial-attempts)
     - [Social game](#social-game)
-    - [Evolife scenario](#scenario)
+    - [Evolife scenario](#evolife-scenario)
   - [Conclusion](#conclusion)
   - [Commentaires](#commentaires)
 
@@ -217,7 +217,7 @@ In order to implement this, individuals are given an additional `Honoring` gene,
 
 The basic structure of life_game is not changed.
 
-### (2) Changes to sacrifices
+### 2 Changes to sacrifices
 
 Only `honoring` is changed with respect to before: total social admiration is not given, but will depends on how much a population invests in honoring heroes - which is controlled by their `Honoring` gene.
 
@@ -238,7 +238,7 @@ Only `honoring` is changed with respect to before: total social admiration is no
         Offerings += offering
       self.pantheon(heroes, Offerings, self.Parameter('HeroCompetivity'))
 
-### (3) Changes to social interactions
+### 3 Changes to social interactions
 
 Only `interact` changes with respect to before. Members (theoretically all alive... sorry again) of the population select friends according to their displayed patriotism that year - stocked in `SignalLevel`.
 
@@ -264,7 +264,7 @@ Only `interact` changes with respect to before. Members (theoretically all alive
           indiv.F_follow(0, Signaler, Signaler.SignalLevel)
           break
 
-### (4) Changes to computing scores
+### 4 Changes to computing scores
 
 Changes are implemented in `evaluation`:
 
