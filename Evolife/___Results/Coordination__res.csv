@@ -1,0 +1,2 @@
+Date;AgeMax;BatchMode;DNAFill;DisplayPeriod;DumpStart;GeneCoding;GeneLength;GroupMinSize;Icon;MaxGurus;MutationRate;NbCrossover;Nb_signaux;NumberOfGroups;PopulationSize;ReproductionRate;ResultDir;Rounds;ScenarioName;SelectionPressure;Selectivity;StartFromFile;TimeLimit;Title;LastStep;signal;push_mask;average
+181129151425;40;0;-1;1;100;0;16;5;QtGraphics/EvolifeIcon.png;1;5;1;8;1;200;15;./___Results;50;Coordination;6;0;0;20000;Evolife;50;0;0;0

@@ -1,0 +1,2 @@
+python Uptodate.py &
+python QtGraphics/TreeExplore.pyw ./EvolifeConfigTree.xml &

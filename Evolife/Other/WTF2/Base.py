@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #!/usr/bin/env python
 #!/usr/bin/env python
+#!/usr/bin/env python
 #!/usr/bin/env python3
 ##############################################################################
 # EVOLIFE  http://evolife.telecom-paristech.fr         Jean-Louis Dessalles  #
@@ -14,15 +15,11 @@
 Simplified 'first-step' version where Admiration is automatic
 """
 
-from time import sleep
-from random import sample, randint, shuffle, random
-from numpy.random import choice
+from random import sample, shuffle, random, choice
 
 import sys
 sys.path.append('..')
 sys.path.append('../../..')
-
-#sys.setrecursionlimit(1500)
 
 import Evolife.Ecology.Observer	as EO
 import Evolife.Scenarii.Default_Scenario as ED
@@ -76,24 +73,23 @@ class Scenario(ED.Default_Scenario):
 			candidates[ParentID[0]][1] = chances(decrease(ParentID[0],len(RankedCandidates), self.Parameter('Selectivity')), 2 * Def_Nb_Children)
 		return candidates
 
-
-	def new_agent(self, child, parents):
-		" initializes newborns - parents==None when the population is created"
-		if parents:       #add newborns to parents' list of descendants
-			parents[0].Descendants.append((child,1))
-			parents[1].Descendants.append((child,1))
-		return True
-#todo later : add grandchildren etc
+#	def new_agent(self, child, parents, gen = 1):
+#		" initializes newborns - parents==None when the population is created"
+#		if parents:       #add newborns to parents' list of descendants
+#			parents[0].Descendants.append((child,gen))
+#			parents[1].Descendants.append((child,gen))
+#		return True
+# RMQ: descendands treated in Indiv and Group
 
 	def sacrifices(self, members):
 		""" Self-sacrifice 'game':
 			Heroes may self-sacrifice "for the good of the group"
 			Simplified version: sacrifice reaps direct benefits to their descendants
 		"""
-		Heroes = members[:]
+		Heroes = []
+		for Hero in members:
+			if self.selfSacrifice(Hero): Heroes.append(Hero)
 		shuffle(Heroes)
-		for Coward in Heroes:
-			if not self.selfSacrifice(Coward): Heroes.remove(Coward)
 		#Heroes = sample(Heroes,min(self.Parameter('MaxSacrifiers'),len(Heroes)))
 		#NbHeroes = 0
 				# After a certain number of selfsacrifices, selfsacrifice is pointless
@@ -106,28 +102,37 @@ class Scenario(ED.Default_Scenario):
 				Desc.score(+ percent(self.Parameter('KinSelection'))**gen \
 										* self.Parameter('PatriotismValue'))
 
-	def choseHero(self, indiv, Heroes):
-		return
-#        for Hero in Heroes:
-#            if Hero.Followers.present(indiv): return     #a complexifier
-#        RandomHero = choice(Heroes)
-#        indiv.Followers.F_follow(0, Hero, 0)
-#        indiv.Followers.F_follow(indiv.gene_value['Honoring'], Hero, 0)
-#        indiv.Followers.F_follow(indiv.gene_value['Honoring'], Hero, Hero.gene_value['SelfSacrifice'])
+	def partner(self, indiv, members):
+		""" Decides whom to interact with - Used in 'life_game'
+		"""
+		# By default, a partner is randomly chosen
+		partners = members[:]
+		partners.remove(indiv)
+		if partners != []:
+			return choice(partners)
+		else:
+			return None
 
-	def choseFriends(self, indiv, members):
-		return
+	def interaction(self, indiv, partner):
+		" Nothing by default - Used in 'life_game' "
+		pass
 
 	def life_game(self, members):
-		self.sacrifices(members)    #Heroes chose to self-sacrifice for the group
-		Heroes = []
+		# First: chose heroes, that self-sacrifice for the group
+		self.sacrifices(members)
+		# Then: play multipartite game
+		for play in range(self.Parameter('Rounds', Default=1)):
+			players = members[:]	# ground copy
+			shuffle(players)
+			# Individuals engage in several interactions successively
+			for indiv in players:
+				Partner = self.partner(indiv, players)
+				if Partner is not None:
+					self.interaction(indiv, Partner)
+		# Last: work out final tallies
 		for indiv in members:
-			if indiv.SelfSacrifice: Heroes.append(indiv)
-
-		for indiv in members:
-			self.choseHero(indiv,Heroes)
-			self.choseFriends(indiv, members)
 			self.evaluation(indiv)
+		# scores are translated into life points
 		self.lives(members)
 
 
@@ -137,15 +142,42 @@ class Individual(EI.EvolifeIndividual):
 	def __init__(self, Scenario, ID=None, Newborn=True):
 		self.SelfSacrifice = False
 		self.Descendants = []
+
+################################
+
+		self.Offerings = 0		# represents how much one is honored after self-sacrifice (should stay at 0 whilst alive)
+		self.SignalLevel = 0
+
+
+
 #		self.Friends = EA.Friend(self.Parameter('MaxFriends'))  #symettrical friendship links
 #		self.Followers = EA.Followers(self.Parameter('MaxHeroes'), self.Parameter('MaxFollowers'))        #assymetrical follower links
 #        EA.Friend.__init__()
 #        EA.Follower.__init__(
 		EI.EvolifeIndividual.__init__(self, Scenario, ID=ID, Newborn=Newborn)
 
-	def isDesc(self, Indiv):
-		if Indiv in self.Descendants: return True
+	def isDesc(self, Indiv, gen = 1):
+		if (Indiv, g) in self.Descendants: return True
 		return False
+
+	def generationalGap(self, Desc):
+		" returns the 'generational gap' (1 for a child) if Desc descends from Individual "
+		for i in range(len(self.Descendants)):
+			if self.Descendants[i][0] == Desc:
+				return self.Descendants[i][1]
+		return None
+
+	#	if Indiv.Descendants:
+##
+#			gmax = Indiv.Descendants[0][1]		# descendants are sorted by descending generational gaps
+#			for g in range(1, gmax + 1):
+#				if isDesc(Desc, g):
+#					return g
+#		return None
+
+	def addDescendant(self, descendant, gen = 1):
+		" adds descendants coupled with the 'generational gap' (1 for a child)"
+		self.Descendants.append((descendant, gen))
 
 class Group(EG.EvolifeGroup):
 	# The group is a container for individuals. (For now the population only has one)
@@ -158,9 +190,26 @@ class Group(EG.EvolifeGroup):
 		# calling local class 'Individual'
 		Indiv = Individual(self.Scenario, ID=self.free_ID(), Newborn=Newborn)
 		# Individual creation may fail if there is no room left
-		self.Scenario.new_agent(Indiv, None)  # let scenario know that there is a newcomer
+		self.Scenario.new_agent(Indiv, None)  # let scenario know that there is a newcomer (unused)
 		#if Indiv.location == None:	return None
 		return Indiv
+
+	def updateDescendants(self, parent, child):
+		""" updates descendants : when a parent recieves a child, his/her parents (Ascendant) receive a grand-child,
+		 	their parents receive a great-grand child ...
+		"""
+		parent.addDescendant(child, 1)
+		for Ascendant in self.members:
+			g = Ascendant.generationalGap(parent)
+			if g:
+				Ascendant.addDescendant(child, g+1)
+
+#	def new_agent(self, child, parents, gen = 1):
+#		" initializes newborns - parents==None when the population is created"
+#		if parents:       #add newborns to parents' list of descendants
+#			parents[0].Descendants.append((child,gen))
+#			parents[1].Descendants.append((child,gen))
+#		return True
 
 	def reproduction(self):
 		""" reproduction within the group
@@ -177,10 +226,11 @@ class Group(EG.EvolifeGroup):
 				child.hybrid(C[0],C[1]) # child's DNA results from parents' DNA crossover
 				child.mutate()
 				child.update()  # computes the value of genes, as DNA is available only now
-				if self.Scenario.new_agent(child, C):  # let scenario decide something about the newcomer
+				if self.Scenario.new_agent(child, C):  # let scenario decide something about the newcomer (not used here)
+					self.updateDescendants(C[0], child)
+					self.updateDescendants(C[1], child)
 					self.receive(child) # adds child to the group
 
-			#Future fonction petits enfants+ a inserer ici
 
 
 
@@ -291,7 +341,7 @@ class Population(EP.EvolifePopulation):
 if __name__ == "__main__":
 	print(__doc__)
 
-
+	""" TODO: transformer en fonction appelable par le vrai """
 	#############################
 	# Global objects			#
 	#############################

@@ -1,0 +1,118 @@
+<Config>
+	<Parameter>
+		<Name>Scenario</Name>
+		<Description><info><![CDATA[This is a configuration file editor designed to choose parameter values before launching Evolife simulations.<br><br>Its use is rather intuitive. You may click directly on values you want to change, or navigate with arrows and use the [F2] key to edit values.<br><br>Pay attention to explanations displayed in this panel.]]></info></Description>
+		<Parameter>
+			<Name>CurrentScenario</Name>
+			<Parameter>
+				<Name>ScenarioName</Name>
+				<Description><info><![CDATA[Simulates a network of websites]]></info></Description>
+				<Value>Chaos</Value>
+			</Parameter>
+			<Parameter>
+				<Name>ScenarioFileName</Name>
+				<Value>Chaos_triangle.evo</Value>
+			</Parameter>
+		</Parameter>
+	</Parameter>
+	<Parameter>
+		<Name>Shape</Name>
+		<Description><info><![CDATA[Fractal forms may emerge from a simplistic non-deterministic procedure. Consider a real coefficient c between 0 and 100 and k points in the plane (vertices). Draw an additional random point P0. Take a random integer i between 1 and k. Draw a new point P1 at c% of the distance from P0 to the ith vertex. Repeat the procedure endlessly. If c is not too large, a fractal shape repeating the initial shape should emerge. <br>For a detailed demo, see: <a href="https://www.youtube.com/watch?v=kbKtFN71Lfs">https://www.youtube.com/watch?v=kbKtFN71Lfs</a>.]]></info></Description>
+		<Parameter>
+			<Name>InitialDots</Name>
+			<Description><info><![CDATA[Initial dots to generate the shape.]]></info></Description>
+			<Value>[(10, 10), (50, 90), (90, 10), (20, 120)]</Value>
+		</Parameter>
+		<Parameter>
+			<Name>Coefficient</Name>
+			<Description><info><![CDATA[Coefficient of the distance between dots and their predecessor.]]></info></Description>
+			<Value>0.44</Value>
+		</Parameter>
+	</Parameter>
+	<Parameter>
+		<Name>Simulation</Name>
+		<Parameter>
+			<Name>TimeLimit</Name>
+			<Description><info><![CDATA[Max number of simulation steps]]></info></Description>
+			<Value>100000</Value>
+		</Parameter>
+		<Parameter>
+			<Name>ApplicationDir</Name>
+			<Description><info><![CDATA[Directory where the simulation can be found]]></info></Description>
+			<Value>.</Value>
+		</Parameter>
+		<Parameter>
+			<Name>Target</Name>
+			<Description><info><![CDATA[Programme to be executed]]></info></Description>
+			<Value>Chaos.py</Value>
+		</Parameter>
+		<Parameter>
+			<Name>RunConfigFile</Name>
+			<Description><info><![CDATA[Parameter values that will be read by the programme]]></info></Description>
+			<Value>_Params.evo</Value>
+		</Parameter>
+		<Parameter>
+			<Name>Title</Name>
+			<Description><info><![CDATA[Name of the present Configuration Editor]]></info></Description>
+			<Value>Evolife_Chaos</Value>
+		</Parameter>
+		<Parameter>
+			<Name>Icon</Name>
+			<Description><info><![CDATA[local path to window icon]]></info></Description>
+			<Value>dice.png</Value>
+		</Parameter>
+	</Parameter>
+	<Parameter>
+		<Name>Display</Name>
+		<Parameter>
+			<Name>DotSize</Name>
+			<Description><info><![CDATA[Size of dots on display]]></info></Description>
+			<Value>2</Value>
+		</Parameter>
+		<Parameter>
+			<Name>DisplayPeriod</Name>
+			<Description><info><![CDATA[Controls the number of steps when the ant is moving between two nodes. Increase to speed up display (can also be changed with the ruler at execution time)]]></info></Description>
+			<Value>30</Value>
+		</Parameter>
+		<Parameter>
+			<Name>MessageDisplay</Name>
+			<Description><info><![CDATA[Frequency of message display]]></info></Description>
+			<Value>20</Value>
+		</Parameter>
+	</Parameter>
+	<Parameter>
+		<Name>DepthOfSearch</Name>
+		<Description><info><![CDATA[DepthOfSearch]]></info></Description>
+		<Value>4</Value>
+	</Parameter>
+	<Parameter>
+		<Name>DisplaySize</Name>
+		<Description><info><![CDATA[DisplaySize]]></info></Description>
+		<Value>100</Value>
+	</Parameter>
+	<Parameter>
+		<Name>NumberOfHyperlinks</Name>
+		<Description><info><![CDATA[NumberOfHyperlinks]]></info></Description>
+		<Value>4</Value>
+	</Parameter>
+	<Parameter>
+		<Name>AgeMax</Name>
+		<Description><info><![CDATA[AgeMax]]></info></Description>
+		<Value>10</Value>
+	</Parameter>
+	<Parameter>
+		<Name>LoadDecay</Name>
+		<Description><info><![CDATA[LoadDecay]]></info></Description>
+		<Value>20</Value>
+	</Parameter>
+	<Parameter>
+		<Name>AntInfluence</Name>
+		<Description><info><![CDATA[AntInfluence]]></info></Description>
+		<Value>30</Value>
+	</Parameter>
+	<Parameter>
+		<Name>NumberOfWebsites</Name>
+		<Description><info><![CDATA[NumberOfWebsites]]></info></Description>
+		<Value>60</Value>
+	</Parameter>
+</Config>

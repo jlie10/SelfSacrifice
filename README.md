@@ -27,12 +27,22 @@ To do so, we program two scenarios, using [Evolife](https://evolife.telecom-pari
 
 ## Evolife
 
-Evolife has been developed by Jean-Louis Dessalles in order to study various evolutionary phenomena. It is written in Python, and can be downloaded [here](https://evolife.telecom-paristech.fr/Evolife.zip). The code is organized in separated modules - a complete description, including of how to launch Evolife is available on the [site](https://evolife.telecom-paristech.fr).
-A scenario such as the two written here, inherits from 'Default_Scenario'. However, simply rewriting its functions does not allow to modify individuals, as will prove useful in our scenarios (adding a selfSacrifice boolean for instance) - see [Evolife scenario](#evolife-scenario) for a failed / "cheated" attempt. Another (initial) attempt unsuccessfully implemented a purely [Social game](#social-game), where individuals did not inherit from Evolife's 'Individual' module - and hence did not inherit from 'Genes'.
+Evolife has been developed by Jean-Louis Dessalles in order to study various evolutionary phenomena. It is written in Python, and can be downloaded [here](https://evolife.telecom-paristech.fr/Evolife.zip).
+
+BASED ON GENETIC ALGORITHM:  The core of Evolife is a genetic algorithm (GA). In a GA, ‘individuals’ represent variant tentative solutions to a problem. Individuals’ behaviour is controlled by a binary vector called genome or DNA. They live, and reproduce ‘sexually’ (though sexes are usually not differentiated). Reproduction is achieved by hybridizing genomes through crossover. Each ‘year’, best individuals are selected for reproduction. Evolife implements two modes of selection:
+
+    ranking: individuals are ranked according to their score, and are granted a number of potential children that is an increasing (non-linear) function of their rank.
+    differential death: individuals get life points (generally in relation to their score) that protect them from life hazards, and thus increase their life expectancy (and their opportunities to reproduce).
+
+
+The code is organized in separated modules - a complete description, including of how to launch Evolife is available on the [site](https://evolife.telecom-paristech.fr).
+A scenario such as the two written here, inherits from `Default_Scenario`. However, simply rewriting its functions does not allow to modify individuals, as will prove useful in our scenarios (adding a selfSacrifice boolean for instance) - see [Evolife scenario](#evolife-scenario) for a failed / 'cheated; attempt. Another (initial) attempt unsuccessfully implemented a purely [Social game](#social-game), where individuals did not inherit from Evolife's  `Individual` module - and hence did not inherit from  `Genes `.
 
 ## Base scenario
 
-........ etc
+........ etc, genes...
+coller la photo
+param
 
 ### Words
 

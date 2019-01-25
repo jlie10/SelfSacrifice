@@ -1,0 +1,2 @@
+Date;Admiration;AgeAdult;AgeMax;BatchMode;DNAFill;DisplayPeriod;DumpStart;GeneCoding;GeneLength;GroupMinSize;Icon;MaxFollowers;MaxGurus;MutationRate;NbCrossover;NumberOfGroups;PopulationSize;ReproductionRate;ResultDir;Rounds;ScenarioName;SelectionPressure;Selectivity;StartFromFile;TimeLimit;Title;LastStep;SelfSacrifice
+190120134741;1000;5;100;0;-1;10;5000;Weighted;10;0;social-media-social-networking-connections.jpg;10;1;5;1;1;100;5;./___Results;10;SelfSacrifice_Basic;12;0;0;100000;Evolife;6580;6

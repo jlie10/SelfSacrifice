@@ -1,0 +1,17 @@
+AgeMax	10
+AntInfluence	30
+ApplicationDir	.
+DisplayPeriod	30
+DisplaySize	100
+Icon	dice.png
+LoadDecay	20
+MessageDisplay	20
+NumberOfWebsites	60
+NumberOfHyperlinks	4
+DepthOfSearch	4
+RunConfigFile	_Params.evo
+ScenarioFileName	Hyperlink.evo
+ScenarioName	Hyperlink
+Target	Hyperlink.py
+TimeLimit	500000
+Title	Evolife_Hyperlink
