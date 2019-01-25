@@ -130,7 +130,29 @@ This stage is implemented using three python function: sacrifices, honoring and 
 
 ### (3) Computing scores
 
-Scores are at the end of the 'year'. 
+Scores are calculated at the end of the 'year'. Here, the only reason to gain points is through a parents' (or more largely ascendants') sacrifice. This is done through `spillover`
+
+    # spillover
+    def spillover(self, Hero, admiration = 0, kin_transfer = 0.5):
+      """ A hero's descendants benefit from his or her sacrifice,
+        proportionally to how much he or she is honored / admired
+        and depending on how close they are to the hero in the family tree
+        Used in 'evaluation'
+      """
+      tot_benef = percent(admiration * self.Parameter('SacrificeHeredity'))
+      # Some admiration is 'lost' for descendants (the goat is eaten without them, people they will never meet talk about the heroes' values...)
+      if not Hero.Descendants:
+        return	# Hero has no descendants for 'admiration' to spillover to
+      tot_weights = 0
+      for (Desc, gen) in Hero.Descendants:
+        tot_weights += (kin_transfer)^gen
+      for (Desc, gen) in Hero.Descendants:
+        share = (kin_transfer)^gen	# share is coefficient of relatedness by default (depends on the 'KinSelection' parameter)
+        Desc.score(+ share / tot_weights * tot_benef)
+
+
+
+
 ```{python}
 """ Implementation of a lexical decision experiment. """
 
