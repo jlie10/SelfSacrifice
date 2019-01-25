@@ -130,7 +130,7 @@ This stage is implemented using three python function: sacrifices, honoring and 
 
 ### (3) Computing scores
 
-Scores are calculated at the end of the 'year'. Here, the only reason to gain points is through a parents' (or more largely ascendants') sacrifice. This is done through `spillover`
+Scores are calculated at the end of the 'year'. Here, the only reason to gain points is through a parents' (or more largely ascendants') sacrifice. This is done through `spillover`. What a descendant can potentially gain depends on how much his ascendant hero was admired (stored in `hero.admiration`) and how much admiration spills over to descendants in general (controlled by `SacrificeHeredity`; the rest is 'lost' for descendants). In addition, what a particular descendant actually gains will depend on how many other descendants there are, on how far away in the family tree he or she is (more for children than grand-children...) and on repartition between generations (controled by `KinSelection`).
 
     # spillover
     def spillover(self, Hero, admiration = 0, kin_transfer = 0.5):
@@ -149,6 +149,20 @@ Scores are calculated at the end of the 'year'. Here, the only reason to gain po
       for (Desc, gen) in Hero.Descendants:
         share = (kin_transfer)^gen	# share is coefficient of relatedness by default (depends on the 'KinSelection' parameter)
         Desc.score(+ share / tot_weights * tot_benef)
+
+## Actual scenario
+
+Admiration is no longer exogenous and will depend on the (alive) crowd's signaling of its patriotism. The idea is the following: in a certain context, such as intergroup conflict, selecting friends who are commited to the group may become crucial. If you make a mistake and befriend someone who is sympathetic to the other group, you may lose from their indecidedness in the face of danger - or worse, you may even be betrayed (denounced) at the moment of reckoning (e. g. the end of the war). Concurrent with the idea of a moment of reckoning, you own commitment will be questioned by the group and you would benefit from having commited (patriotic) friend.
+
+Together, these create a theoretical impetus to signal one's patriotism to others in order to attract friends. In turn, this makes it more 'interesting' (for one's genes) to self-sacrifice: signaling one's patroitism is a second-order signal; both are expected to be mutually reinforcing in specific conditions such as dire intergroup conflict.
+
+In order to implement this, individuals are given an additional `Honoring` gene, which controls their investment in the second-order signal, and a `Patriotism` phenotype, which will defines how much they are commited to the group (see under).
+
+The basic structure of life_game is not changed.
+
+### (2a) Self-sacrifices
+
+Only `honoring` is changed with respect to before: total social admiration is not given, but will depends on how much a population invests in honoring heroes - which is controlled by their `Honoring` gene.
 
 
 
