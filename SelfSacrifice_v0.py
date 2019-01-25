@@ -11,7 +11,7 @@
 
 
 """ Study of the possibility of self-sacrifice being an ESS
-Simplified 'first-step' (base) version where Admiration is automatic
+Simplified 'first-step' (base) version where Admiration is automatic/exogenous
 """
 
 from random import sample, shuffle, random, choice
@@ -107,10 +107,10 @@ class Scenario(ED.Default_Scenario):
 		"""
 		p = self.deathProbability(indiv)
 		## 'Probablistic' mode:
-		#bool = p > random() and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
+		bool = p > random() and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
 
 		## 'Binary mode': (Individuals are programmed to self-sacrifice at a certain age)
-		bool = p > 0 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
+		#bool = p > 0 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
 		indiv.SelfSacrifice = bool
 		return bool
 

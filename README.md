@@ -1,11 +1,13 @@
 Self-sacrifice
 ===========================
 
-Throughout history, people have been willing to lay down their lives for the sake of their groups or ideology (for a review, see [Whitehouse, 2018](https://www.ncbi.nlm.nih.gov/pubmed/29409552)). Whether hailed as heroes or reviled as terrorists (oftentimes both [ref I/P], depending on the group), self-sacrifiers are generally young, ambitious male adults [ref needed]. Put together, these facts seem to underlie the incompleteness of proximal explanations (e.g. in termes of the contents of a specific ideology) and the inadequateness of a 'pathological' vision of self-sacrifice (whereby self-sacrifice results from unadaptive behavior and/or from miscalculations).
+Throughout history, people have been willing to lay down their lives for the sake of their groups or ideology (for a review, see [Whitehouse, 2018](https://www.ncbi.nlm.nih.gov/pubmed/29409552)). Whether hailed as heroes or reviled as terrorists (oftentimes both, depending on the group), self-sacrifiers are generally young, ambitious male adults. Put together, these facts seem to underlie the incompleteness of proximal explanations (e.g. in termes of the contents of a specific ideology) and the inadequateness of a 'pathological' vision of self-sacrifice (whereby self-sacrifice results from unadaptive behavior and/or from miscalculations).
 
-Could self-sacrifice therefore have a biological function? This project sets the groundwork for investigating whether self-sacrifice could be modeled as a costly social signal [ref Zahavi ? / + JLD], intended to attract friends. Even though costs are extreme here (death), such signaling may remain evolutionarily stable if social status is in part inherited.
+Could self-sacrifice therefore have a biological function? This project sets the groundwork for investigating the (individual) biological motivations that may underlie self-sacrifice (which need not coincide with its moral motivations, which may be geared towards the collective), following a costly social signal model (e. g. [Dessalles, 2014](https://onlinelibrary.wiley.com/doi/full/10.1111/evo.12378). Social signals are meant to attract friends ; in cases wheere the signaled quality correlates with the audience's fitness, such a quality will be in social demand and signaling can therefore bring benefits in terms of social status.
 
-To do so, we program two scenarios, using [Evolife](https://evolife.telecom-paristech.fr/). A simplified scenario establishes the initial framework of the study. A second scenario builds on this base, aiming for a plausible explanation of self-sacrifice.
+However, in the case of self-sacrifice, signalers do not survive to enjoy these potential benefits. An additional hypothesis is needed - we propose that social status be in part inherited. And, to explain why a martyr's children may be in social demand, we propose another additional hypothesis - namely that individuals may want to signal their patriorism by honoring heroes, which may 'spill over' to their desendants (more details later).
+
+We program two scenarios, using [Evolife](https://evolife.telecom-paristech.fr/). A simplified scenario establishes the initial framework of the study. A second scenario builds on this base, aiming for a plausible explanation of self-sacrifice.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
@@ -13,7 +15,10 @@ To do so, we program two scenarios, using [Evolife](https://evolife.telecom-pari
 [Self-Sacrifice](#self-sacrifice)
   - [Evolife](#Evolife)
   - [Base scenario](#base-scenario)
-  - [Actual scenario]
+    - [(2a-i) Individual propensity to self-sacrifice](#2a-i)
+    - [(2b-ii) Population-level self-sacrifice game](#2a-ii)
+    - [(3) Computing scores](#computng-scores)
+  - [Actual scenario](#actual-scenario)
     - [Theoretical argument](#pseudowords)
     - .....
   - [Previous attempts](#initial-attempts)
@@ -29,99 +34,103 @@ To do so, we program two scenarios, using [Evolife](https://evolife.telecom-pari
 
 Evolife has been developed by Jean-Louis Dessalles in order to study various evolutionary phenomena. It is written in Python, and can be downloaded [here](https://evolife.telecom-paristech.fr/Evolife.zip).
 
-BASED ON GENETIC ALGORITHM:  The core of Evolife is a genetic algorithm (GA). In a GA, ‘individuals’ represent variant tentative solutions to a problem. Individuals’ behaviour is controlled by a binary vector called genome or DNA. They live, and reproduce ‘sexually’ (though sexes are usually not differentiated). Reproduction is achieved by hybridizing genomes through crossover. Each ‘year’, best individuals are selected for reproduction. Evolife implements two modes of selection:
+The core of Evolife is a genetic algorithm. Individual's behavior is controlled by a binary vector (genome). They live, reproduce sexually, and gain points in a life_game (see under).
 
-    ranking: individuals are ranked according to their score, and are granted a number of potential children that is an increasing (non-linear) function of their rank.
-    differential death: individuals get life points (generally in relation to their score) that protect them from life hazards, and thus increase their life expectancy (and their opportunities to reproduce).
+Evolife implements two modes of selection:
+    Ranking, whereby individuals are ranked according to their score and are granted a number of potential children that is a in increasing function of their rank - whose sloped is controlled by the `Selectivity` parameter.
+    Differential Death, whereby score lead to life points that protect them from life hazards, thus increasing their life expectancy (and opportunities to reproduce) - relative gains are controlled by the `SelectionPressure` parameter.
 
+While ranking allows for faster convergence, differential death seems more realistic - and will be the subsequent preferred mode of selection (with ranking, having 1 000 001 points is significantly better than having 1 000 000)
 
 The code is organized in separated modules - a complete description, including of how to launch Evolife is available on the [site](https://evolife.telecom-paristech.fr).
-A scenario such as the two written here, inherits from `Default_Scenario`. However, simply rewriting its functions does not allow to modify individuals, as will prove useful in our scenarios (adding a selfSacrifice boolean for instance) - see [Evolife scenario](#evolife-scenario) for a failed / 'cheated; attempt. Another (initial) attempt unsuccessfully implemented a purely [Social game](#social-game), where individuals did not inherit from Evolife's  `Individual` module - and hence did not inherit from  `Genes `.
+A scenario such as the two written here, inherits from `Default_Scenario`. However, simply rewriting its functions does not allow to modify individuals, as will prove useful in our scenarios (adding a selfSacrifice boolean for instance) - see [Evolife scenario](#evolife-scenario) for a failed attempt. Another (initial) attempt unsuccessfully implemented a purely [Social game](#social-game), where individuals did not inherit from Evolife's  `Individual` module - and hence did not inherit from  `Genes `.
 
 ## Base scenario
 
-........ etc, genes...
-coller la photo
-param
+In this simplified scenario, we suppose that admiration of martyrs is a social given (controlled by an `Admiration` parameter) - meaning that we will not implement the second-order signal here (see [Actual scenario](#actual-scenario)).
 
-### Words
+Instead, self-sacrifice of individuals leeds to competition for this exogenous version of social admiration. This does not benefit the martyrs (who die), but can benefit their children, who indirectly benefit from their ascendant being admired.
 
-We obtained a list of French words from <http://lexique.org>, downloading <http://www.lexique.org/public/Lexique382.zip> and unzipping it. Our first step was to reduce the number of columns to make it easier to handle the database.
-To this end, we wrote the script `reduce-lexique.py`:
+The base scenario is implemented in `SelfSacrifice_v0.py`.
 
+The core of the script is the `life_game` function which is where individuals in a population acquire their score. It is launched every year.
 
-    # reduce-lexique.py
-    """ Extracts some columns from Lexique382.txt """
+    # Life_game
+    """ Defines one year of play (outside of reproduction)
+    		This is where individual's acquire their score
+    """
+    # First: make initializations (1)
+    self.start_game(members)
+    # Then: play multipartite game (2)
+    self.sacrifices(members, self.Parameter('MaxHeroes')) 	# (2a) Decides who will self-sacrifice
+    self.interactions(members, self.Parameter('Rounds'))	# (2b) Social interactions
+    # Last: work out final tallies (3)
+    for indiv in members:
+      self.evaluation(indiv)
+    # Scores are translated into life points, which affect individual's survival
+    self.lives(members)
 
-    import pandas as pd
-
-    a = pd.read_csv('Lexique382.txt', sep='\t')
-
-    b = a[['1_ortho', '4_cgram', '15_nblettres', '9_freqfilms2']].rename(columns={
-       '1_ortho': 'ortho',
-       '4_cgram': 'categ',
-       '15_nblettres': 'length',
-       '9_freqfilms2':'freq'})
-
-    b.to_csv('lexique382-reduced.txt', sep='\t', index=False)
-
-
-Then, we selected 4 subsets of nouns and verbs, of length comprosed between 5 and 8, with the following script (`select-word-from-lexique.py`):
+For both scenarios, important individual variables (e. g. score, admiration) impacting the multipartite game are reset using `start_game`. For this basic scenario where admiration is exogenous, social interactions (2b) are not implemented.
 
 
-    import pandas as pd
+### (2a-i) Individual propensity to self-sacrifices
 
-    lex = pd.read_csv("lexique382-reduced.txt", sep='\t')
+An individual's propensity to self-sacrifice for the group is controlled by his `SelfSacrifice` gene, `deathProbability` converts this gene's value into a number between 0 and 1. Self-sacrifice is only possible from a certain age (controlled by `SacrificeMaturity`).
+We propose two 'modes':
+    One 'probabilistic', where a individual's probability of martyrdom is the result of deathProbability.
+    One 'binary', whereby having any non null value for the gene leads to martyrdom.
 
-    subset = lex.loc[(lex.length >= 5) & (lex.length <=8)]
+Because long-term gene levels in the population are the fruit of reproductive dynamics, and order to avoid bugs associated with every individual in a population dying at once, we propose that individuals who self-sacrifice not actually 'die' - but be excluded from reproduction that year. The cost of the signal is thus measured in terms of lost reproductive potential. Individuals who don't have the gene (have a null value) will not face any cost in this base scenario.
 
-    noms = subset.loc[subset.categ == 'NOM']
-    verbs = subset.loc[subset.categ == 'VER']
+### (2a-ii) Population-level self-sacrifice game
 
-    noms_hi = noms.loc[noms.freq > 50.0]
-    noms_low = noms.loc[(noms.freq < 10.0) & (noms.freq > 1.0)]
+This stage is implemented using three python function: sacrifices, honoring and pantheon. The first imlements self-sacrifices at the population level:
 
-    verbs_hi = verbs.loc[verbs.freq > 50.0]
-    verbs_low = verbs.loc[(verbs.freq < 10.0) & (verbs.freq > 1.0)]
+    # sacrifices
+    def sacrifices(self, members, max_heroes=100):
+  		""" Self-sacrifice 'game':
+  			Heroes may self-sacrifice "for the good of the group"
+  			In return they are admired - admiration is exogenous here
+  			Used in 'life_game'
+  		"""
+  		Heroes = []
+  		Cowards = members[:]
+  		for i in range(min(max_heroes,len(members))):
+  			Potential_Hero = choice(Cowards)
+  			if self.selfSacrifice(Potential_Hero):
+  				Heroes.append(Potential_Hero)
+  				Cowards.remove(Potential_Hero)
+  		# In return, heroes are honored (admired) by society
+  		self.honoring(Cowards, Heroes)
 
-    N = 20
+`Honoring` calls `pantheon` with a local `social_admiration` variable, which represents the total amount of admiration that is 'avaialable' for heroes (to compete over). In this base scenario, this is a given (and is the product of an 'Admiration' parameter and total population size).
 
-    noms_hi.sample(N).ortho.to_csv('nomhi.txt', index=False)
-    noms_low.sample(N).ortho.to_csv('nomlo.txt', index=False)
-    verbs_hi.sample(N).ortho.to_csv('verhi.txt', index=False)
-    verbs_hi.sample(N).ortho.to_csv('verlo.txt', index=False)
+'Competition' between heroes for social admiration is defined by `pantheon`. Degree of competition depends on a `HeroCompetivity` parameter (0: equalitarian pantheon; 100: winner-takes-all; anything in between: geometric repartition).
 
-
-This yielded 4 lists in four files:
-
-    nomhi.txt  nomlo.txt  verhi.txt  verlo.txt
-
-
-
-### Pseudowords
-
-Then, to create 80 pseudowords, we used the lexique toolbox pseudoword generator (<http://www.lexique.org/toolbox/toolbox.pub/index.php?page=non_mot>), feeding it with the words generated at the previous step.
-
-We obtained 80 pseudowords, listed in the file `pseudomots.txt`
-
-## Experimental list
-
-Importing the files `nomhi.txt  nomlo.txt  verhi.txt  verlo.txt and pseudomots.txt` into Openoffice Calc, we created a csv file `stimuli.csv`, with 3 columns:
-
-
-    $ head stimuli.csv
-    Category,Frequency,Item
-    NOUN,HIFREQ,ordres
-    NOUN,HIFREQ,reste
-    NOUN,HIFREQ,couteau
-    NOUN,HIFREQ,poisson
-    ...
+    # pantheon
+    def pantheon(self, heroes, social_admiration = 0, competivity_ratio = 100):
+  		""" Heroes 'compete' for admiration
+  			(They have no control over which share of the pie they will receive)
+  			Used in 'honoring'
+  		"""
+  		if not heroes:
+  			return
+  		equa = 1 - competivity_ratio / 100.0
+  		if equa == 1:	# The pantheon is equalitarian
+  			tot_weights = len(heroes)
+  		elif equa >= 0 and equa < 1:
+  			tot_weights = (1-(equa)^len(heroes)) / (1 - equa)	# Geometric sum (python power symbol gave an error with markdown)
+  		else:
+  			error('competivity_ratio must be between 0 and 100')
+  		best_weight = 1 / tot_weights
+  		for Hero in heroes:
+  			Hero.Admiration = best_weight * social_admiration
+  			best_weight = equa * best_weight
 
 
-## Experiment
+### (3) Computing scores
 
-The script to run the experiment uses the module expyriment.
-
+Scores are at the end of the 'year'. 
 ```{python}
 """ Implementation of a lexical decision experiment. """
 
