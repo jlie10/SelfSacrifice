@@ -1,2 +1,0 @@
-Date;DisplayPeriod;DotSize;GeneCoding;GeneLength;Icon;LandSize;MutationRate;NbColours;NbCrossover;NeighbourhoodRadius;NumberOfGroups;PopulationSize;ReproductionRate;ResultDir;ScenarioName;SelectionPressure;Selectivity;TimeLimit;Title;LastStep;SegGene2;SegGene1
-190108173919;20;7;Weighted;8;settler.jpg;30;5;2;1;1;2;500;30;./___Results;SegregationismGA;0;20;300000;Evolife_Segregationism;1480;88;52

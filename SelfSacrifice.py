@@ -52,9 +52,10 @@ class Scenario(Base.Scenario):
 		""" Defines what is to be done at the individual level before interactions
 			occur - Used in 'start_game'
 		"""
-		indiv.score(0, FlagSet = True)	# Sets score to 0
+		indiv.score(100, FlagSet = True)	# Sets score to 100
 		indiv.SignalLevel = 0
 		indiv.Admiration = 0
+		indiv.SelfSacrifice = False
 		#indiv.detach()	# indiv quits his/her friends
 			# Done at the end of the year (evaluation) to avoid friendship with dead individuals
 
@@ -71,9 +72,12 @@ class Scenario(Base.Scenario):
 		"""
 		Offerings = 0
 		for Patriot in patriots:
-			offering = Patriot.gene_value('Honoring')
+			maxvalue = 2 **	self.Parameter('GeneLength') - 1
+				#### oops : convert between 0 and 100
+			offering = Patriot.gene_value('Honoring') / maxvalue * 100
 			# An individual gives (his time, a valuable object, a goat...) proportionally to his or her genes
 			Patriot.SignalLevel += offering
+			#print(offering)
 			# By doing so, a patriot signals his/her patriotism to others, which they will take into account when choosing friends
 			Offerings += offering
 		self.pantheon(heroes, Offerings, self.Parameter('HeroCompetivity'))
@@ -108,14 +112,25 @@ class Scenario(Base.Scenario):
 	def evaluation(self, indiv):
 		indiv.score(- self.costSignal(indiv))
 		if indiv.SelfSacrifice:
+			indiv.score(-1, True)	#cheat
+			#print(indiv.Admiration)
+			#print(indiv.score())
+			#print('\n')
 			self.spillover(indiv, indiv.Admiration, percent(self.Parameter('KinSelection')))
+			indiv.detach()
+			return	# dead individuals don't have friends
+##### NEW : tentative a l'arrache ................
+		if indiv.best_friend() is not None:
+				if not indiv.best_friend().SelfSacrifice:
+					indiv.best_friend().score(+ self.Parameter('JoiningBonus'))
+
 		" It's the end of the war: friends reveal themselves for who they really are "
 		for Friend in indiv.friends.names():
-			print(Friend.Patriotism)
+			#print(Friend.Patriotism)
 			if Friend.Patriotism < percent(self.Parameter('Traitors')*self.Parameter('PopulationSize')):
 				# Friend is a traitor who sells you out
 				indiv.score(- self.Parameter('DenunciationCost'))
-			if Friend.Patriotism > percent(self.Parameter('Patriots')*self.Parameter('PopulationSize')):
+			if Friend.Patriotism > (1-percent(self.Parameter('Patriots'))*self.Parameter('PopulationSize')):
 				# Friend is a true patriot who can vouch for you
 				indiv.score(+ self.Parameter('FriendshipValue'))
 		#print(indiv.ID)
@@ -127,7 +142,11 @@ class Scenario(Base.Scenario):
 		#	return self.Parameter('SignalingCost')	# Fixed Cost mode (not prefered)
 		#else:	# Proportional cost mode (prefered)
 		#	return percent(indiv.SignalLevel * self.Parameter('SignalingCost'))
-		return percent(indiv.SignalLevel * self.Parameter('SignalingCost'))
+		cost = indiv.SignalLevel * (1 - percent(indiv.Patriotism))
+		cost = cost * percent(self.Parameter('SignalingCost'))
+		#print(cost)
+		return cost
+		#return percent(indiv.SignalLevel * self.Parameter('SignalingCost'))
 
 
 class Patriotic_Individual(Base.Individual, EA.Follower):

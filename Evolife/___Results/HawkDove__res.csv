@@ -1,2 +1,0 @@
-Date;AgeMax;BatchMode;BattleCost;DNAFill;DisplayPeriod;DumpStart;GeneCoding;GeneLength;GroupMinSize;Icon;MaxFollowers;MaxGurus;MigrationRate;MutationRate;NbCrossover;Noise;NumberOfGroups;PieToShare;PopulationSize;ReproductionRate;ResultDir;Rounds;ScenarioName;SelectionPressure;Selectivity;StartFromFile;TimeLimit;Title;LastStep;Hawk;Peace
-190120175814;10;0;60;-1;10;30;0;8;0;QtGraphics/EvolifeIcon.png;3;1;5;5;1;0;6;10;200;20;./___Results;10;HawkDove;0;10;0;10000;Evolife;60;23;70

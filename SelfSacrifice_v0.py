@@ -49,6 +49,15 @@ class Scenario(ED.Default_Scenario):
 		#return[('red','SelfSacrifice'), (('yellow', 'average'), ('black', 'best')]
 		#Best and/or average scores can also be displayed
 
+	def update_positions(self, members, start_location):
+		""" locates individuals on an 2D space
+		"""
+		# sorting individuals by gene value
+		duplicate = members[:]
+		duplicate.sort(key=lambda x: x.gene_value('SelfSacrifice'))
+		for m in enumerate(duplicate):
+			m[1].location = (start_location + m[0], m[1].score())
+
 ########################################
 ##### Life_game ####
 ########################################
@@ -60,9 +69,9 @@ class Scenario(ED.Default_Scenario):
 		self.start_game(members)
 		# Then: play multipartite game, composed of:
 			# The sacrifices game (2):
-		self.sacrifices(members, self.Parameter('MaxHeroes'))
+		self.sacrifices(members)
 			# Social interactions between the living (3)
-		self.interactions(members, self.Parameter('Rounds'))
+		#self.interactions(members, self.Parameter('Rounds'))			### TAKING OUT INT so ...
 		# Last: work out final tallies (4)
 		for indiv in members:
 			self.evaluation(indiv)
@@ -83,7 +92,6 @@ class Scenario(ED.Default_Scenario):
 		"""
 		indiv.score(0, FlagSet = True)	# Sets score to 0
 		indiv.Admiration = 0
-		indiv.SelfSacrifice = False
 
 	def start_game(self, members):
 		""" Defines what is to be done at the group level each year
@@ -110,16 +118,18 @@ class Scenario(ED.Default_Scenario):
 		"""
 		p = self.deathProbability(indiv)
 		## 'Probablistic' mode:
-		bool = p > random() and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
+		#bool = p > random() and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
 
 		## 'Binary mode': (Individuals are programmed to self-sacrifice at a certain age)
-		#bool = p > 0 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
+		#bool = p == 1 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
+		bool = p > 0 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
+		
 		indiv.SelfSacrifice = bool
 		return bool
 
 ########################################
 			## (2b) Population-level self-sacrifice game
-	def sacrifices(self, members, max_heroes=100):
+	def sacrifices(self, members):
 		""" Self-sacrifice 'game':
 			Heroes may self-sacrifice "for the good of the group"
 			In return they are admired - admiration is exogenous here
@@ -127,13 +137,18 @@ class Scenario(ED.Default_Scenario):
 		"""
 		Heroes = []
 		Cowards = members[:]
-		for i in range(min(max_heroes,len(members))):
-			Potential_Hero = choice(Cowards)
-			if self.selfSacrifice(Potential_Hero):
-				Heroes.append(Potential_Hero)
-				Cowards.remove(Potential_Hero)
+		for indiv in Cowards:	# Deciding who are the population's heroes
+			if indiv.SelfSacrifice:	# indiv is already a hero (that sacrificed at an earlier round)
+				Heroes.append(indiv)
+				Cowards.remove(indiv)
+			elif self.selfSacrifice(indiv):	# indiv is not already a hero but is given an opportunity to be one
+				Heroes.append(indiv)
+				Cowards.remove(indiv)
+		shuffle(Heroes)	# Hero order is random
 		# In return, heroes are honored (admired) by society
 		self.honoring(Cowards, Heroes)
+		# The rest of society interacts (builds friendships) - see 3
+		self.interactions(Cowards, self.Parameter('Rounds'))
 
 	def honoring(self, patriots, heroes):
 		""" Honoring of heroes - exogenous here
@@ -141,8 +156,9 @@ class Scenario(ED.Default_Scenario):
 			Used in 'sacrifices'
 		"""
 		# Admiration is a social constant, proportional to the size of the population
-		social_admiration = self.Parameter('Admiration')*self.Parameter('PopulationSize')
-		# social_admiration = self.Parameters('Admiration')*len(patriots)	# Variant
+		social_admiration = self.Parameter('Admiration')
+		#social_admiration = self.Parameter('Admiration')*self.Parameter('PopulationSize')
+		#social_admiration = self.Parameters('Admiration')*len(patriots)	# Variant
 		self.pantheon(heroes, social_admiration, self.Parameter('HeroCompetivity'))
 
 	def pantheon(self, heroes, social_admiration = 0, competivity_ratio = 100):
@@ -156,7 +172,7 @@ class Scenario(ED.Default_Scenario):
 		if equa == 1:	# The pantheon is equalitarian
 			tot_weights = len(heroes)
 		elif equa >= 0 and equa < 1:
-			tot_weights = (1-(equa)**len(heroes)) / (1 - equa)	# Geometric sum
+			tot_weights = (1-(equa)**len(heroes)) / (1 - equa)	# Geometric sum (1 if equa is 0)
 		else:
 			error('competivity_ratio must be between 0 and 100')
 		best_weight = 1 / tot_weights
@@ -175,7 +191,7 @@ class Scenario(ED.Default_Scenario):
 			Fan = choice(members)
 			# Fan chooses friends from a sample of Partners
 			Partners = self.partners(Fan, members, int(percent(self.Parameter('SampleSize')\
-																	* (self.Parameter('PopulationSize')-1) )))
+																	* (len(members)-1) )))
 			self.interact(Fan, Partners)
 
 	def interact(self, indiv, partners):
@@ -190,8 +206,8 @@ class Scenario(ED.Default_Scenario):
 		# By default, a partner is randomly chosen
 		partners = members[:]
 		partners.remove(indiv)
-		if sample_size > self.Parameter('PopulationSize'):
-			error('SampleSize is too large (should be between 0 and 100)')
+#		if sample_size > self.Parameter('PopulationSize'):			#@#####
+#			error('SampleSize is too large (should be between 0 and 100)')
 		if sample_size > len(partners):
 			print(len(partners))
 			return partners
@@ -211,6 +227,8 @@ class Scenario(ED.Default_Scenario):
 		if indiv.SelfSacrifice:
 			#self.spillover(indiv, self.Parameter('Admiration'), percent(self.Parameter('KinSelection')))
 			self.spillover(indiv, indiv.Admiration, percent(self.Parameter('KinSelection')))
+		else:
+			indiv.score(+ self.Parameter('AliveBonus'))
 
 	def spillover(self, Hero, admiration = 0, kin_transfer = 0.5):
 		""" A hero's descendants benefit from his or her sacrifice,
@@ -220,6 +238,10 @@ class Scenario(ED.Default_Scenario):
 		"""
 		tot_benef = percent(admiration * self.Parameter('SacrificeHeredity'))
 		# Some admiration is 'lost' for descendants (the goat is eaten without them, people they will never meet talk about the heroes' values...)
+
+		for ChildHero in Hero.Descendants:
+			if ChildHero[0].SelfSacrifice: # Heroes don't get points
+				Hero.Descendants.remove(ChildHero)
 		if not Hero.Descendants:
 			return	# Hero has no descendants for 'admiration' to spillover to
 		tot_weights = 0
@@ -233,6 +255,7 @@ class Scenario(ED.Default_Scenario):
 		""" Converts scores into life points - used in 'life_game'
 			(Unchanged from Default_Scenario: put here for informative purposes)
 		"""
+		i = 0
 		if self.Parameter('SelectionPressure') == 0:
 			return	# 'Selectivity mode' : outcomes depend on relative ranking  (see 'parenthood')
 		if len(members) == 0:
@@ -243,6 +266,11 @@ class Scenario(ED.Default_Scenario):
 		for indiv in members:
 			indiv.LifePoints = (self.Parameter('SelectionPressure') \
 								* (indiv.score() - MinScore))/float(BestScore - MinScore)
+			print(indiv.LifePoints)
+			if indiv.LifePoints > 0: i += 1
+		#print('\n')		
+		#print(i)
+		#print('\n')
 		#### Variant where self-sacrifiers actually die: (not performed here)
 		#if indiv.SelfSacrifice:
 				#indiv.LifePoints = -1	# Individual dies
@@ -386,14 +414,11 @@ class Group(EG.EvolifeGroup):
 				child.mutate()
 				child.update()  # Computes the value of genes, as DNA is available only now
 				if self.Scenario.new_agent(child, C):  # Let scenario decide something about the newcomer (not used here)
-						# Simplified version: only nuclear families
-					self.updateChildren(C[0], child)
-					self.updateChildren(C[1], child)
-						# Slightly more complex version including grand-children, etc.:
-					# self.updateDescendants(C[0], child
-					# self.updateDescendants(C[1], child)
-
-					self.receive(child) # Adds child to the group
+                        # Child is added to parents' children lists
+                    C[0].addChild(child)
+                    C[1].addChild(child)
+            
+                    self.receive(child) # Adds child to the group
 
 ########################################
 ########################################
@@ -429,7 +454,7 @@ class Population(EP.EvolifePopulation):
 ########################################
 ########################################
 
-def Start(Gbl = None, PopClass = Population, ObsClass = None, Capabilities = 'PCG'):
+def Start(Gbl = None, PopClass = Population, ObsClass = None, Capabilities = 'PCGF'):
 	" Launch function "
 	if Gbl == None: Gbl = Scenario()
 	if ObsClass == None: Observer = EO.EvolifeObserver(Gbl)	# Observer contains statistics

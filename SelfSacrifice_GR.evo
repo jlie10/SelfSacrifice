@@ -1,6 +1,6 @@
 # Self-sacrifice 'game' variables
 #### Self-sacrifice and its value for descendants # in (2a) and (3)
-SacrificeHeredity 50
+SacrificeHeredity 100
 HeroCompetivity 0
 SacrificeMaturity 50
 #### Honoring costs # in (2a)
@@ -9,7 +9,7 @@ SignalingCost 100
 Rounds  100
 MaxFriends  10
 SampleSize  20
-JoiningBonus  40
+JoiningBonus  100
 #### Value of friends ### in (3) evaluation
 Traitors  10
 DenunciationCost  100
@@ -28,7 +28,7 @@ ControlGeneNumber	6
 Correction	1
 DNAFill	-1
 GeneCoding	Weighted
-GeneLength	10
+GeneLength	4
 MutationRate	2
 NbCrossover	1
 NoCoding	-1
@@ -46,9 +46,9 @@ Gray	2
 Icon	social-media-social-networking-connections.jpg
 ResultDir	./___Results
 RunConfigFile	_Params.evo
-ScenarioFileName	SelfSacrifice.evo
-ScenarioName	SelfSacrifice
+ScenarioFileName	SelfSacrifice_GR.evo
+ScenarioName	SelfSacrifice_GR
 StartFromFile	0
-Target	SelfSacrifice.py
+Target	SelfSacrifice_GR.py
 TimeLimit	100000
 Title	Evolife
