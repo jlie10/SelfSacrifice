@@ -3,6 +3,7 @@
 SacrificeHeredity 100
 HeroCompetivity 0
 SacrificeMaturity 50
+Admiration  1000
 #### Social interactions # in (3) (and init of indivs) - useless here
 Rounds  100
 SampleSize  20
@@ -21,7 +22,7 @@ ControlGeneNumber	6
 Correction	1
 DNAFill	-1
 GeneCoding	Weighted
-GeneLength	10
+GeneLength	5
 MutationRate	5
 NbCrossover	1
 NoCoding	-1

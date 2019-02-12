@@ -117,7 +117,7 @@ class Scenario(Base.Scenario):
             This signal is used by others to choose their friends
             (keeping in mind this is crucial: see 'evaluation')
         """
-        if Signalers == []:	return
+        if not Signalers:	return
         # The agent chooses the best available Signaler from a sample.
         OldFriend = indiv.best_friend()
         Signalers.sort(key=lambda S: S.SignalLevel, reverse=True)
@@ -142,20 +142,28 @@ class Scenario(Base.Scenario):
             indiv.score(0, FlagSet = True) #### Heroes don't actually die but can't reproduce / have a lower score than alive individuals
             return
         else:
-            if indiv.best_friend() is not None:
-                #Variant: friends from the group you are commited to benefit you
-                indiv.best_friend().score(+ self.Parameter('JoiningBonus')/100.0 \
-                                                * indiv.best_friend().Patriotism / 10)
-
-                #indiv.best_friend().score(+ percent(self.Parameter('JoiningBonus')))
-                # Having friends is beneficial
-            " It's the end of the war: friends reveal themselves for who they really are "
             for Friend in indiv.friends.names():
-                if Friend.Patriotism < percent(self.Parameter('Traitors')*self.Parameter('PopulationSize')):
-                    # Friend is a traitor who sells you out
-                    indiv.score(- 10 * (self.Parameter('DenunciationCost')/100.0) )
-        indiv.detach()	# indiv quits his/her friends
-        print(indiv.score())
+                if Friend.Patriotism > (1-percent(self.Parameter('TruePatriots')))*self.Parameter('PopulationSize'):
+                    # Friend is a true patriot who can vouch for you
+                    indiv.score(+ 10 * (self.Parameter('FriendshipValue')/100) )
+            print(indiv.score())
+            indiv.detach() # indiv quits his/her friends
+
+# too conplicated?
+#            if indiv.best_friend() is not None:
+#                #Variant: friends from the group you are commited to benefit you
+#                indiv.best_friend().score(+ self.Parameter('JoiningBonus')/100.0 \
+#                                                * indiv.best_friend().Patriotism / 10)
+#
+#                #indiv.best_friend().score(+ percent(self.Parameter('JoiningBonus')))
+#                # Having friends is beneficial
+#            " It's the end of the war: friends reveal themselves for who they really are "
+#            for Friend in indiv.friends.names():
+#                if Friend.Patriotism < percent(self.Parameter('Traitors')*self.Parameter('PopulationSize')):
+#                    # Friend is a traitor who sells you out
+#                    indiv.score(- 10 * (self.Parameter('DenunciationCost')/100.0) )
+#        indiv.detach()	# indiv quits his/her friends
+#        #print(indiv.score())
 
     def costSignal(self, indiv):
         return indiv.SignalLevel * (10 - indiv.Patriotism) ## :( variant
@@ -177,10 +185,8 @@ class Patriotic_Individual(Base.Individual, EA.Follower):
         # self.BestSignal = 0
         EA.Follower.__init__(self, Scenario.Parameter('MaxFriends'), Scenario.Parameter('MaxFriends'))
 
-    # TODO : + update / display ---> rpz graphique 2d avec Patriotism
-
-class Group(Base.Group):
-    " In each group, patriotism ranges from 0 to group size (simplification) "
+class Patriotic_Group(Base.Group):
+    " In each group, patriotism is evenly distributed between 0 and 10 "
 
     def __init__(self, Scenario, ID=1, Size=100):
         Base.Group.__init__(self, Scenario, ID, Size)
@@ -224,7 +230,7 @@ class Patriotic_Population(Base.Population):
 
     def createGroup(self, ID=0, Size=0):
         " Calling local class 'Group' "
-        return Group(self.Scenario, ID=ID, Size=Size)
+        return Patriotic_Group(self.Scenario, ID=ID, Size=Size)
 
 
 

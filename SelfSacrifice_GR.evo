@@ -8,11 +8,13 @@ SignalingCost 100
 #### Social interactions # in (2b) (and init of indivs)
 Rounds  100
 MaxFriends  10
-SampleSize  20
-JoiningBonus  100
+SampleSize  100
+JoiningBonus  1000
 #### Value of friends ### in (3) evaluation
 Traitors  10
-DenunciationCost  100
+DenunciationCost  1000
+TruePatriots 10
+FriendshipValue 1000
 
 
 # 'General' population variables
@@ -28,7 +30,7 @@ ControlGeneNumber	6
 Correction	1
 DNAFill	-1
 GeneCoding	Weighted
-GeneLength	4
+GeneLength	5
 MutationRate	2
 NbCrossover	1
 NoCoding	-1

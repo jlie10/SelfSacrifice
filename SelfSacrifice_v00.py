@@ -126,6 +126,11 @@ class Scenario(ED.Default_Scenario):
         #bool = p == 1 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
         bool = p > 0 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
         
+        ## 'Threshold mode': gene codes for the value of the age after which sacrifice occurs
+        # This is a measure of the 'value' of the sacrifice (how much potential reproduction is given up)
+        #bool = indiv.age > (1-p) * self.Parameter('AgeMax')
+        #bool = ( indiv.age > (1-p) * self.Parameter('AgeMax') ) and indiv.age < 0.8 * self.Parameter('AgeMax')
+
         indiv.SelfSacrifice = bool
         return bool
 
@@ -296,7 +301,6 @@ class Individual(EI.EvolifeIndividual):
         self.SelfSacrifice = False
         self.Admiration = 0
         self.Children = []
-        self.score(10, FlagSet = True)  # An individual's initial endowment is 10
 
         EI.EvolifeIndividual.__init__(self, Scenario, ID=ID, Newborn=Newborn)
 
