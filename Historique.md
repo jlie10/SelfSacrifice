@@ -6,8 +6,14 @@
 
 
 
+VERSION ENDO
+
+_GR : GR
+SelfSacrifice.py
 
 
+VERSION interm (sacrifice fixe)
+Honor_GR
 
 
 VERSION EXOGENE

@@ -243,12 +243,14 @@ class Scenario(ED.Default_Scenario):
             A hero's genetic relatives benefit from his/her sacrifice
             rather than his/her actual children
         """
-        Relatives = beneficiaries[:]
-        for indiv in Relatives:
+        AliveRelatives = beneficiaries[:]
+        for indiv in AliveRelatives:
             if not indiv.gene_value('SelfSacrifice') == Hero.gene_value('SelfSacrifice'):
-                Relatives.remove(indiv)
-        for indiv in Relatives:
-            indiv.score(+ Hero.Admiration / len(Relatives))
+                AliveRelatives.remove(indiv)
+            elif indiv.SelfSacrifice:
+                AliveRelatives.remove(indiv)
+        for indiv in AliveRelatives:
+            indiv.score(+ Hero.Admiration / len(AliveRelatives))
 
     def spillover(self, Hero, admiration = 0, kin_transfer = 0.5):
         """ A hero's descendants benefit from his or her sacrifice,
@@ -404,7 +406,7 @@ class Population(EP.EvolifePopulation):
 ########################################
 ########################################
 
-def Start(Gbl = None, PopClass = Population, ObsClass = None, Capabilities = 'PCGF'):
+def Start(Gbl = None, PopClass = Population, ObsClass = None, Capabilities = 'PCGFN'):
     " Launch function "
     if Gbl == None: Gbl = Scenario()
     if ObsClass == None: Observer = EO.EvolifeObserver(Gbl)	# Observer contains statistics

@@ -15,8 +15,6 @@
 Families are assumed to be (exact) genetic relatives
 """
 
-# TODO : limiter le nombre de fana d'un heros ?
-
 #from time import sleep
 #from random import sample, randint, shuffle, random
 from numpy.random import choice
@@ -55,8 +53,9 @@ class Scenario(Base.Scenario):
         #duplicate.sort(key=lambda x: x.gene_value('SelfSacrifice'))
         duplicate.sort(key=lambda x: x.gene_value('Honoring'))
         for m in enumerate(duplicate):
-            #m[1].location = (start_location + m[0], m[1].gene_value('Honoring'))
-            m[1].location = (start_location + m[0], m[1].Patriotism)
+            m[1].location = (start_location + m[0], m[1].gene_value('Honoring'))
+            #m[1].location = (start_location + m[0], m[1].Patriotism)
+            #m[1].location = (start_location + m[0], m[1].score())
 
 ########################################
 ##### Life_game #### (1) Initializations ####
@@ -71,15 +70,38 @@ class Scenario(Base.Scenario):
         #indiv.SelfSacrifice = False    #useful only for probabilistic mode
         #indiv.detach()	# indiv quits his/her friends
             # Done at the end of the year (evaluation) to avoid friendship with dead individuals
+        
+        
+        ##### TEST : corr h and P ####
+        h = indiv.gene_value('Honoring')
+        maxvalue = 2 **	self.Parameter('GeneLength') - 1
+        h = h / maxvalue * 10
+        #indiv.Patriotism = (indiv.Patriotism + h)/2
+        #   indiv.Patriotism = h
+
+
 
     def endowment(self,indiv): 
         """ Defines an individual's starting endowment
             Disloyal individuals are seen here as being loyal to the other group:
             they have already paid a cost to demonstrate that commitment
         """
-        return 10.0  # variant
-        #return indiv.Patriotism # should be between 0 and 10
+        #return 10.0  # variant
+        return indiv.Patriotism # should be between 0 and 10
 
+########################################
+##### TEST: honoring if all self-sacrifice
+########################################
+#    def spilloverSimple(self, Hero, beneficiaries, kin_transfer = 1):
+ #       Relatives = beneficiaries[:]
+#        for indiv in Relatives:
+#            if indiv.SelfSacrifice:
+#                Relatives.remove(indiv)
+ #       for indiv in Relatives:
+  #          indiv.score(+ Hero.Admiration / len(Relatives))
+#
+ #   def deathProbability(self, indiv):
+  #      return 1
 
 ########################################
 ##### Life_game #### (2a) Self-sacrifices ####
@@ -91,20 +113,23 @@ class Scenario(Base.Scenario):
             which is controlled by a gene
             Used in 'sacrifices'
         """
+        if not heroes: return   # you need heroes to be able to honor them
         Offerings = 0
         for Patriot in patriots:
             maxvalue = 2 **	self.Parameter('GeneLength') - 1
-            offering = Patriot.gene_value('Honoring') / maxvalue * 10
+            max_offering = Patriot.gene_value('Honoring') / maxvalue * 10
+            offering = min(self.endowment(Patriot), max_offering)
+                # you can't cut off your arm twice
             # An individual gives (his time, a valuable object, a goat...) proportionally to his or her genes
             # Here, he gives up some or all of his initial endowment of 10 points
             
-            # CHEAT ? variant
-            Patriot.SignalLevel += offering * len(heroes) # CHEAT?
-            Patriot.score(-self.costOffering(Patriot, offering))
+                    # CHEAT ? variant ############ pourquoi j'ai fait ca ?
+                    #Patriot.SignalLevel += offering * len(heroes) # CHEAT?
+                    #Patriot.score(-self.costOffering(Patriot, offering))
             
-            #Patriot.SignalLevel += offering
-            
+            Patriot.SignalLevel += offering
             # By doing so, a patriot signals his/her patriotism to others, which they will take into account when choosing friends
+            
             Offerings += offering
         self.pantheon(heroes, Offerings, self.Parameter('HeroCompetivity'))
 
@@ -136,41 +161,39 @@ class Scenario(Base.Scenario):
 ##### Life_game #### (4) Computing scores and life points ####
 ########################################
     def evaluation(self, indiv, members):
-        #indiv.score(- self.costSignal(indiv))
+        indiv.score(- self.costSignal(indiv))   # cost of offering
+        
         if indiv.SelfSacrifice:
             self.spilloverSimple(indiv, members, percent(self.Parameter('SacrificeHeredity')))
             indiv.score(0, FlagSet = True) #### Heroes don't actually die but can't reproduce / have a lower score than alive individuals
-            return
+                    
         else:
-            for Friend in indiv.friends.names():
-                if Friend.Patriotism > (1-percent(self.Parameter('TruePatriots')))*self.Parameter('PopulationSize'):
-                    # Friend is a true patriot who can vouch for you
-                    indiv.score(+ 10 * (self.Parameter('FriendshipValue')/100) )
-            print(indiv.score())
-            indiv.detach() # indiv quits his/her friends
-
-# too conplicated?
-#            if indiv.best_friend() is not None:
-#                #Variant: friends from the group you are commited to benefit you
+# too conplicated? // CHEAT => look at Coopeartion not Patriotism
+            if indiv.best_friend() is not None:
+                #Variant: friends from the group you are commited to benefit you
 #                indiv.best_friend().score(+ self.Parameter('JoiningBonus')/100.0 \
 #                                                * indiv.best_friend().Patriotism / 10)
-#
-#                #indiv.best_friend().score(+ percent(self.Parameter('JoiningBonus')))
-#                # Having friends is beneficial
-#            " It's the end of the war: friends reveal themselves for who they really are "
-#            for Friend in indiv.friends.names():
-#                if Friend.Patriotism < percent(self.Parameter('Traitors')*self.Parameter('PopulationSize')):
-#                    # Friend is a traitor who sells you out
-#                    indiv.score(- 10 * (self.Parameter('DenunciationCost')/100.0) )
-#        indiv.detach()	# indiv quits his/her friends
-#        #print(indiv.score())
+
+                indiv.best_friend().score(+ percent(self.Parameter('JoiningBonus')))
+
+
+            " It's the end of the war: friends reveal themselves for who they really are "            
+            for Friend in indiv.friends.names():
+                if (Friend.Patriotism > (1-percent(self.Parameter('TruePatriots'))) * 10.0) :
+                    # Friend is a true patriot who can vouch for you
+                    indiv.score(+ 10 * (self.Parameter('FriendshipValue')/100.0) )
+                if (Friend.Patriotism < percent(self.Parameter('Traitors') * 10.0)) :
+                    # Friend is a traitor who sells you out
+                    indiv.score(- 10 * (self.Parameter('DenunciationCost')/100.0) )
+        indiv.detach()	# indiv quits his/her friends
+        #print(indiv.score())
 
     def costSignal(self, indiv):
-        return indiv.SignalLevel * (10 - indiv.Patriotism) ## :( variant
-        #return indiv.SignalLevel * percent(self.Parameter('SignalingCost'))
+        #return indiv.SignalLevel * (10 - indiv.Patriotism) / 10 ## :( variant
+        return indiv.SignalLevel * percent(self.Parameter('SignalingCost'))
 
     def costOffering(self, indiv, offering = 0):
-        return offering * (10 - indiv.Patriotism)
+        return offering * (10 - indiv.Patriotism) / 10
 
 class Patriotic_Individual(Base.Individual, EA.Follower):
     "   Individuals now also have a patriotism phenotype "
@@ -178,6 +201,7 @@ class Patriotic_Individual(Base.Individual, EA.Follower):
     def __init__(self, Scenario, ID, nbPatriots = 100, Newborn=True):
         self.IdNb = int( ID[2:]	)	# ID is constructed as Groupnumber_IdNb - there is always only 1 group
         self.Patriotism = (10.0 * self.IdNb) / nbPatriots
+        self.Patriotism = min(10.0, self.Patriotism)
         # Patriotism should be between 0 and 10
         Base.Individual.__init__(self, Scenario, ID=ID, Newborn=Newborn)
         #self.Offerings = 0		# represents how much one is honored after self-sacrifice (should stay at 0 whilst alive)
@@ -248,4 +272,3 @@ if __name__ == "__main__":
 
 
 
-__author__ = 'Lie and Dessalles'

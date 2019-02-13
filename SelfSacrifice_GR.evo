@@ -9,17 +9,17 @@ SignalingCost 100
 Rounds  100
 MaxFriends  10
 SampleSize  100
-JoiningBonus  1000
+JoiningBonus  100
 #### Value of friends ### in (3) evaluation
 Traitors  10
-DenunciationCost  1000
+DenunciationCost  100
 TruePatriots 10
-FriendshipValue 1000
+FriendshipValue 100
 
 
 # 'General' population variables
 AgeAdult	0
-AgeMax	100
+AgeMax	20  
 GroupMinSize	0
 ReproductionRate	10
 PopulationSize	100
