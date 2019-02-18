@@ -47,6 +47,8 @@ class Scenario(ED.Default_Scenario):
 
     def display_(self):
         return [('red', 'SelfSacrifice')]
+        #return[('red','SelfSacrifice'), (('yellow', 'average'), ('black', 'best')]
+        #Best and/or average scores can also be displayed
 
     def update_positions(self, members, start_location):
         """ locates individuals on an 2D space
@@ -54,12 +56,9 @@ class Scenario(ED.Default_Scenario):
         # sorting individuals by gene value
         duplicate = members[:]
         duplicate.sort(key=lambda x: x.gene_value('SelfSacrifice'))
-        #duplicate.sort(key = lambda x: x.ID)
         for m in enumerate(duplicate):
             m[1].location = (start_location + m[0], m[1].score())
-            #m[1].location = (start_location + m[0], m[1].HeroesRelatedness)
-            #m[1].location = (start_location + m[0], m[1].gene_value('SelfSacrifice'))
-            
+
 ########################################
 ##### Life_game ####
 ########################################
@@ -94,7 +93,7 @@ class Scenario(ED.Default_Scenario):
         """
         indiv.score(10, FlagSet = True)	# Sets score to 10
         indiv.Admiration = 0
-        #indiv.SelfSacrifice = False #for probabilistic + 'castrated zombie' mode
+        #indiv.SelfSacrifice = False #for probabilistic mode
 
     def start_game(self, members):
         """ Defines what is to be done at the group level each year
@@ -152,123 +151,42 @@ class Scenario(ED.Default_Scenario):
             elif self.selfSacrifice(indiv):	# indiv is not already a hero but is given an opportunity to be one
                 Heroes.append(indiv)
                 Cowards.remove(indiv)
+        shuffle(Heroes)	# Hero order is random
         # In return, heroes are honored (admired) by society
         self.honoring(Cowards, Heroes)
         # The rest of society interacts (builds friendships) - see 3
         self.interactions(Cowards, self.Parameter('Rounds'))
 
-#####
-    def honoring_eaf(self, patriots, heroes):
-        """ Simpler version where past heroes and present heroes don't compete
-            Past heroes just add bonus points ---> can explode ?
-        """
-        social_admiration = self.Parameter('Admiration')
-        self.pantheon(heroes, social_admiration, 0, self.Parameter('HeroCompetivity'))
-        self.pastScores(patriots)
-
-    def pastscores(self, patriots):
-        for indiv in patriots:
-            indiv.score(+ indiv.PastScore)
-####
     def honoring(self, patriots, heroes):
         """ Honoring of heroes - exogenous here
             Determines total social admiration heroes will 'compete' over (see 'honoring')
             Used in 'sacrifices'
         """
-        # Admiration is a social constant
+        # Admiration is a social constant, proportional to the size of the population
         social_admiration = self.Parameter('Admiration')
         #social_admiration = self.Parameter('Admiration')*self.Parameter('PopulationSize')
-        #social_admiration = self.Parameters('Admiration')*len(patriots)
+        #social_admiration = self.Parameters('Admiration')*len(patriots)	# Variant
         
-        # Heroes compete for admiration
-        if patriots:
-            past_heroes = max([i.HeroesWitnessed for i in patriots])
-        else:
-            past_heroes = 0
-        remaining_admiration = self.pantheon_simple(heroes, social_admiration, past_heroes)
-        #remaining_admiration = self.pantheon(heroes, social_admiration, past_heroes, self.Parameter('HeroCompetivity'))
-        
-        # Patriots witness heroes' sacrifice
-        if heroes:
-            for indiv in patriots:
-                indiv.HeroesWitnessed += len(heroes)
+        self.pantheon(heroes, social_admiration, self.Parameter('HeroCompetivity'))
 
-        # Alive individuals start off with indirect benefits from past sacrifices
-        self.pastSpillover(patriots, remaining_admiration)
-
-    def pantheon_simple(self, heroes, social_admiration = 0, past_heroes = 0, discount = 0.5):
-        """ Heroes 'compete' for admiration, including with heroes of the past
-            (those that society remembers)
-            Simple equalitarian version         
+    def pantheon(self, heroes, social_admiration = 0, competivity_ratio = 0):
+        """ Heroes 'compete' for admiration
+            (They have no control over which share of the pie they will receive)
             Used in 'honoring'
         """
-        tot_heroes = len(heroes) + past_heroes
-        if tot_heroes == 0:
-            return  0
-        
-        share_past = past_heroes / tot_heroes * discount * social_admiration
-        share_present = social_admiration - share_past
-
-        for Hero in heroes:
-            Hero.Admiration = share_present / len(heroes)
-
-        return share_past
-
-    def pantheon(self, heroes, social_admiration = 0, past_heroes = 0, competivity_ratio = 0, discount = 0.5):
-        """ Heroes 'compete' for admiration, including with heroes of the past
-            (those that society remembers)
-            They have no control over which share of the pie they will receive
-            Used in 'honoring'
-        """
-        #if not heroes:
-        #   return
-        tot_heroes = len(heroes) + past_heroes
-        if tot_heroes == 0:
-            return  0
-        AllHeroes = heroes[:] + list(range(past_heroes))
-        shuffle(AllHeroes)  # Hero order is random
-
+        if not heroes:
+            return
         equa = 1 - competivity_ratio / 100.0
         if equa == 1:	# The pantheon is equalitarian
-            #tot_weights = tot_heroes
-            tot_weights = len(heroes) + past_heroes * discount      # Time discounted version --- others to modify as well
+            tot_weights = len(heroes)
         elif equa >= 0 and equa < 1:
-            tot_weights = (1-(equa)**tot_heroes) / (1 - equa)	# Geometric sum (1 if equa is 0)
+            tot_weights = (1-(equa)**len(heroes)) / (1 - equa)	# Geometric sum (1 if equa is 0)
         else:
             error('competivity_ratio must be between 0 and 100')
-        
-        #best_weight = 1 / tot_weights
-        best_weight = 1 / len(heroes)               # only works for equalitarian pantheon...
-        remaining_admiration = 0
-        for Hero in AllHeroes:
-            if type(Hero) == Individual:
-                Hero.Admiration = best_weight * social_admiration
-            else:
-                remaining_admiration += best_weight * social_admiration * discount
+        best_weight = 1 / tot_weights
+        for Hero in heroes:
+            Hero.Admiration = best_weight * social_admiration
             best_weight = equa * best_weight
-
-        return remaining_admiration
-
-
-    def pastSpillover(self, relatives, admiration = 0, heredity = 1):
-        """ Relatives of heroes fallen in the past benefit from their sacrifice
-            depending on genetic relatedness
-            Used in 'honoring'
-        """
-#        tot_benef = admiration * heredity
-#        # Some admiration is 'lost'     for descendants (the goat is eaten without them, people they will never meet talk about the heroes' values...)
-        if not relatives:
-            return # no surviving relatives for 'admiration' to spillover to
-        if admiration == 0:
-            return # all social admiration 'taken up' by recent heroes
-        tot_weights = 0
-        for indiv in relatives:
-            tot_weights += max(1, indiv.HeroesRelatedness)      # TEST
-            #tot_weights += indiv.HeroesRelatedness
-        if tot_weights == 0:
-            return
-        for indiv in relatives:
-            indiv.score(+ indiv.HeroesRelatedness / tot_weights * admiration)
 
 ########################################
 ##### Life_game #### (3) Social interactions ####
@@ -316,217 +234,40 @@ class Scenario(ED.Default_Scenario):
             Used in 'life_game'
         """
         if indiv.SelfSacrifice:
-            Beneficiaries = self.beneficiaries(indiv, members)
-            self.spillover(indiv, Beneficiaries, indiv.Admiration, percent(self.Parameter('SacrificeHeredity')))
-            #indiv.score(0, FlagSet = True) ### Should be useless...
+            #self.spillover(indiv, indiv.Admiration, percent(self.Parameter('SacrificeHeredity')))
+            self.spilloverSimple(indiv, members, percent(self.Parameter('SacrificeHeredity')))
+            indiv.score(0, FlagSet = True) #### Heroes don't actually die but can't reproduce / have a lower score than alive individuals
 
-    def beneficiaries(self, Hero, members):
-        PotentialRelatives = []
-        for indiv in members:
-            if indiv.ID[0] == Hero.ID[0]:
-                PotentialRelatives.append(indiv)
-        for indiv in PotentialRelatives:
-            if indiv.SelfSacrifice: # Heroes don't survive to receive points
-                PotentialRelatives.remove(indiv)        
-        return PotentialRelatives
+    def spilloverSimple(self, Hero, beneficiaries, kin_transfer = 1):
+        """ Simplified version: (???)
+            A hero's genetic relatives benefit from his/her sacrifice
+            rather than his/her actual children
+        """
+        AliveRelatives = beneficiaries[:]
+        for indiv in AliveRelatives:
+            if not indiv.gene_value('SelfSacrifice') == Hero.gene_value('SelfSacrifice'):
+                AliveRelatives.remove(indiv)
+            elif indiv.SelfSacrifice:
+                AliveRelatives.remove(indiv)
+        for indiv in AliveRelatives:
+            indiv.score(+ Hero.Admiration / len(AliveRelatives))
 
-    def spillover(self, Hero, beneficiaries, admiration = 0, heredity = 1):
+    def spillover(self, Hero, admiration = 0, kin_transfer = 0.5):
         """ A hero's descendants benefit from his or her sacrifice,
             proportionally to how much he or she is honored / admired
             and depending on how close they are to the hero in the family tree
             Used in 'evaluation'
         """
-#        tot_benef = admiration * heredity
-#        # Some admiration is 'lost' for descendants (the goat is eaten without them, people they will never meet talk about the heroes' values...)   
-        tot_weights = 0
-        hero_genome = Hero.get_DNA()[self.Parameter('GeneLength'):]
-
-        #### TEST
-        L = []
-        for indiv in beneficiaries:
-            genome = indiv.get_DNA()[self.Parameter('GeneLength'):]
-            r = self.DNA_test(hero_genome, genome)
-            L.append(r)
-        print(L)
-        print(sum(L)/float(len(L)))
-                        #### C'est la merde
-
-
-
-        ####
-
-        for indiv in beneficiaries:
-            genome = indiv.get_DNA()[self.Parameter('GeneLength'):]
-            share = self.DNA_r_eaf(hero_genome, genome)
-            if share == 0:
-                beneficiaries.remove(indiv)
-            else:
-                tot_weights += share
-        if tot_weights == 0:
-            return # Hero has no kin for 'admiration' to spillover to
-        for relative in beneficiaries:
-            rel_genome = relative.get_DNA()[self.Parameter('GeneLength'):]
-            #genome = indiv.get_DNA()
-            
-            #share = self.same_family(hero_genome, genome)
-            #if indiv.gene_value('SelfSacrifice') == 0:
-            ##       share = 0 #### CHEAT 
-            
-            
-            share = self.DNA_r_eaf(hero_genome, rel_genome)
-                        
-            #if share>0.9: 
-             #   print(Hero.isChild(indiv))
-              #  print(indiv.HeroesRelatedness)
-               # print('\n')
-            #print(share)
-            #print(admiration)
-            #print(tot_weights)
-            #print( share / tot_weights * admiration)
-            indiv.score(+ share / tot_weights * admiration)
-            #print(indiv.score())
-            #print('\n')
-            # PB WITH TOT W // why aren't they removed ??
-            indiv.HeroesRelatedness += share
-
-
-    def DNA_test(self, gen1, gen2, length = 100):
-        r = 0
-        for i in range(length):  # both sequences should be of length 100
-            if gen1[i] == gen2[i]:
-                r += 1
-        r = r / length
-        return r
-
-    def DNA_r_eaf(self, gen1, gen2, length = 100):
-        r = 0
-        for i in range(length):  # both sequences should be of length 100
-            if gen1[i] == gen2[i]:
-                r += 1
-        r = r / length
-        if r - percent(self.Parameter('MutationRate')) < 0.575:
-            return 0
-        #else: print(r)
-        return 2 * (r - 0.5)
-
-
-
-############# Failed stuff #############
-
-
-    def DNA_relatedness(self, gen1, gen2, length = 1000):
-        " tentative avec crossovers "
-        nb_tests = self.Parameter('NbCrossover')
-        l = int(length / nb_tests + 1)
-        max_seq = 0
-        
-        StartingPoints = sample(range(1,length), nb_tests)
-        for i in range(nb_tests):
-        #    common_seq = self.maxseq(StartingPoints[i], min(length, StartingPoints[i] + l), gen1, gen2)
-        #    max_seq += common_seq / nb_tests
-            common_seq = self.largest_seq(max(0, StartingPoints[i]), min(length, StartingPoints[i]+l), gen1, gen2)
-            #if common_seq > max_seq: max_seq = common_seq
-            max_seq += common_seq / nb_tests
-
-        bool = self.DNA_r_distH(gen1, gen2, length)
-        if not bool:
-            return 0
-        elif max_seq < 0.8 * l:
-            return 0
-        return 1
-
-    def same_family(self, gen1, gen2, length = 100):
-        r = 0
-        for i in range(length):  # both sequences should be of length 1000
-            if gen1[i] == gen2[i]:
-                r += 1
-        if r + self.Parameter('MutationRate') > 0.95 * length:
-            return 1
-        else:
-            return 0
-        
-
-
-
-
-    def maxseq(self, start, end, gen1, gen2):
-        max_seq = 0
-        common_seq = 0
-        for i in range(start, end):
-            if gen2[i] == gen1[i]:
-                common_seq += 1
-            else:
-                if common_seq > max_seq: max_seq = common_seq
-                common_seq = 0
-        return max_seq
-
-    def largest_seq(self, start, end, gen1, gen2):
-        right = 0
-        left = 0
-        for i in range(end - start):
-            if gen2[start + i] == gen1 [start + i]:
-                right += 1
-            else:
-                pass
-            if gen2[start - i - 1] == gen1 [start - i - 1]:
-                left += 1
-            else:
-                pass
-        return left + right
-    
-    def DNA_r_distH(self, gen1, gen2, length = 1000):
-        " Fails "
-        r = 0
-        for i in range(length):  # both sequences should be of length 1000
-            if gen1[i] == gen2[i]:
-                r += 1
-        #print(r)
-        r = r / length
-
-        return r > 0.74
-
-        if r > 0.95:
-            return 1
-        elif r > 0.90:
-            return 0.5
-        elif r > 80:
-            return 0.25
-        elif r > 50:
-            return 0.125
-        else:
-            return 0
-
-    def lives(self, members):
-        """ Converts scores into life points - used in 'life_game'
-        """
-        if self.Parameter('SelectionPressure') == 0:
-            return	# 'Selectivity mode' : outcomes depend on relative ranking  (see 'parenthood')
-        AliveMembers = members[:]
-        for hero in AliveMembers:
-            if hero.SelfSacrifice:
-                hero.LifePoints = - 1 # hero dies
-                AliveMembers.remove(hero)
-        if not AliveMembers: return
-        BestScore = max([i.score() for i in AliveMembers])
-        MinScore = min([i.score() for i in AliveMembers])
-        if BestScore == MinScore:
-            return
-        #for indiv in AliveMembers:
-            #indiv.LifePoints =  max(0, indiv.score() - 10) * self.Parameter('SelectionPressure') / (BestScore - MinScore)
-        #    indiv.LifePoints = indiv.score() / 10 * self.Parameter('SelectionPressure')
-        ############ = wierd : not differential death
-        
-        if BestScore < 11: 
-            print('arf')
-            return   # maximum gains are negligeable
-        SP = self.Parameter('SelectionPressure')
-        for indiv in AliveMembers:
-            score = indiv.score()
-            if score < 20:
-                indiv.LifePoints = SP / 4 * (score - 10) / float(BestScore - MinScore)
-            else:
-                indiv.LifePoints = SP * (score - 10) / float(BestScore - MinScore)
-            #print(indiv.LifePoints)
+        tot_benef = admiration * kin_transfer
+        # Some admiration is 'lost' for descendants (the goat is eaten without them, people they will never meet talk about the heroes' values...)
+        Beneficiairies = Hero.Children
+        for childHero in Beneficiairies:
+            if childHero.SelfSacrifice: # Heroes don't get points
+                Beneficiairies.remove(childHero)
+        if not Beneficiairies:
+            return	# Hero has no children for 'admiration' to spillover to
+        for child in Beneficiairies:
+            child.score(+ tot_benef / len(Beneficiairies))
 
 ########################################
 #### Reproduction ####
@@ -548,7 +289,7 @@ class Scenario(ED.Default_Scenario):
         # It is the responsibility of the caller to rank members appropriately
         # Note: reproduction_rate has to be doubled, as it takes two parents to beget a child
         for ParentID in enumerate(ValidCandidates):
-            candidates[ParentID[0]][1] = chances(decrease(ParentID[0],len(ValidCandidates), self.Parameter('Selectivity')), 2 * Def_Nb_Children)
+            candidates[ParentID[0]][1] = chances(decrease(ParentID[0],len(RankedCandidates), self.Parameter('Selectivity')), 2 * Def_Nb_Children)
         return candidates
 
 ########################################
@@ -561,11 +302,8 @@ class Individual(EI.EvolifeIndividual):
     def __init__(self, Scenario, ID=None, Newborn=True):
         self.SelfSacrifice = False
         self.Admiration = 0
-        self.HeroesRelatedness = 0
-        self.HeroesWitnessed = 0
-        self.PastScore = 0
-
         self.Children = []
+
         EI.EvolifeIndividual.__init__(self, Scenario, ID=ID, Newborn=Newborn)
 
     def isChild(self, Indiv):
@@ -603,24 +341,6 @@ class Group(EG.EvolifeGroup):
         self.Scenario.new_agent(Indiv, None)  # Let scenario know that there is a newcomer (unused)
         return Indiv
 
-    def update_(self, flagRanking = False, display=False):
-        """ updates various facts about the group
-        """
-        # removing old chaps
-        for m in self.members[:]:  # must duplicate the list to avoid looping over a modifying list
-            if m.dead():	self.remove_(self.members.index(m))
-        self.size = len(self.members)
-        if self.size == 0:	return 0
-        # ranking individuals
-        if flagRanking:
-            # ranking individuals in the group according to their score
-            self.ranking = self.members[:]	  # duplicates the list, not the elements
-            self.ranking.sort(key=lambda x: x.score(),reverse=True)
-            if self.ranking != [] and self.ranking[0].score() < 15:           #### RANDOM THRESHOLD = 15
-                # all scores are zero
-                shuffle(self.ranking)  # not always the same ones first
-            self.best_score = self.ranking[0].score()
-        return self.size
 
 
     def remove_(self, memberNbr):
@@ -681,16 +401,6 @@ class Population(EP.EvolifePopulation):
         #	for gr in self.groups:
         #		gr.reproduction()
         self.update()
-    
-    def life_game(self):
-        # Let's play the game as defined in the scenario
-        members = []
-        for group in self.groups:
-            for indiv in group.members:
-                members.append(indiv)
-        
-        self.Scenario.life_game(members)
-        # life game is supposed to change individual scores and life points
 
 ########################################
 ########################################
