@@ -1,0 +1,11 @@
+SacrificeMaturity 0-100 25
+Admiration  0-2000  500
+AgeMax	0-100   25
+ReproductionRate	5-25    5
+PopulationSize	1000
+NumberOfGroups	1
+GeneLength	5
+MutationRate	1-11    5
+SelectionPressure	0   10
+Selectivity	0   10
+BatchMode	1

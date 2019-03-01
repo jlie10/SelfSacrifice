@@ -16,6 +16,7 @@ And families are (exact) genetic relatives
 """
 
 from random import sample, shuffle, random, choice, randint
+from math import exp, log
 from time import sleep
 
 import sys
@@ -46,7 +47,7 @@ class Scenario(ED.Default_Scenario):
     def genemap(self):
         """ Defines the name of genes and their position on the DNA.
         """
-        return [('SelfSacrifice'), ('Genome', 1000)] 		# gene length (in bits) is read from configuration
+        return [('SelfSacrifice'), ('Genome', 100)] 		# gene length (in bits) is read from configuration
 
     def display_(self):
         return [('red', 'SelfSacrifice')]
@@ -60,6 +61,7 @@ class Scenario(ED.Default_Scenario):
         #duplicate.sort(key = lambda x: x.ID)
         for m in enumerate(duplicate):
             m[1].location = (start_location + m[0], m[1].score() )
+            #m[1].location = (start_location + m[0], m[1].LifePoints)
             #m[1].location = (start_location + m[0], m[1].HeroesRelatedness)
             #m[1].location = (start_location + m[0], m[1].gene_value('SelfSacrifice'))
     
@@ -135,10 +137,13 @@ class Scenario(ED.Default_Scenario):
         p = self.deathProbability(indiv)
         ## 'Probablistic' mode:
         #bool = p > random() and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
+        if p!=1: q = 1 - exp((log(1-p))/self.Parameter('AgeMax')*(1-percent(self.Parameter('SacrificeMaturity'))))  # => proba p de mourir a cause du gene
+        else: q = 1
+        bool = q > random() and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
 
         ## 'Binary mode': (Individuals are programmed to self-sacrifice at a certain age)
         #bool = p == 1 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
-        bool = p > 0 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
+        #bool = p > 0 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
         
         ## 'Threshold mode': gene codes for the value of the age after which sacrifice occurs
         # This is a measure of the 'value' of the sacrifice (how much potential reproduction is given up)
@@ -158,7 +163,7 @@ class Scenario(ED.Default_Scenario):
         """
         Heroes = []
         Cowards = members[:]
-        for indiv in Cowards:	# Deciding who are the population's heroes
+        for indiv in members:	# Deciding who are the population's heroes
             if indiv.SelfSacrifice:	# indiv is already a hero (that sacrificed at an earlier round)
                 Heroes.append(indiv)
                 Cowards.remove(indiv)
@@ -223,7 +228,7 @@ class Scenario(ED.Default_Scenario):
         share_present = social_admiration - share_past
         for Hero in heroes:
             Hero.Admiration = share_present / len(heroes)
-
+        print('There are {} heroes \n'.format(len(heroes)))
         return share_past
 
     def pantheon(self, heroes, social_admiration = 0, past_heroes = 0, competivity_ratio = 0, discount = 0.5):
@@ -328,7 +333,7 @@ class Scenario(ED.Default_Scenario):
         if indiv.SelfSacrifice:
             Beneficiaries = self.beneficiaries(indiv, members)
             self.spillover(indiv, Beneficiaries, indiv.Admiration, percent(self.Parameter('SacrificeHeredity')))
-            #indiv.score(0, FlagSet = True) ### Should be useless...
+            indiv.score(0, FlagSet = True) ### Should be useless...
 
     def beneficiaries(self, Hero, members):
         #PotentialRelatives = []        # useful if several groups to which repro is limited
@@ -366,43 +371,63 @@ class Scenario(ED.Default_Scenario):
         for indiv in Benef:
             genome = indiv.get_DNA()[self.Parameter('GeneLength'):]
             share = self.DNA_r_eaf(hero_genome, genome)
+            #share = self.DNA_r_eaf2(hero_genome, genome)
+
             if share == 0:
                 beneficiaries.remove(indiv)
             else:
                 tot_weights += share
         if tot_weights == 0:
             return # Hero has no kin for 'admiration' to spillover to
+        print('{} has {} beneficiaries \n'.format(Hero.ID, len(beneficiaries)))
+        score = 0
         for relative in beneficiaries:
+
             rel_genome = relative.get_DNA()[self.Parameter('GeneLength'):]
             #share = self.same_family(hero_genome, genome)
             #if indiv.gene_value('SelfSacrifice') == 0:
             ##       share = 0 #### CHEAT 
             share = self.DNA_r_eaf(hero_genome, rel_genome)
+            #share = self.DNA_r_eaf2(hero_genome, rel_genome)
 ### Test child                        
             #if share>0.7: 
             #    print(Hero.isChild(relative))
             #    print(indiv.HeroesRelatedness)
             #    print('\n')
 ### 
-            indiv.score(+ share / tot_weights * admiration)
+            relative.score(+ share / tot_weights * admiration)
                         # PB WITH TOT W // why aren't they removed ??
-            indiv.HeroesRelatedness += share
+            relative.HeroesRelatedness += share
+            score += relative.score()
+        print(score/len(beneficiaries))
 
-    def DNA_test(self, gen1, gen2, length = 1000):
+    def DNA_test(self, gen1, gen2, length = 100):
         r = 0
-        for i in range(length):  # both sequences should be of length 1000
+        for i in range(length):  # both sequences should be of length 100
             if gen1[i] == gen2[i]:
                 r += 1
         r = r / length
         return r
 
-    def DNA_r_eaf(self, gen1, gen2, length = 1000, noise = 10):
+    def DNA_r_eaf(self, gen1, gen2, length = 100, noise = 10):
         r = 0
-        for i in range(length):  # both sequences should be of length 1000
+        for i in range(length):  # both sequences should be of length 100
             if gen1[i] == gen2[i]:
                 r += 1
         r = r / length
         if r < 0.550:
+        #if r - percent(self.Parameter('MutationRate')) - noise/length < 0.575:
+            return 0
+        #else: print(r)
+        return 2 * (r - 0.5)
+
+    def DNA_r_eaf2(self, gen1, gen2, length = 100, noise = 10):
+        r = 0
+        for i in range(length):  # both sequences should be of length 100
+            if gen1[i] == gen2[i]:
+                r += 1
+        r = r / length
+        if r < 0.9:
         #if r - percent(self.Parameter('MutationRate')) - noise/length < 0.575:
             return 0
         #else: print(r)
@@ -542,13 +567,14 @@ class Scenario(ED.Default_Scenario):
         SP = self.Parameter('SelectionPressure')
         for indiv in AliveMembers:
             score = indiv.score()
-            if score < 20:
+            #if score<20:
+            if score < 11:
                 indiv.LifePoints = 0
             elif score < 100:
                 indiv.LifePoints = SP * score / 500
             else:
                 indiv.LifePoints = SP * score / 100
-            print(indiv.LifePoints)
+            #print(indiv.LifePoints)
 
 
 
@@ -584,6 +610,36 @@ class Scenario(ED.Default_Scenario):
 
 class DNA(Gen.DNA):
     
+    def __init__(self, Scenario, Nb_nucleotides):
+        self.Scenario = Scenario
+        self.nb_nucleotides = Nb_nucleotides
+        self.__dna = []
+        Init_Families = self.Scenario.Parameter('InitFamilies', Default = None)
+        excluded = self.Scenario.Parameter('GeneLength')
+        if Init_Families:
+            family_nb = randint(1, Init_Families)
+            for i in range(self.nb_nucleotides):
+                if i < excluded:    # SelfSacrifice gene
+                        #self.__dna.append(randint(0,1))
+                        #self.__dna.append(0)
+                        #if family_nb ==1: self.__dna.append(randint(0,1))
+                        if family_nb ==1 and i == 0: self.__dna.append(1)
+                        #if family_nb !=1: self.__dna.append(1) # for test
+                        #if family_nb !=1: self.__dna.append(randint(0,1)) # for test
+                        else: self.__dna.append(0) # triche
+                elif (family_nb - 1) * 1000 / Init_Families < i - excluded < family_nb * 1000 / Init_Families:
+                        self.__dna.append(1)
+                else:
+                        self.__dna.append(0)
+            return
+        
+        Fill = self.Scenario.Parameter('DNAFill', Default=-1)	# 0 or 1 or -1=random
+        for pos in range(self.nb_nucleotides):
+            if (Fill==1):	self.__dna.append(1)
+            elif (Fill==0):	self.__dna.append(0)
+            else:			self.__dna.append(randint(0,1))
+        #if NUMPY:	self.__dna = numpy.array(self.__dna)	# doesn't seem to be verif y efficient !
+            
     def noise(self, excluded = 0, maxloci = 10):
         " Adds noise to the 'family' gene to prevent convergence / 'free-riding' "
         for pertub in range(maxloci):
@@ -646,24 +702,25 @@ class Group(EG.EvolifeGroup):
         self.Scenario.new_agent(Indiv, None)  # Let scenario know that there is a newcomer (unused)
         return Indiv
 
-    #def update_(self, flagRanking = False, display=False):
+    def update_(self, flagRanking = False, display=False):
         """ updates various facts about the group
         """
         # removing old chaps
-        #for m in self.members[:]:  # must duplicate the list to avoid looping over a modifying list
-        #    if m.dead():	self.remove_(self.members.index(m))
-        #self.size = len(self.members)
-        #if self.size == 0:	return 0
+        for m in self.members[:]:  # must duplicate the list to avoid looping over a modifying list
+            if m.dead():	self.remove_(self.members.index(m))
+            if m.SelfSacrifice:	self.remove_(self.members.index(m)) # heroes die ################### ??
+        self.size = len(self.members)
+        if self.size == 0:	return 0
         # ranking individuals
-        #if flagRanking:
+        if flagRanking:
             # ranking individuals in the group according to their score
-        #    self.ranking = self.members[:]	  # duplicates the list, not the elements
-        #    self.ranking.sort(key=lambda x: x.score(),reverse=True)
-        #    if self.ranking != [] and self.ranking[0].score() < 15:           #### RANDOM THRESHOLD = 15
+            self.ranking = self.members[:]	  # duplicates the list, not the elements
+            self.ranking.sort(key=lambda x: int(x.score()/10),reverse=True)
+            if self.ranking != [] and self.ranking[0].score() < 15:           #### RANDOM THRESHOLD = 15
                 # all scores are zero
-        #        shuffle(self.ranking)  # not always the same ones first
-        #    self.best_score = self.ranking[0].score()
-        #return self.size
+                shuffle(self.ranking)  # not always the same ones first
+            self.best_score = self.ranking[0].score()
+        return self.size
 
 
     def remove_(self, memberNbr):
@@ -687,7 +744,7 @@ class Group(EG.EvolifeGroup):
             if child:
                 child.hybrid(C[0],C[1]) # Child's DNA results from parents' DNA crossover
                 child.mutate()
-                child.noise(excluded = self.Scenario.Parameter('GeneLength'), maxloci = 50)
+                child.noise(excluded = self.Scenario.Parameter('GeneLength'), maxloci = self.Scenario.Parameter('GeneticNoise'))
                 child.update()  # Computes the value of genes, as DNA is available only now
                 if self.Scenario.new_agent(child, C):  # Let scenario decide something about the newcomer (not used here)
                         # Child is added to parents' children lists
