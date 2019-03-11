@@ -9,7 +9,7 @@
 # License:  Creative Commons BY-NC-SA                                        #
 ##############################################################################
 
-
+#TEST : avec admiration
 """ Study of the possibility of self-sacrifice being an ESS
 Simplified 'first-step' (base) version where Admiration is automatic/exogenous
 'Family gene' version
@@ -49,9 +49,9 @@ class Scenario(Base.Scenario):
         duplicate.sort(key=lambda x: x.gene_value('SelfSacrifice'))
         #duplicate.sort(key = lambda x: x.ID)
         for m in enumerate(duplicate):
-            m[1].location = (start_location + m[0], m[1].score() )
+            #m[1].location = (start_location + m[0], m[1].score() )
             #m[1].location = (start_location + m[0], m[1].Share )
-            #m[1].location = (start_location + m[0], m[1].LifePoints)
+            m[1].location = (start_location + m[0], m[1].LifePoints)
             #m[1].location = (start_location + m[0], m[1].HeroesRelatedness)
             #m[1].location = (start_location + m[0], m[1].gene_value('SelfSacrifice'))
     
@@ -75,35 +75,12 @@ class Scenario(Base.Scenario):
         #indiv.Share = 0
         #indiv.SelfSacrifice = False #for probabilistic + 'castrated zombie' mode
 
-
 ########################################
 ##### Life_game #### (2) Self-sacrifices ####
 ########################################
             ## (2b) Population-level self-sacrifice game
-    def sacrifices(self, members):
-        """ Self-sacrifice 'game':
-            Heroes may self-sacrifice "for the good of the group"
-            In return they are admired - admiration is exogenous here
-            Used in 'life_game'
-        """
-        Heroes = []
-        Cowards = members[:]
-        for indiv in members:	# Deciding who are the population's heroes
-            if indiv.SelfSacrifice:	# indiv is already a hero (that sacrificed at an earlier round)
-                Heroes.append(indiv)
-                Cowards.remove(indiv)
-            elif self.selfSacrifice(indiv):	# indiv is not already a hero but is given an opportunity to be one
-                Heroes.append(indiv)
-                Cowards.remove(indiv)
-        # In return, heroes are honored (admired) by society
-        #self.honoring(Cowards, Heroes)
-        self.spillover_relatives(Heroes, Cowards)
-        self.kill_heroes(Heroes)
-        # The rest of society interacts (builds friendships) - see 3
-        #self.interactions(Cowards, self.Parameter('Rounds'))           #USELESS HERE
-        return Cowards
 
-    def spillover_relatives(self, heroes, relatives):
+    def inc_shares(self, heroes, relatives):
         """ Genetic relatives of heroes benefit from their sacrifice
             Used in 'honoring'
         """
@@ -112,12 +89,11 @@ class Scenario(Base.Scenario):
             share_Hero = 0
             for PotentialRelative in relatives:
                 prel_gen = PotentialRelative.get_DNA()[self.Parameter('GeneLength'):]
-                share_Hero += PotentialRelative.Share
                 PotentialRelative.Share += self.genetic_relatedness(hero_gen, prel_gen)
                 share_Hero += PotentialRelative.Share
-            print(Hero.ID)
-            print(share_Hero / len(relatives))
-            print('\n')
+            #print(Hero.ID)
+           #print(share_Hero / len(relatives))
+            #print('\n')
 
     def genetic_relatedness(self, gen1, gen2, length = 100):
         r = 0
@@ -130,17 +106,37 @@ class Scenario(Base.Scenario):
             return 0
         return 2 * (r - 0.5)
 
+    def spillover(self, members, admiration=0):
+        Benef = members[:]
+        Benef.sort(key =lambda x: x.Share, reverse = True)
+        if Benef[0].Share == 0: return
+        max_benef = int(percent(self.Parameter('NbBeneficiaries')) * self.Parameter('PopulationSize'))
+        if len(Benef) > max_benef:
+            Benef = Benef[:max_benef]
+        tot_share = 0
+        for indiv in Benef:
+            tot_share += indiv.Share**2
+        for indiv in Benef:
+            print(indiv.Share)
+            indiv.score(+ indiv.Share**2 / tot_share * admiration)
+            print(indiv.score())
+        print('\n')
+
+
 ########################################
 ########################################
 ########################################
 
 class DNA(Gen.DNA):
     
-    #def __init__(self, Scenario, Nb_nucleotides):
+    def __init__(self, Scenario, Nb_nucleotides):
+        Gen.DNA.__init__(Scenario, Nb_nucleotides)
                     
     def noise(self, excluded = 0, maxloci = 5):
         " Adds noise to the 'family' gene to prevent convergence / 'free-riding' "
+        print(maxloci)
         for pertub in range(maxloci):
+            pos = pertub+excluded
             pos = randint(excluded, self.nb_nucleotides - 1)     # Noise should only affect the 'family' gene
             if random() < 0.5:
                 self.__dna[pos] = 0
@@ -155,22 +151,18 @@ class Individual(Base.Individual, DNA):
     "   Defines what an individual consists of "
 
     def __init__(self, Scenario, ID=None, Newborn=True):
-        self.SelfSacrifice = False
         self.Admiration = 0
-        
+        self.LifePoints = randint(0, Scenario.Parameter('SelectionPressure'))
         #self.HeroesRelatedness = 0
         #self.HeroesWitnessed = 0
         #self.PastScore = 0
 
         self.Share = 0
-        #if Newborn:
-        #    self.LifePoints = 100 # Test vs morta infantile
-        #else:
-        #    self.LifePoints = 0 
-
-
-        self.Children = []  # useless here
-        EI.EvolifeIndividual.__init__(self, Scenario, ID=ID, Newborn=Newborn)
+        if Newborn:
+            self.LifePoints = 100 # Test vs morta infantile
+        else:
+            self.LifePoints = 0 
+        Base.Individual.__init__(self, Scenario, ID=ID, Newborn=Newborn)
         DNA.__init__(self, Scenario, Scenario.geneMap_length())
 
   
@@ -228,15 +220,12 @@ class Group(Base.Group):
             child = Individual(self.Scenario,ID=self.free_ID(), Newborn=True)
             if child:
                 child.hybrid(C[0],C[1]) # Child's DNA results from parents' DNA crossover
-                child.mutate()
-                #child.inherit_share(C[0],C[1])
                 child.noise(excluded = self.Scenario.Parameter('GeneLength'), maxloci = self.Scenario.Parameter('GeneticNoise'))
+
+                child.mutate()
+                child.inherit_share(C[0],C[1], discount = self.Scenario.Parameter('Share'))
                 child.update()  # Computes the value of genes, as DNA is available only now
                 if self.Scenario.new_agent(child, C):  # Let scenario decide something about the newcomer (not used here)
-                        # Child is added to parents' children lists
-                    C[0].addChild(child)
-                    C[1].addChild(child)        #useless here - just for test
-            
                     self.receive(child) # Adds child to the group
 
 ########################################

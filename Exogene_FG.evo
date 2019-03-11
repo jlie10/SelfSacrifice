@@ -1,15 +1,15 @@
 #### Useful param
-Admiration  100
-AgeMax	50
-ReproductionRate	20
-PopulationSize	100
-MutationRate	2
-GeneLength	5
-BatchMode	1
-GeneticNoise    5
-InitFamilies    0
+Admiration 100
+AgeMax 40
+SacrificeHeredity 50
+ReproductionRate 15
+PopulationSize	200
+NbBeneficiaries 30
+MutationRate	5
+GeneLength	8
+BatchMode	0
 TimeLimit	10000
-
+GeneticNoise    5
 
 #### Other stuff
 # Self-sacrifice 'game' variables

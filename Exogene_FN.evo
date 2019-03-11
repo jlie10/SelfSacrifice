@@ -1,24 +1,19 @@
 #### Useful param
-## Mode
-LongTerm    1
-Baseline    0
-Forgetfullness  50
-SacrificeHeredity 50
-Precision   1000
-##
-Admiration 50
-AgeMax 40
-ReproductionRate 15
+Admiration  100
+AgeMax	40
+ReproductionRate	15
 PopulationSize	200
 MutationRate	5
 GeneLength	8
 BatchMode	0
+NbNames 3
 TimeLimit	10000
 
 
 #### Other stuff
 # Self-sacrifice 'game' variables
 #### Self-sacrifice and its value for descendants # in (2b) and (4)
+SacrificeHeredity 100
 HeroCompetivity 0
 #### Social interactions # in (3) (and init of indivs) - useless here
 Rounds  1
@@ -49,8 +44,8 @@ DumpStart	5000
 Gray	2
 ResultDir	./___Results
 RunConfigFile	_Params.evo
-ScenarioFileName	Exogene.evo
-ScenarioName	Exogene
+ScenarioFileName	Exogene_FN.evo
+ScenarioName	Exogene_FN
 StartFromFile	0
-Target	Exogene.py
+Target	Exogene_FN.py
 Title	Evolife

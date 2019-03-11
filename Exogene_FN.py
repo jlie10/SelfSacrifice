@@ -12,10 +12,10 @@
 
 """ Study of the possibility of self-sacrifice being an ESS
 Simplified 'first-step' (base) version where Admiration is automatic/exogenous
-'Family gene' version
+'Family name' version
 """
 
-from random import shuffle, random, randint
+from random import shuffle, random, randint, choice, randint
 
 import Exogene as Base
 
@@ -23,7 +23,7 @@ import sys
 sys.path.append('..')
 sys.path.append('../../..')
 
-import Evolife.Genetics.DNA as Gen
+import Evolife.Ecology.Phenotype as Phen
 
 from Evolife.Tools.Tools import percent
 
@@ -33,14 +33,11 @@ class Scenario(Base.Scenario):
 #### General initializations and visual display ####
 ########################################
 
-    def genemap(self):
-        """ Defines the name of genes and their position on the DNA.
-        """
-        return [('SelfSacrifice'), ('Family', 100)] 		# gene length (in bits) is read from configuration
-
-    def display_(self):
-        return [('red', 'SelfSacrifice')]
-
+#    def phenemap(self):
+#        """ Defines the set of non inheritable characteristics
+#        """
+ #       return['Name1', 'Name2', 'Name3', 'Name4', 'Name5', 'Name6']
+        
     def update_positions(self, members, start_location):
         """ locates individuals on an 2D space
         """
@@ -71,7 +68,8 @@ class Scenario(Base.Scenario):
         """ Defines what is to be done at the individual level before interactions
             occur - Used in 'start_game'
         """
-        indiv.score(50, FlagSet = True)	# Sets score to 50
+        indiv.score(0, FlagSet = True)	# Sets score to 0
+        #indiv.Admiration = 0
         #indiv.Share = 0
         #indiv.SelfSacrifice = False #for probabilistic + 'castrated zombie' mode
 
@@ -79,101 +77,113 @@ class Scenario(Base.Scenario):
 ########################################
 ##### Life_game #### (2) Self-sacrifices ####
 ########################################
-            ## (2b) Population-level self-sacrifice game
-    def sacrifices(self, members):
-        """ Self-sacrifice 'game':
-            Heroes may self-sacrifice "for the good of the group"
-            In return they are admired - admiration is exogenous here
-            Used in 'life_game'
-        """
-        Heroes = []
-        Cowards = members[:]
-        for indiv in members:	# Deciding who are the population's heroes
-            if indiv.SelfSacrifice:	# indiv is already a hero (that sacrificed at an earlier round)
-                Heroes.append(indiv)
-                Cowards.remove(indiv)
-            elif self.selfSacrifice(indiv):	# indiv is not already a hero but is given an opportunity to be one
-                Heroes.append(indiv)
-                Cowards.remove(indiv)
-        # In return, heroes are honored (admired) by society
-        #self.honoring(Cowards, Heroes)
-        self.spillover_relatives(Heroes, Cowards)
-        self.kill_heroes(Heroes)
-        # The rest of society interacts (builds friendships) - see 3
-        #self.interactions(Cowards, self.Parameter('Rounds'))           #USELESS HERE
-        return Cowards
+    
+    def inc_shares_brutal_echec(self, heroes, relatives):
+        for Hero in heroes:
+            self.inc_name(Hero, relatives)
+        for indiv in relatives:
+            for name in indiv.FamilyNames:
+                indiv.Share += name[1]
+                print(indiv.Share)        
 
-    def spillover_relatives(self, heroes, relatives):
+    def inc_name(self, hero, members):
+        for name in hero.FamilyNames:
+            for indiv in members:
+                for name_i in indiv.FamilyNames:
+                    if name[0]==name_i[0]:
+                        name_i[1] += 1
+    
+    def inc_shares(self, heroes, relatives):
         """ Genetic relatives of heroes benefit from their sacrifice
             Used in 'honoring'
         """
         for Hero in heroes:
-            hero_gen = Hero.get_DNA()[self.Parameter('GeneLength'):]
-            share_Hero = 0
             for PotentialRelative in relatives:
-                prel_gen = PotentialRelative.get_DNA()[self.Parameter('GeneLength'):]
-                share_Hero += PotentialRelative.Share
-                PotentialRelative.Share += self.genetic_relatedness(hero_gen, prel_gen)
-                share_Hero += PotentialRelative.Share
-            print(Hero.ID)
-            print(share_Hero / len(relatives))
-            print('\n')
+                PotentialRelative.Share += self.relatedness(Hero, PotentialRelative)
 
-    def genetic_relatedness(self, gen1, gen2, length = 100):
-        r = 0
-        for i in range(length):  # both sequences should be of length 100
-            if gen1[i] == gen2[i]:
-                r += 1
-        r = r / length
-        if r < 0.7:
-        #if r - percent(self.Parameter('MutationRate')) - noise/length < 0.575:
-            return 0
-        return 2 * (r - 0.5)
+    def relatedness_dico_relou (self, indiv1, indiv2):
+        FN2 = indiv2.Phenes.copy()
+        FN1 = indiv1.Phenes
+        # RELOU ! Je m'en fous de l'ordre....
+
+    def relatedness(self, indiv1, indiv2):
+        FN2 = indiv2.FamilyNames[:]
+        FN1 = indiv1.FamilyNames
+        Common_Names = [n for n in FN1 if n in FN2 and (FN2.pop(FN2.index(n)))]
+        #print( len(Common_Names) / self.Parameter('NbNames') )
+        if len(Common_Names) <= 1: return 0
+        return (len(Common_Names) / self.Parameter('NbNames'))
+
 
 ########################################
 ########################################
 ########################################
 
-class DNA(Gen.DNA):
-    
-    #def __init__(self, Scenario, Nb_nucleotides):
-                    
-    def noise(self, excluded = 0, maxloci = 5):
-        " Adds noise to the 'family' gene to prevent convergence / 'free-riding' "
-        for pertub in range(maxloci):
-            pos = randint(excluded, self.nb_nucleotides - 1)     # Noise should only affect the 'family' gene
-            if random() < 0.5:
-                self.__dna[pos] = 0
-            else:
-                self.__dna[pos] = 1
-
-########################################
-########################################
-########################################
-
-class Individual(Base.Individual, DNA):
+class Individual(Base.Individual, Phen.Phene):
     "   Defines what an individual consists of "
 
     def __init__(self, Scenario, ID=None, Newborn=True):
         self.SelfSacrifice = False
-        self.Admiration = 0
         
+        NbNames = Scenario.Parameter('NbNames')
+        
+        self.FamilyNames = [randint(1,100) for i in range(NbNames)]
+
+        #version chelou avec stock heros par nom...
+        #self.FamilyNames = [[randint(1,100),0] for i in range(NbNames)]
+
+
+
+        #self.LifePoints = randint(0, Scenario.Parameter('SelectionPressure'))
+
+
+        # ECHEC version avec phene init ici
+        #NbNames = Scenario.Parameter('NbNames')
+        #if NameClass is None: NameClass = Phen.Phene
+        #self.FamilyNames = [NameClass(NameNb) for NameNb in range(NbNames)]
+        #self.FamilyNames = [Phen.Phene(NameNb) for NameNb in range(NbNames)]
+
         #self.HeroesRelatedness = 0
         #self.HeroesWitnessed = 0
         #self.PastScore = 0
 
         self.Share = 0
-        #if Newborn:
-        #    self.LifePoints = 100 # Test vs morta infantile
-        #else:
-        #    self.LifePoints = 0 
+        if Newborn:
+            self.LifePoints = 100 # Test vs morta infantile
+        else:
+            self.LifePoints = 0 
 
 
         self.Children = []  # useless here
-        EI.EvolifeIndividual.__init__(self, Scenario, ID=ID, Newborn=Newborn)
-        DNA.__init__(self, Scenario, Scenario.geneMap_length())
+        Base.Individual.__init__(self, Scenario, ID=ID, Newborn=Newborn)
 
-  
+    def inherit_names(self, parent1, parent2, NbNames = 3):
+        for i in range(NbNames):
+            if i < NbNames/3:
+                self.FamilyNames[i] = parent1.FamilyNames[i]
+            elif i < 2*NbNames/3:
+                self.FamilyNames[i] = parent2.FamilyNames[i]
+        shuffle(self.FamilyNames)
+
+    def inherit_names_dico_relou(self, parent1, parent2):
+        Remaining_Names = self.Phenes[:]
+        for i in range(4):
+            inh_Name = choice(Remaining_Names)
+            if i < 2:
+                self.Phenes[inh_Name].__value = parent1.Phenes[inh_Name].value()
+            else:
+                self.Phenes[inh_Name].__value = parent1.Phenes[inh_Name].value()
+            Remaining_Names.pop(inh_Name)
+            # Last two names are left random        
+
+    def inherit_names_failed(self, parent1, parent2, NbNames = 6):
+        for i in range(NbNames):
+            if i < NbNames/3:
+                self.FamilyNames[i].__value = parent1.FamilyNames[i].value()
+            elif i < 2*NbNames/3:
+                self.FamilyNames[i].__value = parent2.FamilyNames[i].value()
+        shuffle(self.FamilyNames)
+
 ########################################
 ########################################
 ########################################
@@ -229,13 +239,10 @@ class Group(Base.Group):
             if child:
                 child.hybrid(C[0],C[1]) # Child's DNA results from parents' DNA crossover
                 child.mutate()
-                #child.inherit_share(C[0],C[1])
-                child.noise(excluded = self.Scenario.Parameter('GeneLength'), maxloci = self.Scenario.Parameter('GeneticNoise'))
+                child.inherit_share(C[0],C[1])
+                child.inherit_names(C[0], C[1], self.Scenario.Parameter('NbNames'))
                 child.update()  # Computes the value of genes, as DNA is available only now
                 if self.Scenario.new_agent(child, C):  # Let scenario decide something about the newcomer (not used here)
-                        # Child is added to parents' children lists
-                    C[0].addChild(child)
-                    C[1].addChild(child)        #useless here - just for test
             
                     self.receive(child) # Adds child to the group
 
@@ -264,4 +271,4 @@ if __name__ == "__main__":
     # Global objects			#
     #############################
     Gbl = Scenario()
-    Base.Start(Gbl)
+    Base.Start(Gbl, Population)

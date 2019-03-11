@@ -1,0 +1,20 @@
+2 modes ----> Select pour heros // points (LP) pour honor... ?
+    F = 100 a priori, du coup
+
+Si Nbh augmente, le signal est moins visible... en log(nbh)
+
+Concu entre patriotes => emet tjs meme quand les non-p emettent pas 
+
+
+Selectivite => + robuste ??? On dirait pas trop, a retester
+
+
+A ANA : cf docs A_ana/
+    cool, la v2 emerge a 20%... mais ?
+
+
+
+
++ Il existe un seuil de r minimal
+ --- > 1/A (signification ?)
+-----> car p < f(r) ... et un dessous pas possible emerger .... ?
