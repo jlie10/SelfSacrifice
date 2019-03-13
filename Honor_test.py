@@ -14,6 +14,7 @@
 version 2 vitesses
 """
 
+from math import log
 from random import randint, random
 
 import Exogene as Base
@@ -35,10 +36,7 @@ class Scenario(Base.Scenario):
     def genemap(self):
         """ Defines the name of genes and their position on the DNA.
         """
-        return [('SelfSacrifice'), ('Patriot'), ('NonPatriot')] 		# gene length (in bits) is read from configuration
-
-    def display_(self):
-        return [('red', 'SelfSacrifice'), ('white', 'Patriot'), ('black', 'NonPatriot')]
+        return [('Patriot'), ('NonPatriot')] 		# gene length (in bits) is read from configuration
 
     def update_positions(self, members, start_location):
         """ locates individuals on an 2D space
@@ -63,18 +61,33 @@ class Scenario(Base.Scenario):
             occur - Used in 'start_game'
         """
         indiv.score(100, True)  # Set initial score to 100
+        
         #max = self.Parameter('MaxOffer')
         #indiv.score( max + indiv.Patriotism * (100 - max), FlagSet = True)	# Sets score to 10 or 90
+        # = super bad idea... (rel score -> +++ cool have friends)
+
         indiv.SignalLevel = 0
-        #if self.Parameter('LongTerm'):
-            #indiv.SignalLevel = (1-percent(self.Parameter('Forgetfullness')))*indiv.SignalLevel
-            # Something from nothing ? / but sacrifice => dead forever // compensated by gain for ever ?
-        #else: indiv.SignalLevel = 0
+        #indiv.Reproduction_points = 0   # osef here
+
+        # friendship links (lessening with time) are updated 
+        indiv.lessening_friendship((100 - self.Parameter('Erosion'))/100.0)
+   
+
 
 ########################################
 ##### Life_game #### (2) Self-sacrifices ####
 ########################################
-    def honoring(self, worshippers, nb_heroes):
+
+    def deathProbability(self, indiv):
+        """ Converts an individual's genetic propensity to self-sacrifice into a probability
+            Used in 'selfSacrifice'
+        """
+        return percent(self.Parameter('SacrificeProba'))    # fixed sacrifice probability
+
+    def spillover(self, members, admiration = 0, threshold = 10):
+        return  # no advantages to sacrifice
+
+    def honoring(self, worshippers, nb_heroes):        
         if nb_heroes == 0: return 0 # no heroes to honor
         Offerings = 0
         for Indiv in worshippers:
@@ -83,69 +96,38 @@ class Scenario(Base.Scenario):
                 offering = Indiv.gene_relative_value('NonPatriot')
                 
                 if self.Parameter('DifferentialCosts') == 0: # version offre bornee
+                    #print('offer max')
                     Indiv.score(- self.costHonor(offering))
                     offering = min(self.Parameter('MaxOffer'), offering)    # can't offer that much : face already tatooed, arm already cut off...
                         # TRICHE faire ca apres le cout ? +++++ REFLECHIR
                 else:   # version cout differenties
+                    #print('diff csot')
                     Indiv.score( - self.costHonor(offering, DifferentialCosts = True))
             else:
                 offering = Indiv.gene_relative_value('Patriot')
                 Indiv.score (- self.costHonor(offering))
 
-            Indiv.SignalLevel += offering
-            # Indiv.SignalLevel += offering / log(1 + nb_heroes)
-            Offerings += offering
-            Indiv.VisibleSignal = int(Indiv.SignalLevel / self.Parameter('DiscernableUnit'))
-                # redondant avec lives10 du coup ?
+            Indiv.SignalLevel += offering   #int ?
+            #Indiv.SignalLevel += offering / log(1 + nb_heroes)  # variant
+            Offerings += offering   #int ?
+            #Offerings += int( offering / self.Parameter('SacriUnit'))
+                # ou plus fort ---> param un seuil... y a deja precision et disc...
+            #Indiv.VisibleSignal = Indiv.SignalLevel
+            #Indiv.VisibleSignal = int(Indiv.SignalLevel / self.Parameter('DiscernableUnit'))
+                # OSEF FOR NOW ??
+                # redondant avec lives10 du coup ? / variant
             #print(Indiv.SignalLevel)
             #print(nbheroes)
         return Offerings
     
-    
-    def honoring_old(self, members, nbheroes, LongTerm = True):
-        #if not heroes: return 0
-
-        Offerings = 0
-        for Indiv in members:
-            #score = Indiv.score()
-            if Indiv.Patriotism == 0:
-                offering = Indiv.gene_relative_value('NonPatriot')
-                
-                if self.Parameter('DifferentialCosts') == 0: # version offre bornee
-                    Indiv.score(- self.costHonor(offering))
-                    offering = min(self.Parameter('MaxOffer'), offering)    # can't offer that much : face already tatooed, arm already cut off...
-                        # triche faire ca apres le cout ?
-                else:   # version cout differenties
-                    Indiv.score( - self.costHonor(offering, DifferentialCosts = True))
-            else:
-                offering = Indiv.gene_relative_value('Patriot')
-                Indiv.score (- self.costHonor(offering))
-
-            #Indiv.SignalLevel += int(offering * nbheroes / 200)
-            #### Pour version avec reinit du signal
-                # Signal value depends on number of heroes...  
-            #Offerings += offering * nbheroes    # MASSIF /// mais defendable ?
-                # argument : ce qui est shared vient de plein d'annees ?? => oui mais c'est pas dans nbheroes ca, mais dans SGLLVL
-
-            #Offerings += int(offering)  # meme sans int OK ??
-            #Offerings += offering
-            #Offerings += offering * nbheroes / 10
-            
-
-            #### version sans reinit du signal :
-            Indiv.SignalLevel += offering
-            Offerings += Indiv.SignalLevel
-            Indiv.VisibleSignal = int(Indiv.SignalLevel / self.Parameter('DiscernableUnit'))
-            #print(Indiv.SignalLevel)
-            #print(nbheroes)
-        #print(Offerings)    
-        return Offerings
-    
+      
     def costHonor(self, offering, DifferentialCosts = False, patriotism = 0):
         basic_cost = offering * percent(self.Parameter('HonoringCost'))
         if not DifferentialCosts:
+            #print('Offer max')
             return basic_cost
         else:   # NonPatriots face a premium for honoring
+            #print('diff cost')
             return basic_cost * (1 - patriotism) * (1 + percent(self.Parameter('DishonestPremium')))
             # NonPatriots face a premium for honoring
 
@@ -153,7 +135,7 @@ class Scenario(Base.Scenario):
 ##### Life_game #### (3) Social interactions ####
 ########################################
     
-    def interact(self, indiv, Signalers):
+    def interact_visi(self, indiv, Signalers):
         """ Formation of friendship bonds
             By honoring heroes (see 'honoring'), individuals signal their patriotism
             This signal is used by others to choose their friends
@@ -175,7 +157,7 @@ class Scenario(Base.Scenario):
                 break
     
     
-    def interact_all(self, indiv, Signalers):
+    def interact(self, indiv, Signalers):
         """ Formation of friendship bonds
             By honoring heroes (see 'honoring'), individuals signal their patriotism
             This signal is used by others to choose their friends
@@ -203,22 +185,27 @@ class Scenario(Base.Scenario):
         if indiv.best_friend() is not None:
                 if not indiv.best_friend().SelfSacrifice:
                     indiv.best_friend().score(+ self.Parameter('JoiningBonus'))
-
+            # NOT GOOD AT ALL ? Cv even when no traitors...
         " It's the end of the war: friends reveal themselves for who they really are "
         for Friend in indiv.friends.names():
             #print(Friend.Patriotism)
             if Friend.Patriotism == 0:
                 if random() < percent(self.Parameter('NbTraitors')):
+                    #print('Traitor !')
                 # Friend is a traitor who sells you out
                     if self.Parameter('DenunciationCost')==0: 
                         indiv.Executed = True   # infinite cost: indiv will be executed by the Gestapo
                     else:
                         indiv.score(- self.Parameter('DenunciationCost'))
+                        print(indiv.score())
             else:
                 if random() < percent(self.Parameter('NbTruePatriots')):
+                    #print('Hero')
+                    #print(indiv.score())
                 # Friend is a true patriot who can vouch for you
                     indiv.score(+ self.Parameter('FriendshipValue'))
-        indiv.detach()	# indiv quits his/her friends
+                #print('\n')
+        #indiv.detach()	# indiv quits his/her friends   # changed : now = erosion (in prepare)
 
 
     def lives(self, members):
@@ -230,7 +217,7 @@ class Scenario(Base.Scenario):
                 AliveMembers.remove(i)
                 i.LifePoints = -1
         if self.Parameter('SelectionPressure') == 0:
-            return	# 'Selectivity mode' : outcomes depend on relative ranking  (see 'parenthood')
+            return
         if not AliveMembers:
             return
         BestScore = max([i.score() for i in AliveMembers])
@@ -239,10 +226,30 @@ class Scenario(Base.Scenario):
             return
         for indiv in members:
             indiv.LifePoints =  int ( (indiv.score()-MinScore) * self.Parameter('SelectionPressure') / (BestScore - MinScore) )
+            print(indiv.LifePoints)
+            print(indiv.score() )
+            print(indiv.Patriotism)
+            print('\n')
+
+    def lives_10(self, members):
+        AliveMembers = members[:]
+        for i in members:
+            if i.Executed:
+                AliveMembers.remove(i)
+                i.LifePoints = -1
+        if self.Parameter('SelectionPressure') == 0:
+            return	# 'Selectivity mode' : outcomes depend on relative ranking  (see 'parenthood')
+        if not members:
+            return
+        BestScore = max([ int (i.score() / 10) for i in members])
+        MinScore = min([ int (i.score() /10) for i in members])
+        if BestScore == MinScore:
+            return
+        for indiv in members:
+            indiv.LifePoints =  (int ( indiv.score() / 10) -MinScore) * self.Parameter('SelectionPressure') / (BestScore - MinScore)
             #print(indiv.LifePoints)
             #print(indiv.Share)
             #print('\n')
-
 
 ########################################
 ########################################
@@ -261,6 +268,7 @@ class Patriotic_Individual(Base.Individual, EA.Follower):
         self.Executed = False
         # self.BestSignal = 0
         EA.Follower.__init__(self, Scenario.Parameter('MaxFriends'), Scenario.Parameter('MaxFriends'))
+        #EA.Friend.__init__(self.Scenario.Parameter('MaxFriends'))  # WHY DOESN'T WORK ?
 
     # TODO : + update / display ---> rpz graphique 2d avec Patriotism
 

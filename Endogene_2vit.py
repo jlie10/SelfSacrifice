@@ -14,6 +14,7 @@
 version 2 vitesses
 """
 
+from math import log
 from random import randint, random
 
 import Exogene as Base
@@ -36,9 +37,6 @@ class Scenario(Base.Scenario):
         """ Defines the name of genes and their position on the DNA.
         """
         return [('SelfSacrifice'), ('Patriot'), ('NonPatriot')] 		# gene length (in bits) is read from configuration
-
-    def display_(self):
-        return [('red', 'SelfSacrifice'), ('white', 'Patriot'), ('black', 'NonPatriot')]
 
     def update_positions(self, members, start_location):
         """ locates individuals on an 2D space
@@ -63,19 +61,27 @@ class Scenario(Base.Scenario):
             occur - Used in 'start_game'
         """
         indiv.score(100, True)  # Set initial score to 100
+        
         #max = self.Parameter('MaxOffer')
         #indiv.score( max + indiv.Patriotism * (100 - max), FlagSet = True)	# Sets score to 10 or 90
+        # = super bad idea... (rel score -> +++ cool have friends)
+
         indiv.SignalLevel = 0
+        indiv.Reproduction_points = 0
+        
         #if self.Parameter('LongTerm'):
             #indiv.SignalLevel = (1-percent(self.Parameter('Forgetfullness')))*indiv.SignalLevel
             # Something from nothing ? / but sacrifice => dead forever // compensated by gain for ever ?
         #else: indiv.SignalLevel = 0
+        
+        # friendship links (lessening with time) are updated 
+        indiv.lessening_friendship((100 - self.Parameter('Erosion'))/100.0)
 
 ########################################
 ##### Life_game #### (2) Self-sacrifices ####
 ########################################
     def honoring(self, worshippers, nb_heroes):
-        if nb_heroes == 0: return 0 # no heroes to honor
+        if nb_heroes == 0: return 0 # no heroes to honor / stricter threshold?
         Offerings = 0
         for Indiv in worshippers:
             #score = Indiv.score()
@@ -92,13 +98,17 @@ class Scenario(Base.Scenario):
                 offering = Indiv.gene_relative_value('Patriot')
                 Indiv.score (- self.costHonor(offering))
 
-            Indiv.SignalLevel += offering
-            # Indiv.SignalLevel += offering / log(1 + nb_heroes)
-            Offerings += offering
-            Indiv.VisibleSignal = int(Indiv.SignalLevel / self.Parameter('DiscernableUnit'))
-                # redondant avec lives10 du coup ?
-            #print(Indiv.SignalLevel)
-            #print(nbheroes)
+            Indiv.SignalLevel += offering   #int ?
+            #Indiv.SignalLevel += offering / log(1 + nb_heroes)  # variant
+            
+            Offerings += offering   #int ?
+            #Offerings += int( offering / self.Parameter('SacriUnit'))
+                # ou plus fort ---> param un seuil... y a deja precision et disc...
+            
+            #Indiv.VisibleSignal = Indiv.SignalLevel
+            #Indiv.VisibleSignal = int(Indiv.SignalLevel / self.Parameter('DiscernableUnit'))
+                # redondant avec lives10 du coup ? / variant
+                # osef for now... cv interact_visi
         return Offerings
     
     
@@ -153,11 +163,8 @@ class Scenario(Base.Scenario):
 ##### Life_game #### (3) Social interactions ####
 ########################################
     
-    def interact(self, indiv, Signalers):
-        """ Formation of friendship bonds
-            By honoring heroes (see 'honoring'), individuals signal their patriotism
-            This signal is used by others to choose their friends
-            (keeping in mind this is crucial: see 'evaluation')
+    def interact_visi(self, indiv, Signalers):
+        """ Threshold version... for later
         """
         if Signalers == []:	return
         # The agent chooses the best available Signaler from a sample.
@@ -175,7 +182,7 @@ class Scenario(Base.Scenario):
                 break
     
     
-    def interact_all(self, indiv, Signalers):
+    def interact(self, indiv, Signalers):
         """ Formation of friendship bonds
             By honoring heroes (see 'honoring'), individuals signal their patriotism
             This signal is used by others to choose their friends
@@ -218,7 +225,7 @@ class Scenario(Base.Scenario):
                 if random() < percent(self.Parameter('NbTruePatriots')):
                 # Friend is a true patriot who can vouch for you
                     indiv.score(+ self.Parameter('FriendshipValue'))
-        indiv.detach()	# indiv quits his/her friends
+        #indiv.detach()	# indiv quits his/her friends REPLACED with erosion...
 
 
     def lives(self, members):
@@ -230,7 +237,7 @@ class Scenario(Base.Scenario):
                 AliveMembers.remove(i)
                 i.LifePoints = -1
         if self.Parameter('SelectionPressure') == 0:
-            return	# 'Selectivity mode' : outcomes depend on relative ranking  (see 'parenthood')
+            return
         if not AliveMembers:
             return
         BestScore = max([i.score() for i in AliveMembers])
@@ -243,6 +250,25 @@ class Scenario(Base.Scenario):
             #print(indiv.Share)
             #print('\n')
 
+    def lives10(self, members):
+        AliveMembers = members[:]
+        for i in members:
+            if i.Executed:
+                AliveMembers.remove(i)
+                i.LifePoints = -1
+        if self.Parameter('SelectionPressure') == 0:
+            return	# 'Selectivity mode' : outcomes depend on relative ranking  (see 'parenthood')
+        if not members:
+            return
+        BestScore = max([ int (i.score() / 10) for i in members])
+        MinScore = min([ int (i.score() /10) for i in members])
+        if BestScore == MinScore:
+            return
+        for indiv in members:
+            indiv.LifePoints =  (int ( indiv.score() / 10) -MinScore) * self.Parameter('SelectionPressure') / (BestScore - MinScore)
+            #print(indiv.LifePoints)
+            #print(indiv.Share)
+            #print('\n')
 
 ########################################
 ########################################
@@ -256,9 +282,10 @@ class Patriotic_Individual(Base.Individual, EA.Follower):
         self.Patriotism = randint(0, 1)
         Base.Individual.__init__(self, Scenario, ID=ID, Newborn=Newborn)
         #self.Offerings = 0		# represents how much one is honored after self-sacrifice (should stay at 0 whilst alive)
+            # not used anymore, admiration does not go to individual heroes...
         self.SignalLevel = 0
-        self.VisibleSignal = 0
-        self.Executed = False
+        #self.VisibleSignal = 0 # for later
+        self.Executed = False   # only for DC = 0 version ('extreme')
         # self.BestSignal = 0
         EA.Follower.__init__(self, Scenario.Parameter('MaxFriends'), Scenario.Parameter('MaxFriends'))
 

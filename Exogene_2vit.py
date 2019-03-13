@@ -42,6 +42,10 @@ class Scenario(ED.Default_Scenario):
     def __init__(self):
         # Parameter values
         ED.Default_Scenario.__init__(self, CfgFile='_Params.evo')	# loads parameters from configuration file
+        self.initialization()
+
+    def initialization(self):
+        self.NbHeroes = 0 # Nb of heroes each round
 
     def genemap(self):
         """ Defines the name of genes and their position on the DNA.
@@ -49,8 +53,17 @@ class Scenario(ED.Default_Scenario):
         return [('SelfSacrifice')] 		# gene length (in bits) is read from configuration
 
     def display_(self):
-        return [('red', 'SelfSacrifice')]
-
+        disp = [(i+1,G.name) for (i,G) in enumerate(self.GeneMap)]
+        L = len(disp)
+        disp += [(L+1, 'NbHeroes')]
+        return disp
+        
+    def local_display(self, ToBeDisplayed):
+        " allows to diplay locally defined values "
+        if ToBeDisplayed == 'NbHeroes':
+            return self.NbHeroes # displaying a quantity that can be computed within the scenario
+        return None
+        
     def update_positions(self, members, start_location):
         """ locates individuals on an 2D space
         """
@@ -59,7 +72,7 @@ class Scenario(ED.Default_Scenario):
         duplicate.sort(key=lambda x: x.gene_value('SelfSacrifice'))
         #duplicate.sort(key = lambda x: x.ID)
         for m in enumerate(duplicate):
-            m[1].location = (start_location + m[0], m[1].score() )
+            m[1].location = (start_location + m[0], m[1].Reproductive_points )
             #m[1].location = (start_location + m[0], m[1].Share )
             #m[1].location = (start_location + m[0], m[1].LifePoints)
             #m[1].location = (start_location + m[0], m[1].HeroesRelatedness)
@@ -91,10 +104,8 @@ class Scenario(ED.Default_Scenario):
         for indiv in AliveMembers:
             self.evaluation(indiv)
         # Scores are translated into life points, which affect individual's survival
-        #self.lives(AliveMembers)       ## LP depends on relative scores
-        self.lives10(AliveMembers)      ## LP depends on relative score / 10
-            #self.lives2(AliveMembers)
-            #self.lives_simple(members)
+        self.lives(AliveMembers)      
+        #self.lives10(AliveMembers)  
 #		for i in members:
 #			print(i.score())
 #			print(i.LifePoints)
@@ -110,9 +121,10 @@ class Scenario(ED.Default_Scenario):
         """ Defines what is to be done at the individual level before interactions
             occur - Used in 'start_game'
         """
-        indiv.score(100, FlagSet = True)	# Sets score to 100
-        if indiv.Share < 0.1:
-            indiv.Share = 0
+        #indiv.score(100, FlagSet = True)	# Sets score to 100 // osef here...
+        indiv.Reproductive_points = 0
+        #if indiv.Share < 0.1:
+        #    indiv.Share = 0
         #indiv.Admiration = 0
         #indiv.SelfSacrifice = False #for probabilistic + 'castrated zombie' mode
 
@@ -188,23 +200,23 @@ class Scenario(ED.Default_Scenario):
                 Heroes.append(indiv)
                 Cowards.remove(indiv)
         
-        if self.Parameter('Baseline')==0:
+        #if self.Parameter('Baseline')==0:
             ######## baseline tot_h around 0 version
-            random_heroes = 1 + int ( self.Parameter('PopulationSize') * (self.Parameter('MutationRate') / 1000 ) / self.Parameter('GeneLength'))
-            tot_heroes = self.inc_witness(len(Heroes)-random_heroes, Cowards, discount = percent(self.Parameter('Forgetfullness')))
-            print('Society remembers {} voluntary heroes'.format(tot_heroes))   # Gives around 0 when A = 0...
-        else:
+        #    random_heroes = 1 + int ( self.Parameter('PopulationSize') * (self.Parameter('MutationRate') / 1000 ) / self.Parameter('GeneLength'))
+        #    tot_heroes = self.inc_witness(len(Heroes)-random_heroes, Cowards, discount = percent(self.Parameter('Forgetfullness')))
+        #    print('Society remembers {} voluntary heroes'.format(tot_heroes))   # Gives around 0 when A = 0...
+        #else:
             ####### baseline > 0 version (20 with usual para)
-            tot_heroes = self.inc_witness(len(Heroes), Cowards, discount = percent(self.Parameter('Forgetfullness')))
-            print('Society remembers {} total heroes'.format(tot_heroes))   # Gives around 20 +/- when A = 0...
+        #    tot_heroes = self.inc_witness(len(Heroes), Cowards, discount = percent(self.Parameter('Forgetfullness')))
+        #    print('Society remembers {} total heroes'.format(tot_heroes))   # Gives around 20 +/- when A = 0...
         
         self.inc_shares(Heroes, Cowards)
     
         # In return, heroes are honored (admired) by society
-        Admiration = self.honoring(Cowards, tot_heroes, LongTerm=self.Parameter('LongTerm'))
-        print(Admiration)
-        print('\n')
-        self.spillover(Cowards, Admiration, precision = self.Parameter('Precision'))
+        #Admiration = self.honoring(Cowards, tot_heroes, LongTerm=self.Parameter('LongTerm'))
+        Admiration = self.honoring(Cowards, len(Heroes))
+        self.NbHeroes = len(Heroes)   # for display
+        self.spillover(Cowards, Admiration, threshold = self.Parameter('ReproGainsThreshold'))
         self.kill_heroes(Heroes)
         return Cowards
 
@@ -225,7 +237,11 @@ class Scenario(ED.Default_Scenario):
                 Child.Share += 1
                 #Child.Share += percent(self.Parameter('SacrificeHeredity'))
 
-    def honoring(self, members, nbheroes, LongTerm = True):
+    def honoring(self, worshippers, nb_heroes):
+        if nb_heroes == 0: return 0 # no heroes to admire this round
+        return self.Parameter('Admiration') * len(worshippers)
+
+    def honoring_old(self, members, nbheroes, LongTerm = True):
         if LongTerm:
             return self.Parameter('Admiration') * nbheroes
         # 'long term' mode where what matters is how much heroes are remembered over the years
@@ -236,7 +252,27 @@ class Scenario(ED.Default_Scenario):
         # 'short term' mode where everything is as if all Alive membered equally admired the fallen
                 ### SO H should be improtant ??? How ??? Just in share to children ??
 
-    def spillover(self, members, admiration = 0, precision = 1000):
+    def spillover(self, members, admiration = 0, threshold = 10):
+        #  Osef precision ? = useless complication ?
+        tot_share = 0
+        for indiv in members:
+            tot_share += indiv.Share
+            #tot_share += int(precision * indiv.Share)  # useless complication ??
+            #tot_share += min(2, indiv.Share)
+        if tot_share == 0:
+            return
+        #print(tot_share / len(members))
+        for indiv in members:
+            indiv.Reproductive_points += indiv.Share / tot_share * admiration
+            #indiv.Reproductive_points += int(precision * indiv.Share) / tot_share * admiration      # useless complication ??    
+            #indiv.score(+ indiv.Share  * admiration)  # TEST 
+            #print(indiv.score())
+            #print(indiv.Share)
+            #print('\n')
+            indiv.Reproductive_points = int(indiv.Reproductive_points /threshold) # Only points above threshold entail reproductive advantage 
+                # OK ??
+
+    def spillover_old(self, members, admiration = 0, precision = 1000):
         #  Abandonned : give only to x % (first)  
         tot_share = 0
         for indiv in members:
@@ -299,75 +335,13 @@ class Scenario(ED.Default_Scenario):
 ##### Life_game #### (4) Computing scores and life points ####
 ########################################
     def evaluation(self, indiv):
-        pass    # Scores are computed in spillover (see sacrifices)
+        pass    # Reproductive points are computed in spillover (see sacrifices)
 
     def lives(self, members):
         """ Converts alive members' scores into life points - used in 'life_game'
         """
-        if self.Parameter('SelectionPressure') == 0:
-            return	# 'Selectivity mode' : outcomes depend on relative ranking  (see 'parenthood')
-        if not members:
-            return
-        BestScore = max([i.score() for i in members])
-        MinScore = min([i.score() for i in members])
-        if BestScore == MinScore:
-            return
-        for indiv in members:
-            indiv.LifePoints =  int ( (indiv.score()-MinScore) * self.Parameter('SelectionPressure') / (BestScore - MinScore) )
-            #print(indiv.LifePoints)
-            #print(indiv.Share)
-            #print('\n')
-
-    def lives10(self, members):
-        if self.Parameter('SelectionPressure') == 0:
-            return	# 'Selectivity mode' : outcomes depend on relative ranking  (see 'parenthood')
-        if not members:
-            return
-        BestScore = max([ int (i.score() / 10) for i in members])
-        MinScore = min([ int (i.score() /10) for i in members])
-        if BestScore == MinScore:
-            return
-        for indiv in members:
-            indiv.LifePoints =  (int ( indiv.score() / 10) -MinScore) * self.Parameter('SelectionPressure') / (BestScore - MinScore)
-            #print(indiv.LifePoints)
-            #print(indiv.Share)
-            #print('\n')
-
-    def lives2(self, members):
-        if self.Parameter('SelectionPressure') == 0:
-            return	# 'Selectivity mode' : outcomes depend on relative ranking  (see 'parenthood')
-        for indiv in members:
-            indiv.LifePoints = indiv.score() / 10 * self.Parameter('SelectionPressure')     
-            print(indiv.LifePoints)
-
-    def lives_simple(self, members):
-        " Doesn't work at all "
-        if self.Parameter('SelectionPressure') == 0:
-            return	# 'Selectivity mode' : outcomes depend on relative ranking  (see 'parenthood')
-        for indiv in members:
-            score = indiv.score() / 10
-            if score < 1:
-                indiv.LifePoints = 0
-            elif score < 2:
-                indiv.LifePoints = 1
-            elif score < 3:
-                indiv.LifePoints = 2
-            elif score < 4:
-                indiv.LifePoints = 3
-            elif score < 5:
-                indiv.LifePoints = 4
-            else:
-                indiv.LifePoints = 6
-
-
-
-
-    def lives_test(self, members):
-        if self.Parameter('SelectionPressure') == 0:
-            return	# 'Selectivity mode' : outcomes depend on relative ranking  (see 'parenthood')
-        for indiv in members:
-            indiv.LifePoints = indiv.gene_value('SelfSacrifice') * self.Parameter('SelectionPressure')
-
+        return    # No LP here (see Endogene_2vit)
+   
 ########################################
 #### Reproduction ####
 ########################################
@@ -393,9 +367,9 @@ class Scenario(ED.Default_Scenario):
         #candidates[0][1] = 100
         #print(len(candidates))
         #print('parenthood')
-        print(candidates)
-        print(candidates[0][1])
-        print(candidates[-1][1])
+        #print(candidates)
+        #print(candidates[0][1])
+        #print(candidates[-1][1])
         return candidates
 
 ########################################
@@ -407,13 +381,14 @@ class Individual(EI.EvolifeIndividual):
 
     def __init__(self, Scenario, ID=None, Newborn=True):
         self.SelfSacrifice = False
-        self.Admiration = 0
+        #self.Admiration = 0
         #self.LifePoints = randint(0, Scenario.Parameter('SelectionPressure'))
         
         #self.HeroesRelatedness = 0
-        self.HeroesWitnessed = 0
+        #self.HeroesWitnessed = 0
         #self.PastScore = 0
 
+        self.Reproductive_points = 0
         self.Share = 0
         #if Newborn:
         #    self.LifePoints = 100 # Test vs morta infantile
@@ -462,25 +437,36 @@ class Group(EG.EvolifeGroup):
         self.Scenario.new_agent(Indiv, None)  # Let scenario know that there is a newcomer (unused)
         return Indiv
 
-#    def update_(self, flagRanking = False, display=False):
+    def update_ranks(self, flagRanking = False, display=False):
         """ updates various facts about the group
         """
         # removing old chaps
-#        for m in self.members[:]:  # must duplicate the list to avoid looping over a modifying list
-#            if m.dead():	self.remove_(self.members.index(m))
+        for m in self.members[:]:  # must duplicate the list to avoid looping over a modifying list
+            if m.dead():	self.remove_(self.members.index(m))
             #if m.SelfSacrifice:	self.remove_(self.members.index(m)) # heroes die ################### ??
-#        self.size = len(self.members)
-#        if self.size == 0:	return 0
+        self.size = len(self.members)
+        if self.size == 0:	return 0
         # ranking individuals
-#        if flagRanking:
+        if flagRanking:
             # ranking individuals in the group according to their score
-#            self.ranking = self.members[:]	  # duplicates the list, not the elements
-#            self.ranking.sort(key=lambda x: int(x.score()/10),reverse=True)
-#            if self.ranking != [] and self.ranking[0].score() < 110:           #### RANDOM THRESHOLD = 1
+            self.ranking = self.members[:]	  # duplicates the list, not the elements
+            self.ranking.sort(key=lambda x: x.Reproductive_points,reverse=True)
+            if self.ranking != [] and self.ranking[0].Reproductive_points == 0:           #### RANDOM THRESHOLD = 1
                 # all scores are zero
-#                shuffle(self.ranking)  # not always the same ones first
+                shuffle(self.ranking)  # not always the same ones first
 #            self.best_score = self.ranking[0].score()
-#        return self.size
+        return self.size
+
+    def update_(self, flagRanking = False, display=False):
+        """ updates various facts about the group + positions
+        """
+        size = Group.update_ranks(self, flagRanking=flagRanking)
+        if display:
+            if flagRanking:	self.Scenario.update_positions(self.ranking, self.location)
+            else:			self.Scenario.update_positions(self.members, self.location)
+        # updating social links
+        for m in self.members:	m.checkNetwork(membershipFunction=self.isMember)
+        return size
 
 
     def remove_(self, memberNbr):

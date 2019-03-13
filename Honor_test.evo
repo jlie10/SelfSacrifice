@@ -1,0 +1,66 @@
+## Mode
+SacrificeProba  5
+
+#### # Honoring - in (2)
+DiscernableUnit 5   # for now osef
+HonoringCost    30
+DishonestPremium   50  # for diff cost version, not used by default
+DifferentialCosts 0
+MaxOffer    10  # for maxoffer version, used by default
+
+#### Social interactions # in (3) (and init of indivs) - useless here
+Rounds  100
+SampleSize  30
+
+#### Conflict context and honoring - in (4)
+JoiningBonus    5
+FriendshipValue 30
+NbTruePatriots  0
+DenunciationCost    100
+NbTraitors  10
+Erosion 10
+
+#### Other useful param
+AgeMax 40
+ReproductionRate 30
+PopulationSize	200
+SelectionPressure	6
+Selectivity	0
+MutationRate	5
+GeneLength	8
+BatchMode	0
+TimeLimit	10000
+MaxFriends  10
+
+
+# Useless stuff
+# 'General' population variables
+AgeAdult	0
+GroupMinSize	0
+NumberOfGroups	1
+SacrificeHeredity   50
+ReproGainsThreshold 10
+
+# 'Genetic' variables
+ControlGeneNumber	6
+Correction	1
+DNAFill	-1
+GeneCoding	Weighted
+NbCrossover	1
+NoCoding	-1
+Unweighted	1
+Weighted	0
+
+# Other
+ApplicationDir	.
+DisplayPeriod	10
+DumpStart	5000
+Gray	2
+ResultDir	./___Results
+RunConfigFile	_Params.evo
+ScenarioFileName	Honor.evo
+ScenarioName	Honor
+StartFromFile	0
+Target	Honor.py
+Title	Evolife
+
