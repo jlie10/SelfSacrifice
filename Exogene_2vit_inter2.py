@@ -101,13 +101,15 @@ class Scenario(ED.Default_Scenario):
         AliveMembers = self.sacrifices(members)
             # Social interactions between the living (3)
         for play in range(self.Parameter('Rounds', Default=1)):
-            players = AliveMembers[:]	# ground copy
-            shuffle(players)
+            self.interactions(AliveMembers, nb_interactions=self.Parameter('Rounds'))
+            
+            #players = AliveMembers[:]	# ground copy
+            #shuffle(players)
             # Individuals engage in several interactions successively
-            for indiv in players:
-                Partner = self.partner(indiv, players)
-                if Partner is not None:
-                    self.interaction(indiv, Partner)
+            #for indiv in players:
+            #    Partner = self.partner(indiv, players)
+            #    if Partner is not None:
+            #        self.interaction(indiv, Partner)
         # Last: work out final tallies (4)
         for indiv in AliveMembers:
             self.evaluation(indiv)
@@ -306,6 +308,42 @@ class Scenario(ED.Default_Scenario):
 ########################################
 ##### Life_game #### (3) Social interactions ####
 #######################################
+    def interactions(self, members, nb_interactions = 1):
+        """	Defines how the (alive) population interacts
+            Used in 'life_game'
+        """
+        for Run in range(nb_interactions):
+            if not members: return
+            Fan = choice(members)
+            # Fan chooses friends from a sample of Partners
+            Partners = self.partners(Fan, members, int(percent(self.Parameter('SampleSize')\
+                                                                    * (len(members)-1) )))
+            self.interact(Fan, Partners)
+
+    def interact(self, indiv, partners):
+        """ Nothing by default - Used in 'interactions'
+        """
+        pass
+
+    def partners(self, indiv, members, sample_size = 1):
+        """ Decides whom to interact with - Used in 'interactions'
+            By default, a sample of partners is randomly chosen
+        """
+        # By default, a partner is randomly chosen
+        partners = members[:]
+        partners.remove(indiv)
+        if sample_size > len(partners):
+            print(len(partners))
+            return partners
+            #error('SampleSize is too large (should be between 0 and 100)')
+        if partners != []:
+            return sample(partners, sample_size)
+        else:
+            return None
+    
+    
+    
+    
     def partner(self, indiv, members):
         """ Decides whom to interact with - Used in 'life_game'
         """
