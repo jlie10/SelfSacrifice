@@ -1,14 +1,24 @@
 ***** non treated
 
-TO DO : MATHS ---> pourquoi emerge avec JB 5 et c'est tout ? (en Diff cost aussi... )
 
+0313:
+eq = f(JB), winner-take-all parmi les P / NP a 0...
+depend pas des autres facteurs ...
++v2 : la c'est toujours du dishonest...
+
+====> MATHS ! 
+
++v4 ---> wtf / ou est passe DC ?
+
+
+TO DO : MATHS ---> pourquoi emerge avec JB 5 et c'est tout ? (en Diff cost aussi... )
 
 
 
 
 DISPLAY => FIeld ?
 
-
+0
 Si Nbh augmente, le signal est moins visible... en log(nbh)
 
 

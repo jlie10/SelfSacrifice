@@ -1,12 +1,13 @@
 ## Mode
 SacrificeProba  5
+MinDemand   10
 
 #### # Honoring - in (2)
 DiscernableUnit 5   # for now osef
-HonoringCost    30
-DishonestPremium   50  # for diff cost version, not used by default
+HonoringCost    100
+DishonestPremium   100  # for diff cost version, not used by default
 DifferentialCosts 0
-MaxOffer    10  # for maxoffer version, used by default
+MaxOffer    20  # for maxoffer version, used by default
 
 #### Social interactions # in (3) (and init of indivs) - useless here
 Rounds  100
@@ -17,8 +18,9 @@ JoiningBonus    5
 FriendshipValue 30
 NbTruePatriots  0
 DenunciationCost    100
+Judas   10
 NbTraitors  10
-Erosion 10
+Erosion 10  # moins fort que detach, meme a 100...
 
 #### Other useful param
 AgeMax 40

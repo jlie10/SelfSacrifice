@@ -71,6 +71,7 @@ class Scenario(Base.Scenario):
 
         # friendship links (lessening with time) are updated 
         indiv.lessening_friendship((100 - self.Parameter('Erosion'))/100.0)
+   
 
 
 ########################################
@@ -93,18 +94,12 @@ class Scenario(Base.Scenario):
             #score = Indiv.score()
             if Indiv.Patriotism == 0:
                 offering = Indiv.gene_relative_value('NonPatriot')
-                if self.Parameter('DifferentialCosts') == 0: # version offre bornee
-                    Indiv.score(- self.costHonor(offering))
-                    offering = min(self.Parameter('MaxOffer'), offering) 
-                       # can't offer that much : face already tatooed, arm already cut off...
-                        # TRICHE faire ca apres le cout ? +++++ REFLECHIR
-                else:   # version cout differenties
-                    Indiv.score( - self.costHonor(offering, DifferentialCosts = True))
+                
             else:
                 offering = Indiv.gene_relative_value('Patriot')
-                Indiv.score (-self.costHonor(offering))
+            Indiv.score( - self.costHonor(offering))
 
-            Indiv.SignalLevel += offering   #int ?
+            Indiv.SignalLevel += offering * (1+ Indiv.Patriotism * self.Parameter('Coef'))   #int ?
             #Indiv.SignalLevel += offering / log(1 + nb_heroes)  # variant
             Offerings += offering   #int ?
             #Offerings += int( offering / self.Parameter('SacriUnit'))
@@ -118,16 +113,9 @@ class Scenario(Base.Scenario):
         return Offerings
     
       
-    def costHonor(self, offering, DifferentialCosts = False, patriotism = 0):
+    def costHonor(self, offering):
         basic_cost = offering * percent(self.Parameter('HonoringCost'))
-        if not DifferentialCosts:
-            #print('Offer max')
-            return basic_cost
-        else:   # NonPatriots face a premium for honoring
-            #print('diff cost')
-            return basic_cost + basic_cost * (1 - patriotism) * percent(self.Parameter('DishonestPremium'))
-            # NonPatriots face a premium for honoring
-
+        return basic_cost
 ########################################
 ##### Life_game #### (3) Social interactions ####
 ########################################
@@ -160,89 +148,25 @@ class Scenario(Base.Scenario):
             This signal is used by others to choose their friends
             (keeping in mind this is crucial: see 'evaluation')
         """
-        if indiv in Signalers: Signalers.remove(indiv)
         if Signalers == []:	return
         # The agent chooses the best available Signaler from a sample.
-              
-        Best = max(Signalers, key = lambda S: S.SignalLevel)
-        if Best.SignalLevel < self.Parameter('MinDemand'):
-            return
-            # no interesting signalers available
-        indiv.follow(Best, Best.SignalLevel)
-        return
-
-
-        #OldFriend = indiv.best_friend()
-
+        OldFriend = indiv.best_friend()
         Signalers.sort(key=lambda S: S.SignalLevel, reverse=True)
         for Signaler in Signalers:
             if Signaler == indiv:	continue
-            #if OldFriend and OldFriend.SignalLevel >= Signaler.SignalLevel:
-            #    break	# no available interesting signaler
-            indiv.follow(Signaler, Signaler.SignalLevel)
-            break
-                # cool ! (?)
-
-            
-            
-            #if Signaler.followers.accepts(0) >= 0:
+            if OldFriend and OldFriend.SignalLevel >= Signaler.SignalLevel:
+                break	# no available interesting signaler
+            if Signaler.followers.accepts(0) >= 0:
                 # cool! Self accepted as fan by Signaler.
-            #    if OldFriend is not None and OldFriend != Signaler:
-                    #indiv.G_quit_(OldFriend)
-            #    indiv.F_follow(0, Signaler, Signaler.SignalLevel)
-            #    break
+                if OldFriend is not None and OldFriend != Signaler:
+                    indiv.G_quit_(OldFriend)
+                indiv.F_follow(0, Signaler, Signaler.SignalLevel)
+                break
 
 ########################################
 ##### Life_game #### (4) Computing scores and life points ####
 ########################################
-    
-    
-    
-    
     def evaluation(self, indiv):
-        # test : only the best friend betrays ? = la que erreur de sigal ?
-        print('indiv has {} friends and {} followers'.format(indiv.nbFriends(), indiv.nbFollowers()))   
-        
-               
-        #for friend, perf in indiv.friends:
-        #    print(friend.Patriotism)
-        #    print(perf)
-        #for friend in indiv.followers:
-        #    print(friend.Patriotism)
-        #print('\n')        
-        
-        if indiv.best_friend() is not None:
-                if not indiv.best_friend().SelfSacrifice:
-                    indiv.best_friend().score(+ self.Parameter('JoiningBonus'))
-            # NOT GOOD AT ALL ? Cv even when no traitors...
-        " It's the end of the war: friends reveal themselves for who they really are "
-        
-        for Friend in indiv.friends.names():
-            if Friend.Patriotism == 0 and random() < percent(self.Parameter('NbTraitors')):
-                # Friend is a traitor who sells you out
-                indiv.score( - self.Parameter('DenunciationCost'))
-                indiv.Executed = (self.Parameter('DenunciationCost') == 0)
-                Friend.score(+ self.Parameter('Judas')) # better without ?
-        indiv.detach()
-
-        if indiv.Patriotism == 0:
-            if random() < percent(self.Parameter('NbTraitors')):
-                # indiv is a traitor who betrays his/her followers
-                for Follower in indiv.followers:
-                    Follower.score(- self.Parameter('DenunciationCost'))
-                    print(Follower.score())
-                    Follower.Executed = (self.Parameter('DenunciationCost') == 0)
-                    indiv.score( + self.Parameter('Judas'))
-        
-        if indiv.Patriotism == 1:
-            if random() < percent(self.Parameter('NbTruePatriots')):
-                # indiv is a true patriot who can vouch for you
-                for Follower in indiv.followers:
-                    Follower.score(+ self.Parameter('FriendshipValue'))
-    
-    
-    
-    def evaluation_old(self, indiv):
         if indiv.best_friend() is not None:
                 if not indiv.best_friend().SelfSacrifice:
                     indiv.best_friend().score(+ self.Parameter('JoiningBonus'))
