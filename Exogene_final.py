@@ -316,9 +316,14 @@ class Scenario(ED.Default_Scenario):
             if not members: return
             Fan = choice(members)
             # Fan chooses friends from a sample of Partners
-            Partners = self.partners(Fan, members, int(percent(self.Parameter('SampleSize')\
-                                                                    * (len(members)-1) )))
+            #Partners = self.partners(Fan, members, int(percent(self.Parameter('SampleSize')\
+            #                                                        * (len(members)-1) )))
+            # Absolute size is actually better - no reason to meet with more people because the population is bigger
+            Partners = self.partners(Fan, members, self.Parameter('SampleSize'))
+        
+            
             self.interact(Fan, Partners)
+        
 
     def interact(self, indiv, partners):
         """ Nothing by default - Used in 'interactions'

@@ -22,7 +22,8 @@ TimeLimit	10000
 HeroCompetivity 0
 #### Social interactions # in (3) (and init of indivs) - useless here
 Rounds  1
-SampleSize  100
+NbInteractions  1
+SampleSize  5
 
 
 # 'General' population variables
