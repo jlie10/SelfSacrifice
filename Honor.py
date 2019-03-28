@@ -154,7 +154,7 @@ class Scenario(Base.Scenario):
                 AcceptableFriends.remove(Signaler)
         return AcceptableFriends
 
-
+ 
     def interact_sym(self, indiv, Signalers): # NOT USED in inter2
         """ Formation of friendship bonds
             By honoring heroes (see 'honoring'), individuals signal their patriotism
@@ -195,8 +195,12 @@ class Scenario(Base.Scenario):
         indiv.score( + self.Parameter('JoiningBonus') * indiv.nbFollowers() )
 
         if indiv.Patriotism ==0 and random() < percent(self.Parameter('NbTraitors')):
+            # indiv is a traitor who betrays its friends
             for follower in indiv.followers:
                 follower.score(- self.Parameter('DenunciationCost'))
+                
+                indiv.score(+ self.Parameter('Judas'))  # 0 by default
+                # Alt version ---> dishonest signaling could emerge ?? / Only with extreme values it seems, more like no sgl
         else:
             for follower in indiv.followers:
                 follower.score(+ self.Parameter('FriendshipValue'))
@@ -221,7 +225,7 @@ class Scenario(Base.Scenario):
 
 
 
-
+####################### Bof, to be del...
         if indiv.Patriotism ==1:
             if indiv.best_friend() is not None:
                 print(indiv.friends.performance(indiv.best_friend()))

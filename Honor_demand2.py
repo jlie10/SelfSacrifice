@@ -222,7 +222,9 @@ class Scenario(Base.Scenario):
         if indiv.Patriotism == 1:
             if indiv.best_friend() is not None:
                 indiv.best_friend().score(+ self.Parameter('JoiningBonus'))
-        elif random() < percent(self.Parameter('NbTraitors')):
+        elif random() < percent(self.Parameter('NbTraitors')):  
+            Friend = 
+
             for Friend in indiv.friends.names():
                 Friend.score( - self.Parameter('DenunciationCost'))
                 indiv.score(+ self.Parameter('Judas'))

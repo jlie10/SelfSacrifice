@@ -1,0 +1,2070 @@
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:19 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:19 (UTC+0100)
+Warning: Explored parameter not metaparameter: MaxOffer
+changed parameters: DishonestPremium and NbTraitors
+	chosen values: 500 and 60
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:21 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:21 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:23 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:23 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:25 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:25 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:27 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:27 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:29 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:29 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:31 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:31 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:33 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:33 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:35 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:35 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:37 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:51:37 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:23 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:23 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:25 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:25 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:27 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:27 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:29 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:29 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:31 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:31 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:33 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:33 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:35 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:35 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:37 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:37 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:39 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:39 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:41 (UTC+0100) demarrage
+...lame23: Experience Sacrifice.py 0 - lundi 25 mars 2019, 17:53:41 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:00:56 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:00:57 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:01:00 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:01:01 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:01:04 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:01:10 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:01:11 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:01:11 (UTC+0100)
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:01:11 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:01:13 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:03:16 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:03:17 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:03:18 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:03:19 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:03:27 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:03:30 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:03:36 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:03:37 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:03:44 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 1 - lundi 25 mars 2019, 18:03:48 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:10:45 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:10:48 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:10:49 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:10:51 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:10:55 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:10:58 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:11:05 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:11:08 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:11:11 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:11:19 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:12:43 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:12:46 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:12:49 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:12:51 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:12:57 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:13:02 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:13:03 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:13:05 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:13:11 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 2 - lundi 25 mars 2019, 18:13:34 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:20:09 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:20:12 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:20:17 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:20:21 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:20:23 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:20:23 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:20:30 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:20:31 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:20:34 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:20:48 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:21:59 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:22:01 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:22:06 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:22:11 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:22:20 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:22:26 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:22:29 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:22:31 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:22:37 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 3 - lundi 25 mars 2019, 18:23:02 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:29:28 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:29:38 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:29:39 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:29:42 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:29:44 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:29:44 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+... Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:29:54 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:30:00 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:30:00 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:30:04 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:31:15 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:31:31 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:31:32 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:31:38 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:31:40 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:31:47 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:31:54 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:32:04 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:32:08 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 4 - lundi 25 mars 2019, 18:32:30 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:38:44 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:38:52 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:39:02 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:39:05 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:39:11 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:39:17 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:39:23 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:39:25 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:39:26 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:39:32 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:40:33 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:40:58 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:41:00 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:41:01 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:41:01 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:41:01 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:41:04 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:41:29 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:41:40 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+...lame23: Experience Sacrifice.py 5 - lundi 25 mars 2019, 18:41:51 (UTC+0100)
+changed parameters: DishonestPremium and NbTraitors
+Traceback (most recent call last):
+  File "EvoGen.py", line 312, in <module>
+    Evolife_Parameters.RandomSelect(sys.argv[3], verbose = False)
+  File "EvoGen.py", line 256, in RandomSelect
+    self.CoupleChanging(tuple(sorted(list(self.Ranges.keys()))))
+  File "EvoGen.py", line 230, in CoupleChanging
+    (self.Params[Params[0]],self.Params[Params[1]]) = self.PreferredCouple(Params)
+  File "EvoGen.py", line 219, in PreferredCouple
+    random.shuffle(PV2)
+  File "/usr/lib/python3.6/random.py", line 277, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:48:13 (UTC+0100) terminee
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:48:13 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:48:30 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:48:31 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:48:35 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:48:40 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:48:44 (UTC+0100) terminee
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:48:47 (UTC+0100) terminee
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:48:52 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:49:03 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:49:55 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:50:15 (UTC+0100) terminee
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:50:16 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:50:19 (UTC+0100) terminee
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:50:23 (UTC+0100) terminee
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:50:29 (UTC+0100) terminee
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:50:32 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:50:41 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:51:01 (UTC+0100) terminee
+ Study of the possibility of honoring being an ESS (once SS is stable)
+Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
+
+lame23: Experience Sacrifice.py 6 - lundi 25 mars 2019, 18:51:14 (UTC+0100) terminee

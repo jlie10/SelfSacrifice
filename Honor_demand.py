@@ -32,7 +32,7 @@ class Scenario(Base.Scenario):
 ########################################
 #### General initializations and visual display ####
 ########################################
-
+ 
     def genemap(self):
         """ Defines the name of genes and their position on the DNA.
         """

@@ -1,0 +1,6 @@
+SacrificeHeredity   0-100   25
+Admiration  0   5   10  20  50  100
+ReproductionRate    5   15  30  50  100
+PopulationSize  1000
+BatchMode   1
+TimeLimit   1000000
