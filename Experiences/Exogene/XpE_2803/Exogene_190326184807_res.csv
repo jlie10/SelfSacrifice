@@ -1,2 +1,0 @@
-Date;Admiration;AgeAdult;AgeMax;BatchMode;DNAFill;DisplayPeriod;DumpStart;GeneCoding;GeneLength;GroupMinSize;MutationRate;NbCrossover;NbInteractions;NumberOfGroups;PopulationSize;ReproGainsThreshold;ReproductionRate;ResultDir;Rounds;SacrificeHeredity;SampleSize;ScenarioName;Selectivity;StartFromFile;TimeLimit;Title;LastStep;SelfSacrifice;NbHeroes
-190326184807;50;0;40;1;0;10;5000;Weighted;8;0;5;1;1;1;1000;10;15;./___Results;1;100;100;Exogene;10;0;10000;Evolife;9990;1;19
