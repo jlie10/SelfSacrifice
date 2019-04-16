@@ -1,12 +1,12 @@
 #### Useful param
-## Output (rem heroes)
+## Mode
+LongTerm    1
 Baseline    0
-RemThreshold    5
-## Main parameters
-Admiration 50
+Forgetfullness  50
 SacrificeHeredity 50
-ReproGainsThreshold 10
-## Population variables (shouldn't change)
+Precision   1000
+##
+Admiration 50
 AgeMax 40
 ReproductionRate 15
 PopulationSize	200
@@ -14,7 +14,6 @@ MutationRate	5
 GeneLength	8
 BatchMode	0
 TimeLimit	10000
-Selectivity	10
 
 
 #### Other stuff
@@ -39,7 +38,8 @@ DNAFill	0
 GeneCoding	Weighted
 NbCrossover	1
 NoCoding	-1
-SelectionPressure	0
+SelectionPressure	12
+Selectivity	0
 Unweighted	1
 Weighted	0
 

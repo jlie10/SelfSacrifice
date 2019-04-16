@@ -95,10 +95,11 @@ class Scenario(Base.Scenario):
                 offering = Indiv.gene_relative_value('Patriot')
                 Indiv.score (-self.costHonor(offering))
 
-            Indiv.SignalLevel += offering   #int ?
+            Indiv.SignalLevel += int( offering / self.Parameter('VisibleThreshold')) * self.Parameter('VisibleThreshold')
+            #Indiv.SignalLevel += offering   #int ?
             #Indiv.SignalLevel += offering / log(1 + nb_heroes)  # variant
-            Offerings += offering   #int ?
-            #Offerings += int( offering / self.Parameter('SacriUnit'))
+            Offerings += Indiv.SignalLevel #int ?
+            #Offerings += int( offering / self.Parameter('VisibleThreshold')) * self.Parameter('VisibleThreshold')
                 # ou plus fort ---> param un seuil... y a deja precision et disc...
             #Indiv.VisibleSignal = Indiv.SignalLevel
             #Indiv.VisibleSignal = int(Indiv.SignalLevel / self.Parameter('DiscernableUnit'))
@@ -116,7 +117,7 @@ class Scenario(Base.Scenario):
             return basic_cost
         else:   # NonPatriots face a premium for honoring
             #print('diff cost')
-            return basic_cost + basic_cost * (1 - patriotism) * percent(self.Parameter('DishonestPremium'))
+            return basic_cost + basic_cost * (1 - patriotism) * (1+ percent(self.Parameter('DishonestPremium')))
             # NonPatriots face a premium for honoring
 
 ########################################

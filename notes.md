@@ -8,6 +8,7 @@ Simplification :
         du coup pas besoin d'autre seuil pour offering ? Pas de coeff mult en plus ?
 
 
+
 0312
 - Exogene : semble OK, graphes a faire... semble plus robuste qu'avant
     + en attente de version avec pop 1000
