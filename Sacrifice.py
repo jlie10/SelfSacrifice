@@ -181,7 +181,9 @@ class Scenario(Base.Scenario):
 ##################### version coll semble marche bien meme si mauss
 #   et que depend pas mal des parametres...    
 # # + add a Judas version ===> can even become dishonest signal... --> put a max on demand ?  
-        indiv.score( + self.Parameter('JoiningBonus') * indiv.nbFollowers() )
+        #indiv.score( + self.Parameter('JoiningBonus') * indiv.nbFollowers() )
+        indiv.score( + self.Parameter('FriendshipValue') * indiv.nbFollowers() )   # symmetrical version ...
+
 
         if indiv.Patriotism ==0 and random() < percent(self.Parameter('NbTraitors')):
             # indiv is a traitor who betrays its friends
