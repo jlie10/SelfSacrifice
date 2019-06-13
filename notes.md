@@ -1,29 +1,12 @@
-TODOTODOTODO: comprendre interactions...
+TODO:
+- Interactions => more sym...
+- Change exogene => more like maths
+- Redo maths II
+- maths with bruit explo
 
-
-
-                
-
-
-      
-
-
-
-
-
-Ongoing:
-    echec AP encore ===> test avec VT 10 T 25 RGT 20 ? // hmm T 50
-    zoom sut AP petit ?
-        mais AP 1000 => NP+ => P+ ?
-      
 
 
 JLD:
-    ---> premier truc pas evident: pq darwinien ?
-kin selection postule que famille est honoree
-===> nous le modele montre POURQUOI LA FAMILLE EST HONOREE...
-    ---> = le second truc pas evident: heroisme est pas hereditaire
-
 Honnete :
 - pourrait etre honnete : avec autre histoire ? => serait segregation sociale entre P et NP : faudrait que se trahissent entre eux
 - ici = signal pas honnete.
@@ -47,44 +30,9 @@ METTRE un "honnete" entre "" des le debut => equilibre...
 a cause de la radicalisation inter-groupe...
 
 
-
-
-
-
-Q JLD:
-- +f.... (1-f) dans formule beta ?
-- quoi res final ? => juste a l'ordre 0 ?
-- pq p = 2 * rmax?
-
-
-
-
-
-
-TODO :    
+TODO restes :    
 - Exog:
-    comprendre pq p = 2*rmax...
-
-    h ====> pas parce que la population est petite.... => cf les xp pour l'instant pas nbses...
-    ===> a cause de la divergence vers +l'infini des shares ????
-        oops...
-
-- SS2 simu:
-    OK pe, en ATT: Dish et AP
-        - RGT 10 / NbT 50 : bof....
-        - RGT 20 / NbT 25 + 50 : a tester...
-    OK pe, en ATT: Honet et NbT
-        Erm, emerge super vite encore ===> J'ai CHANGE QUOI ???
-            te ster RGT 20...
-        + f(DC) avec RGT : en att
-        
-        +DC mde : 
-            un peu NbT en att
-            todo: f(DP)
-
-    a faire : Honest et DC... -> la meme...
-
-    a faire 2 : denunc cost dans MO / DC
+    comprendre pq p = rmax / 50 ...
 
 - changer modele : > ... change grand chose ?        ========> SI: naze pour t=0..., a virer... : VT = pour la simulation seulement: l'enlever du raisonnement...?
 - voire evolution NP avec DC...

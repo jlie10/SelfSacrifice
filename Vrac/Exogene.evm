@@ -1,8 +1,0 @@
-Admiration 0 100 1000
-AgeMax 10 25 50 100
-ReproductionRate 5 10 20 40
-PopulationSize 100 1000
-MutationRate 2 5
-GeneLength 5
-BatchMode 0
-TimeLimit 10000
