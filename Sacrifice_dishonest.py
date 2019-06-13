@@ -12,8 +12,7 @@
 
 """ Study of the possibility of self-sacrifice being an ESS / as first-order signal for patriotism
 Adding a Demand gene --> which should prevent a dishonest signal // should be null in time of peace
-===> 27-05: ah non en fait, depend de bruit d'explo ?
-v1
+27-05: return to model, math...
 """
 
 from math import log
@@ -70,7 +69,7 @@ class Scenario(Base.Scenario):
         # = super bad idea... (rel score -> +++ cool have friends)
 
         indiv.SignalLevel = 0
-        indiv.Reproduction_points = 0 
+        indiv.Reproduction_points = 0           # WTF ????? => grosse erreur dans les simu ?
 
         # friendship links (lessening with time) are updated 
         #indiv.lessening_friendship((100 - self.Parameter('Erosion'))/100.0)
@@ -175,17 +174,12 @@ class Scenario(Base.Scenario):
 ########################################
     
     def evaluation(self, indiv):
-        
-        
         #print('indiv has {} friends'.format(indiv.nbFriends()))   
-        #print('indiv has {} friends and {} followers'.format(indiv.nbFriends(), indiv.nbFollowers()))   
-        
-##################### version coll semble marche bien meme si mauss
-#   et que depend pas mal des parametres...    
-# # + add a Judas version ===> can even become dishonest signal... --> put a max on demand ?  
-        indiv.score( + self.Parameter('FriendshipValue') * indiv.nbFollowers() )
-        #indiv.score( + self.Parameter('FriendshipValue') * indiv.nbFollowers() )   # symmetrical version ...
+        #print('indiv has {} friends and {} followers'.format(indiv.nbFriends(), indiv.nbFollowers()))          
 
+        if indiv.nbFollowers() == 0: 
+            self.alone(indiv, penalty = self.Parameter('AlonePenalty'))
+            return
 
         if indiv.Patriotism ==0 and random() < percent(self.Parameter('NbTraitors')):
             # indiv is a traitor who betrays its friends
@@ -194,36 +188,17 @@ class Scenario(Base.Scenario):
                 
                 indiv.score(+ self.Parameter('Judas'))  # 0 by default
                 # Alt version ---> dishonest signaling could emerge ?? / Only with extreme values it seems, more like no sgl
-        elif indiv.Patriotism ==1:
+        elif indiv.Patriotism == 1:
             for follower in indiv.followers:
-                follower.score(+ self.Parameter('PatriotFriendBonus'))
-        
-        
-        
-        
-        #else:
-        #    for follower in indiv.followers:
-        #        follower.score(+ self.Parameter('FriendshipValue'))
-        
-        
-        return
-
-################### version indiv marche bof...
-        if indiv.nbFollowers() == 0: return
-        
-        indiv.score( + self.Parameter('JoiningBonus'))
-                # OK si JB > FV en gros...
-        Friend = choice(indiv.followers.names())
-
-        if indiv.Patriotism == 0 and random() < percent(self.Parameter('NbTraitors')):
-            # indiv is a traitor who betrays Friend
-            Friend.score( - self.Parameter('DenunciationCost'))
-            Friend.Executed = (self.Parameter('DenunciationCost') == 0)
+                follower.score(+ self.Parameter('PatriotFriendship'))
         else:
-            # Friend benefits from having befriended a true patriot
-            Friend.score(+ self.Parameter('FriendshipValue'))
+            for follower in indiv.followers:
+                follower.score(+ self.Parameter('NonPatriotFriendship'))
 
-        return
+    def alone(self, indiv, penalty = 200):
+        if penalty == 0:
+            indiv.Executed = True
+        indiv.score( - penalty)
 
 
     def lives(self, members):
