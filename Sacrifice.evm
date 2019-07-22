@@ -1,0 +1,28 @@
+NbTraitors  10
+DifferentialCosts	0
+MaxOffer    50
+
+ReproGainsThreshold 10
+VisibleThreshold    5
+
+AlonePenalty    200
+DenunciationCost   100
+Judas   25
+FriendshipValue 10
+PatriotFriendBonus  0
+JoiningBonus    0
+
+SacrificeHeredity 50
+
+Rounds  10
+NbInteractions  100
+EraseNetwork    0
+
+AgeMax 40
+ReproductionRate    15
+PopulationSize  100
+TimeLimit   50011
+BatchMode   1
+Selectivity 10
+SelectionPressure   6
+

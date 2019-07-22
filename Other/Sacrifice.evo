@@ -1,0 +1,74 @@
+# Main parameters relating to conflict context - in (4)
+NbTraitors  50
+JoiningBonus	0
+FriendshipValue	10
+PatriotFriendBonus  0
+Judas	25
+DenunciationCost	100
+AlonePenalty    200
+
+## Self-sacrifice, output and benefit to descendants - in (2)
+SacrificeHeredity 50
+ReproGainsThreshold	10
+Baseline    0
+RemThreshold    5
+VisibleThreshold    5
+
+## Honoring - in (2)
+HonoringCost 100
+DifferentialCosts	0
+DishonestPremium	100 # for diff cost version, not used by default
+MaxOffer	50  # for MaxOffer version, used by default
+
+## Social interactions # in (3) (and init of indivs)
+Rounds  10
+NbInteractions  100
+MaxFriends  10
+SampleSize  5
+EraseNetwork    0
+Erosion 25
+
+### Population variables (shouldn't change)
+AgeMax 40
+ReproductionRate 15
+PopulationSize	200
+MutationRate	5
+GeneLength	8
+BatchMode	0
+TimeLimit	10000
+Selectivity	10
+SelectionPressure 6
+
+
+
+#### Other stuff
+# 'General' population variables
+AgeAdult	0
+GroupMinSize	0
+NumberOfGroups	1
+
+# 'Genetic' variables
+ControlGeneNumber	6
+Correction	1
+DNAFill	0
+GeneCoding	Weighted
+NbCrossover	1
+NoCoding	-1
+Unweighted	1
+Weighted	0
+
+# Other
+ApplicationDir	.
+BatchMode	0
+DisplayPeriod	10
+DumpStart	5000
+Gray	2
+Icon	social-media-social-networking-connections.jpg
+ResultDir	./___Results
+RunConfigFile	_Params.evo
+ScenarioFileName	Sacrifice.evo
+ScenarioName	Sacrifice
+StartFromFile	0
+Target	Sacrifice.py
+TimeLimit	100000
+Title	Evolife
