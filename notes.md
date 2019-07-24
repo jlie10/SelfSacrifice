@@ -3,7 +3,7 @@ TODO:
 - Change exogene => more like maths
 - Redo maths II
 - maths with bruit explo
-
+- plot old x2 : denun update; ap
 
 
 JLD:

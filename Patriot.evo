@@ -1,9 +1,8 @@
 # Main parameters relating to conflict context - in (4)
 NbTraitors  50
-JoiningBonus	10
+JoiningBonus	0
 FriendshipValue	10
-PatriotFriendship   10
-NonPatriotFriendship 5
+PatriotFriendBonus  0
 Judas	25
 DenunciationCost	100
 AlonePenalty    200
@@ -27,6 +26,7 @@ NbInteractions  100
 MaxFriends  10
 SampleSize  5
 EraseNetwork    0
+Erosion 25
 
 ### Population variables (shouldn't change)
 AgeMax 40
@@ -44,10 +44,7 @@ SelectionPressure 6
 #### Other stuff
 # 'General' population variables
 AgeAdult	0
-AgeMax	100
 GroupMinSize	0
-ReproductionRate	10
-PopulationSize	100
 NumberOfGroups	1
 
 # 'Genetic' variables
@@ -55,12 +52,8 @@ ControlGeneNumber	6
 Correction	1
 DNAFill	0
 GeneCoding	Weighted
-GeneLength	10
-MutationRate	2
 NbCrossover	1
 NoCoding	-1
-SelectionPressure	12
-Selectivity	0
 Unweighted	1
 Weighted	0
 
@@ -71,11 +64,11 @@ DisplayPeriod	10
 DumpStart	5000
 Gray	2
 Icon	social-media-social-networking-connections.jpg
-ResultDir	./___Results
+ResultDir	./___Results    
 RunConfigFile	_Params.evo
-ScenarioFileName	Sacrifice.evo
-ScenarioName	Sacrifice
+ScenarioFileName	Patriot.evo
+ScenarioName	Patriot
 StartFromFile	0
-Target	Sacrifice.py
+Target	Patriot.py
 TimeLimit	100000
 Title	Evolife

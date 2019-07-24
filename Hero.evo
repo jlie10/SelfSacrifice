@@ -1,4 +1,5 @@
 #### Useful param
+SacrificeProbability    5
 ## Output (rem heroes)
 Baseline    0
 RemThreshold    5
@@ -50,8 +51,8 @@ DumpStart	5000
 Gray	2
 ResultDir	./___Results
 RunConfigFile	_Params.evo
-ScenarioFileName	Exogene.evo
-ScenarioName	Exogene
+ScenarioFileName	Hero.evo
+ScenarioName	Hero (exogene)
 StartFromFile	0
-Target	Exogene.py
+Target	Hero.py
 Title	Evolife
