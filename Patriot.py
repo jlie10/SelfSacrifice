@@ -44,19 +44,41 @@ class Scenario(ED.Default_Scenario):
         """
         return [('Patriot'), ('NonPatriot'), ('Demand')] 		# gene length (in bits) is read from configuration
 
-    def update_positions(self, members, start_location):
+    def phenemap(self):
+        """ Defines the set of non-inheritable characteristics
+        """
+        return ['Patriotism']
+    
+    def display_(self):
+        return [('blue', 'Patriot', 'signal level if patriot'), 
+                 ('green', 'Demand', 'signal level expected from acquaintances'),
+                 ('red', 'NonPatriot', 'signal level if non-patriot'),
+                 ]
+
+    def update_positions(self, members, groupLocation):
+        """ locates individuals on an 2D space
+        """
+        for indiv in members:	
+            indiv.location = (groupLocation + indiv.Phene_value('Patriotism'), 
+                # indiv.score(), 'blue', 6)
+                indiv.signal(), 'blue', 6)
+
+    def Field_grid(self):	
+        return [(0, 98, 'green', 1, 100, 98, 'green', 1), (100, 100, 1, 0)]
+
+    #def update_positions(self, members, start_location):
         """ locates individuals on an 2D space
         """
         # sorting individuals by gene value
-        duplicate = members[:]
-        duplicate.sort(key = lambda x: x.Patriotism)
-        for m in enumerate(duplicate):
+    #    duplicate = members[:]
+     #   duplicate.sort(key = lambda x: x.Patriotism)
+     #   for m in enumerate(duplicate):
             #m[1].location = (start_location + m[0], m[1].score() )
             #m[1].location = (start_location + m[0], m[1].Reproductive_points )
             #m[1].location = (start_location + m[0], m[1].Share )
             #m[1].location = (start_location + m[0], m[1].LifePoints)
             #m[1].location = (start_location + m[0], m[1].HeroesRelatedness)
-            m[1].location = (start_location + m[0], m[1].signal())
+      #      m[1].location = (start_location + m[0], m[1].signal())
 
 ########################################
 ##### Life_game #### (1) Initializations ####
@@ -83,8 +105,9 @@ class Scenario(ED.Default_Scenario):
         PartnerOffer = partner.signal()
         Offer = indiv.signal()
         if PartnerOffer >= indiv.demand() and Offer >= partner.demand():
-            if partner.followers.accepts(0) >= 0:
-                indiv.F_follow(Offer, partner, PartnerOffer)
+            #if partner.followers.accepts(0) >= 0:
+            #    indiv.F_follow(Offer, partner, PartnerOffer)
+            indiv.acquainted(partner)
     
 ########################################
 ##### Life_game #### (4) Computing scores and life points ####
@@ -108,13 +131,13 @@ class Scenario(ED.Default_Scenario):
             # Friendship is beneficial no matter what
 
 
-        if indiv.Patriotism ==0 and random() < percent(self.Parameter('NbTraitors')):
+        if not indiv.patriot() ==0 and random() < percent(self.Parameter('NbTraitors')):
             # indiv is a traitor who betrays its friends
             for follower in indiv.followers:
                 self.betrayed(follower, cost = self.Parameter('DenunciationCost'))
                 indiv.score(+ self.Parameter('Judas')) 
 
-        elif indiv.Patriotism ==1:
+        elif indiv.patriot():
             # indiv is a true patriot : bonus (0 by default)
             for follower in indiv.followers:
                 follower.score(+ self.Parameter('PatriotFriendBonus'))     
@@ -196,7 +219,7 @@ class Patriotic_Individual(EI.EvolifeIndividual, EA.Follower):
 
     def __init__(self, Scenario, ID, maxPatriotism = 100, Newborn=True):
         #self.IdNb = int( ID[2:]	)	# ID is constructed as Groupnumber_IdNb - there is always only 1 group
-        self.Patriotism = randint(0, 1)
+        # self.Patriotism = randint(0, 1)
 
         #self.Offerings = 0		# represents how much one is honored after self-sacrifice (should stay at 0 whilst alive)
         self.SignalLevel = -1
@@ -208,7 +231,7 @@ class Patriotic_Individual(EI.EvolifeIndividual, EA.Follower):
         #EA.Friend.__init__(self.Scenario.Parameter('MaxFriends'))  # WHY DOESN'T WORK ?
 
     def patriot(self):
-        return self.Patriotism == 1
+        return self.Phene_value('Patriotism') > 100 - self.Scenario['PatriotRatio']
 
     def signal(self):
         " computes signal level "
