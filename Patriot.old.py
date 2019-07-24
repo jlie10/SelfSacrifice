@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+#!/usr/bin/env python
+#!/usr/bin/env python
+#!/usr/bin/env python3
 ##############################################################################
 # EVOLIFE  http://evolife.telecom-paristech.fr         Jean-Louis Dessalles  #
 # Telecom ParisTech  2018                                  www.dessalles.fr  #
@@ -32,7 +36,7 @@ from Evolife.Tools.Tools import percent
 class Scenario(ED.Default_Scenario):
 
 ########################################
-#### General initializations and visual display ####c
+#### General initializations and visual display ####
 ########################################
     def __init__(self):
         # Parameter values
@@ -56,7 +60,28 @@ class Scenario(ED.Default_Scenario):
             #m[1].location = (start_location + m[0], m[1].Share )
             #m[1].location = (start_location + m[0], m[1].LifePoints)
             #m[1].location = (start_location + m[0], m[1].HeroesRelatedness)
-            m[1].location = (start_location + m[0], m[1].signal())
+            m[1].location = (start_location + m[0], m[1].SignalLevel)
+
+########################################
+##### Life_game ####
+########################################
+    def life_game(self, members):
+        """ Defines one year of play (outside of reproduqction)
+            This is where individual's acquire their score
+        """
+        # First: make initializations (1)
+        self.start_game(members)
+        # Then: play multipartite game, composed of:
+            # The honoring game (2):
+        self.honoring(members)
+            # Social interactions between the living (3)
+        for play in range(self.Parameter('Rounds', Default=1)):
+            self.interactions(members, nb_interactions=self.Parameter('NbInteractions'))
+                    # Last: work out final tallies (4)
+        for indiv in members:
+            self.evaluation(indiv)
+        # Scores are translated into life points, which affect individual's survival
+        self.lives(members)      
 
 ########################################
 ##### Life_game #### (1) Initializations ####
@@ -71,20 +96,100 @@ class Scenario(ED.Default_Scenario):
         #indiv.score( max + indiv.Patriotism * (100 - max), FlagSet = True)	# Sets score to 10 or 90
         # = super bad idea... (rel score -> +++ cool have friends)
 
+        indiv.SignalLevel = 0      
+        indiv.Reproduction_points = 0 
+
         # friendship links (lessening with time) are updated 
         indiv.lessening_friendship((100 - self.Parameter('Erosion'))/100.0)
+
+########################################
+##### Life_game #### (2) Self-sacrifices ####
+########################################
+
+    def honoring(self, worshippers):        
+        for Indiv in worshippers:
+            #score = Indiv.score()
+            if Indiv.Patriotism == 0:
+                offering = Indiv.gene_relative_value('NonPatriot')
+                if self.Parameter('DifferentialCosts') == 0: # version offre bornee
+                    Indiv.score(- self.costHonor(offering))
+                    offering = min(self.Parameter('MaxOffer'), offering) 
+                       # can't offer that much : face already tatooed, arm already cut off...
+                        # TRICHE faire ca apres le cout ? +++++ REFLECHIR
+                else:   # version cout differenties
+                    Indiv.score( - self.costHonor(offering, DifferentialCosts = True))
+            else:
+                offering = Indiv.gene_relative_value('Patriot')
+                Indiv.score (-self.costHonor(offering))
+
+            Indiv.SignalLevel += int( offering / self.Parameter('VisibleThreshold')) * self.Parameter('VisibleThreshold')
+   
+    def costHonor(self, offering, DifferentialCosts = False, patriotism = 0):
+        basic_cost = offering * percent(self.Parameter('HonoringCost'))
+        if not DifferentialCosts:
+            #print('Offer max')
+            return basic_cost
+        else:   # NonPatriots face a premium for honoring
+            #print('diff cost')
+            return basic_cost + basic_cost * (1 - patriotism) * percent(self.Parameter('DishonestPremium'))
+            # NonPatriots face a premium for honoring
 
 ########################################
 ##### Life_game #### (3) Social interactions ####
 ########################################
 
-    def interaction(self, indiv, partner):
-        " Interaction between individuals "
-        PartnerOffer = partner.signal()
-        Offer = indiv.signal()
-        if PartnerOffer >= indiv.demand() and Offer >= partner.demand():
-            if partner.followers.accepts(0) >= 0:
-                indiv.F_follow(Offer, partner, PartnerOffer)
+    def interactions(self, members, nb_interactions = 1):
+        """	Defines how the (alive) population interacts
+            Used in 'life_game'
+        """
+        for inter in range(nb_interactions):
+            if not members: return
+            Fan = choice(members)
+            # Fan chooses friends from a sample of Partners
+            Partners = self.partners(Fan, members, int(percent(self.Parameter('SampleSize')\
+                                                                    * (len(members)-1) )))
+            self.interact(Fan, Partners)
+
+    def interact(self, indiv, Signalers):
+        """ Formation of friendship bonds
+            By honoring heroes (see 'honoring'), individuals signal their patriotism
+            This signal is used by others to choose their friends
+            (keeping in mind this is crucial: see 'evaluation')
+        """
+        if not Signalers:	return
+        # The agent chooses the best available Signaler from a sample.
+        Signalers.sort(key=lambda S: S.SignalLevel, reverse=True)
+        demand = indiv.gene_relative_value('Demand')
+        offer = indiv.SignalLevel  
+        for Signaler in Signalers:
+            if Signaler == indiv: continue
+            if indiv.follows(Signaler): continue
+            if demand > Signaler.SignalLevel:
+                break   # No available interesting Signalers
+            if offer < Signaler.gene_relative_value('Demand'):
+                continue    # Signaler is not interested in befriending indiv
+            #if indiv.get_friend(offer, Signaler, Signaler.SignalLevel):
+                ##### ERROR: Partner changed mind...    #####
+            #    return   # Indiv and Signaler have become friends !
+            if Signaler.followers.accepts(0) >=0:
+                if indiv.F_follow(offer, Signaler, Signaler.SignalLevel):            
+                    return
+
+    def partners(self, indiv, members, sample_size = 1):
+        """ Decides whom to interact with - Used in 'interactions'
+            By default, a sample of partners is randomly chosen
+        """
+        # By default, a partner is randomly chosen
+        partners = members[:]
+        partners.remove(indiv)
+        if sample_size > len(partners):
+            print(len(partners))
+            return partners
+            #error('SampleSize is too large (should be between 0 and 100)')
+        if partners != []:
+            return sample(partners, sample_size)
+        else:
+            return None
     
 ########################################
 ##### Life_game #### (4) Computing scores and life points ####
@@ -199,48 +304,13 @@ class Patriotic_Individual(EI.EvolifeIndividual, EA.Follower):
         self.Patriotism = randint(0, 1)
 
         #self.Offerings = 0		# represents how much one is honored after self-sacrifice (should stay at 0 whilst alive)
-        self.SignalLevel = -1
+        self.SignalLevel = 0
         #self.VisibleSignal = 0
         self.Executed = False
         # self.BestSignal = 0
         EI.EvolifeIndividual.__init__(self, Scenario, ID=ID, Newborn=Newborn)
         EA.Follower.__init__(self, self.Scenario.Parameter('MaxFriends'), Scenario.Parameter('MaxFriends'))
         #EA.Friend.__init__(self.Scenario.Parameter('MaxFriends'))  # WHY DOESN'T WORK ?
-
-    def patriot(self):
-        return self.Patriotism == 1
-
-    def signal(self):
-        " computes signal level "
-        sgl = 0
-        if self.SignalLevel < 0:
-            if self.patriot():	
-                sgl = self.gene_relative_value('Patriot')
-                self.signalCost(sgl)
-            else:
-                sgl = self.gene_relative_value('NonPatriot')
-                if self.Scenario.Parameter('DifferentialCosts') == 0: # version offre bornee
-                    self.signalCost(sgl)
-                    sgl = min(self.Scenario.Parameter('MaxOffer'), sgl)
-                       # can't offer that much : face already tatooed, arm already cut off...
-                        # TRICHE faire ca apres le cout ? +++++ REFLECHIR
-                else:
-                    self.signalCost(sgl, DifferentialCosts = True)
-            self.SignalLevel = int( sgl / self.Scenario.Parameter('VisibleThreshold')) * self.Scenario.Parameter('VisibleThreshold')
-        return self.SignalLevel
-
-    def signalCost(self, sgl, DifferentialCosts = False, patriotism = 0):
-        basic_cost = sgl * percent(self.Scenario.Parameter('HonoringCost'))
-        if not DifferentialCosts:
-            #print('Offer max')
-            self.score( - basic_cost)
-        else:   # NonPatriots face a premium for honoring
-            #print('diff cost')
-            self.score (- basic_cost + basic_cost * (1 - patriotism) * percent(self.Parameter('DishonestPremium')))
-            # NonPatriots face a premium for honoring
-    
-    def demand(self):
-        return self.gene_relative_value('Demand')
 
 class Group(EG.EvolifeGroup):
     " In each group, patriotism ranges from 0 to group size (simplification) "
@@ -270,7 +340,7 @@ class Patriotic_Population(EP.EvolifePopulation):
         return Group(self.Scenario, ID=ID, Size=Size)
 
 
-def Start(Gbl = None, PopClass = Patriotic_Population, ObsClass = None, Capabilities = 'FGCNP'):
+def Start(Gbl = None, PopClass = Patriotic_Population, ObsClass = None, Capabilities = 'PCGFN'):
     " Launch function "
     if Gbl == None: Gbl = Scenario()
     if ObsClass == None: Observer = EO.EvolifeObserver(Gbl)	# Observer contains statistics
