@@ -116,11 +116,13 @@ class Scenario(ED.Default_Scenario):
         """
         r = percent (indiv.gene_relative_value('Readiness')) \
             * percent (indiv.Phene_value('Patriotism'))
-        r = r/5 # Pour identitique a autre version (?)
-        if r > random():
-            return percent( self.Parameter('SacrificeProbability') )
-        else: 
-            return 0
+        #r = r/5 # pour comme JLD
+
+        return r
+        #if r > random():
+        #    return percent( self.Parameter('SacrificeProbability') )
+        #else: 
+        #    return 0
 
     def selfSacrifice(self, indiv):
         """ An agent decides to make the ultimate sacrifice
@@ -131,9 +133,20 @@ class Scenario(ED.Default_Scenario):
         """        
         p = self.deathProbability(indiv)
         ## 'Probablistic' mode:
+        #bool = p > random() and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
+        #if p!=1: q = 1 - exp((log(1-p))/self.Parameter('AgeMax')*(1-percent(self.Parameter('SacrificeMaturity'))))  # => proba p de mourir a cause du gene
+        #if p!=1: q = 1 - exp((log(1-p))/self.Parameter('AgeMax'))  # => proba p de mourir a cause du gene        
+        #else: q = 1
+        #bool = q > random() and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
+        #bool = q > random()
+        #bool = 5*q > random()
         bool = p > random() 
+        #bool = p > random() and p > random()
+        #bool = p > 2*random()
+        #bool = p > 10*random()
 
         ## 'Binary mode': (Individuals are programmed to self-sacrifice at a certain age)
+        #bool = p == 1 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
         #bool = p > 0 and (indiv.age > ((percent(self.Parameter('SacrificeMaturity')) * self.Parameter('AgeMax'))))
         
         ## 'Threshold mode': gene codes for the value of the age after which sacrifice occurs

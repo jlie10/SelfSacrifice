@@ -5,7 +5,7 @@ TODO:
 - maths with bruit explo
 - plot old x2 : denun update; ap
 
-
+   
 JLD:
 Honnete :
 - pourrait etre honnete : avec autre histoire ? => serait segregation sociale entre P et NP : faudrait que se trahissent entre eux
